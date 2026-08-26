@@ -1,0 +1,21 @@
+enabled: true
+templates:
+  article: true
+  block-content: true
+  article-list: false
+  baotri: false
+  content-page: false
+  dangxaydung: false
+  default: false
+  error: false
+  external: false
+  flex-objects: false
+  form: false
+  home: false
+  lienhe: false
+  member: false
+  members: false
+  modular: false
+  root: false
+bg_color: '#1C3D66'
+bg_color_hover: '#2E5C99'

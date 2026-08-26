@@ -1,0 +1,10 @@
+enabled: true
+menu_shortcuts:
+  -
+    label: 'Bài viết dịch vụ (VI)'
+    parent_path: /vi/services
+    template: article
+  -
+    label: 'Bài viết dịch vụ (EN)'
+    parent_path: /en/services
+    template: article

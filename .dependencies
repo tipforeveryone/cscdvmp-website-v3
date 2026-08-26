@@ -1,0 +1,70 @@
+git:
+    problems:
+        url: https://github.com/getgrav/grav-plugin-problems
+        path: user/plugins/problems
+        branch: master
+    error:
+        url: https://github.com/getgrav/grav-plugin-error
+        path: user/plugins/error
+        branch: master
+    github-markdown-alerts:
+        url: https://github.com/trilbymedia/grav-plugin-github-markdown-alerts
+        path: user/plugins/github-markdown-alerts
+        branch: main
+    shortcode-core:
+        url: https://github.com/getgrav/grav-plugin-shortcode-core
+        path: user/plugins/shortcode-core
+        branch: master
+    quark2:
+        url: https://github.com/getgrav/grav-theme-quark2
+        path: user/themes/quark2
+        branch: main
+    pagination:
+        url: https://github.com/getgrav/grav-plugin-pagination
+        path: user/plugins/pagination
+        branch: master
+    simple-multi-language-site:
+        url: https://github.com/tipforeveryone/grav-plugin-simple-multi-language-site
+        path: user/plugins/simple-multi-language-site
+        branch: grav2
+    visitor-gadget:
+        url: https://github.com/tipforeveryone/grav-plugin-visitor-gadget
+        path: user/plugins/visitor-gadget
+        branch: main
+    admin-quick-menu:
+        url: https://github.com/tipforeveryone/grav-plugin-admin-quick-menu
+        path: user/plugins/admin-quick-menu
+        branch: master
+    ftp-sync:
+        url: https://github.com/tipforeveryone/grav-plugin-ftp-sync
+        path: user/plugins/ftp-sync
+        branch: master
+    in-place-edit-button:
+        url: https://github.com/tipforeveryone/grav-plugin-in-place-edit-button
+        path: user/plugins/in-place-edit-button
+        branch: master
+    tutorial-viewer:
+        url: https://github.com/tipforeveryone/grav-plugin-tutorial-viewer
+        path: user/plugins/tutorial-viewer
+        branch: master
+links:
+    problems:
+        src: grav-plugin-problems
+        path: user/plugins/problems
+        scm: github
+    error:
+        src: grav-plugin-error
+        path: user/plugins/error
+        scm: github
+    github-markdown-alerts:
+        src: grav-plugin-github-markdown-alerts
+        path: user/plugins/github-markdown-alerts
+        scm: github
+    shortcode-core:
+        src: grav-plugin-shortcode-core
+        path: user/plugins/shortcode-core
+        scm: github
+    quark2:
+        src: grav-theme-quark2
+        path: user/themes/quark2
+        scm: github

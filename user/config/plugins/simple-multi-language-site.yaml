@@ -1,0 +1,32 @@
+enabled: true
+languages:
+  -
+    code: vi
+    label: 'Tiếng Việt'
+    root_path: /vi
+    flag: VN
+  -
+    code: en
+    label: English
+    root_path: /en
+    flag: CA
+default_language: en
+multilang_templates:
+  article: true
+  article-list: true
+  home: true
+  lienhe: true
+  baotri: false
+  block-content: false
+  content-page: false
+  dangxaydung: false
+  default: false
+  error: false
+  external: false
+  flex-objects: false
+  form: false
+  member: false
+  members: false
+  modular: false
+  root: false
+switcher_display: flag
