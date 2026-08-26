@@ -1,0 +1,3 @@
+[submodule "user/plugins/easy-content-manager"]
+	path = user/plugins/easy-content-manager
+	url = git@github.com:tipforeveryone/grav-plugin-easy-content-manager.git
