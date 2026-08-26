@@ -5,17 +5,9 @@
 	path = user/plugins/tutorial-viewer
 	url = https://github.com/tipforeveryone/grav-plugin-tutorial-viewer
 	branch = master
-[submodule "user/plugins/github-markdown-alerts"]
-	path = user/plugins/github-markdown-alerts
-	url = https://github.com/trilbymedia/grav-plugin-github-markdown-alerts
-	branch = main
 [submodule "user/plugins/visitor-gadget"]
 	path = user/plugins/visitor-gadget
 	url = https://github.com/tipforeveryone/grav-plugin-visitor-gadget
-	branch = main
-[submodule "user/themes/quark2"]
-	path = user/themes/quark2
-	url = https://github.com/getgrav/grav-theme-quark2
 	branch = main
 [submodule "user/plugins/ftp-sync"]
 	path = user/plugins/ftp-sync
@@ -24,22 +16,6 @@
 [submodule "user/plugins/admin-quick-menu"]
 	path = user/plugins/admin-quick-menu
 	url = https://github.com/tipforeveryone/grav-plugin-admin-quick-menu
-	branch = master
-[submodule "user/plugins/problems"]
-	path = user/plugins/problems
-	url = https://github.com/getgrav/grav-plugin-problems
-	branch = master
-[submodule "user/plugins/error"]
-	path = user/plugins/error
-	url = https://github.com/getgrav/grav-plugin-error
-	branch = master
-[submodule "user/plugins/pagination"]
-	path = user/plugins/pagination
-	url = https://github.com/getgrav/grav-plugin-pagination
-	branch = master
-[submodule "user/plugins/shortcode-core"]
-	path = user/plugins/shortcode-core
-	url = https://github.com/getgrav/grav-plugin-shortcode-core
 	branch = master
 [submodule "user/plugins/simple-multi-language-site"]
 	path = user/plugins/simple-multi-language-site
