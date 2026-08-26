@@ -1,0 +1,41 @@
+{% extends 'partials/base.html.twig' %}
+
+{% block content %}
+    {% if page.title %}
+    <div class="page-hero">
+        <div class="container">
+            <div class="page-hero__inner">
+                <div class="page-hero__text">
+                    <h1 class="page-hero__title">{{ page.title }}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <main class="container">
+        <article class="page-content ipeb-editable">
+            {{ pml_edit_button(page) }}
+            {% set content = page.content %}
+            {% if page.header.sheet_embed_url %}
+                {% set embed_html = '<div class="sheet-embed"><iframe src="' ~ page.header.sheet_embed_url ~ '" width="100%" height="' ~ (page.header.sheet_embed_height ?? 480) ~ '" loading="lazy" title="' ~ (page.header.sheet_embed_title ?? page.title) ~ '"></iframe></div>' %}
+                {% set content = content|replace({'<p>[[SHEET_EMBED]]</p>': embed_html, '[[SHEET_EMBED]]': embed_html}) %}
+            {% endif %}
+            {{ content|raw }}
+        </article>
+
+        {% set siblings = page.parent.children.published.order('date', 'desc') %}
+        {% set show_related = page.header.show_related ?? true %}
+        {% if show_related and siblings|length > 1 %}
+        <section class="related-posts">
+            <h2 class="related-posts__heading">Bài viết khác</h2>
+            {% include 'partials/article-grid.html.twig' with {
+                articles: siblings,
+                show_excerpt: true,
+                more_label: (uri.path starts with '/en' ? 'Read more' : 'Đọc thêm'),
+                exclude_slug: page.slug
+            } %}
+        </section>
+        {% endif %}
+    </main>
+{% endblock %}

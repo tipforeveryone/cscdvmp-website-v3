@@ -1,0 +1,39 @@
+{% set is_english = uri.path starts with '/en' %}
+{# Nội dung 5 bước lấy từ các page 'block-content' có custom_position == 'quytrinh' #}
+{% set bc_root = pages.find(is_english ? '/en/block-content' : '/vi/block-content') %}
+<section class="quytrinh"{% if page.header.background_image %} style="background-image: url('{{ page.header.background_image }}')"{% endif %}>
+    <div class="container">
+        <div class="quytrinh__header">
+            <h2 class="quytrinh__heading">{{ page.title }}</h2>
+            <div class="quytrinh__divider"><span></span></div>
+        </div>
+        {% if bc_root %}
+        {% set step_num = 0 %}
+        <div class="quytrinh__steps">
+            {% for panel in bc_root.children.published.order('folder') %}
+                {% if panel.header.custom_position == 'quytrinh' %}
+                {% set step_num = step_num + 1 %}
+                <div class="quytrinh__step{{ step_num == 1 ? ' active' : '' }}" data-step="{{ step_num }}">
+                    <button type="button" class="quytrinh__circle" aria-label="{{ is_english ? 'Step' : 'Bước' }} {{ step_num }}">{{ step_num }}</button>
+                    <span class="quytrinh__stem"></span>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="quytrinh__baseline"></div>
+        {% set step_num = 0 %}
+        <div class="quytrinh__panels">
+            {% for panel in bc_root.children.published.order('folder') %}
+                {% if panel.header.custom_position == 'quytrinh' %}
+                {% set step_num = step_num + 1 %}
+                <div class="quytrinh__panel{{ step_num == 1 ? ' active' : '' }} ipeb-editable" data-step="{{ step_num }}">
+                    {{ pml_edit_button(panel) }}
+                    <h3 class="quytrinh__panel-title">{{ panel.title }}</h3>
+                    <p class="quytrinh__panel-desc">{{ panel.content|striptags|trim }}</p>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</section>

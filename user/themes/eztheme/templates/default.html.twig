@@ -1,0 +1,67 @@
+{% extends 'partials/base.html.twig' %}
+
+{% block content %}
+    {% set is_members = page.parent.slug == 'members' %}
+
+    {% if is_members and page.title %}
+    <div class="page-hero">
+        <div class="container">
+            <div class="page-hero__inner">
+                {% if page.header.avatar %}
+                <img src="{{ page.media[page.header.avatar].url }}" alt="{{ page.title }}" class="page-hero__avatar">
+                {% endif %}
+                <div class="page-hero__text">
+                    <h1 class="page-hero__title">{{ page.title }}</h1>
+                    {% if page.header.position %}
+                        <p class="page-hero__subtitle">{{ page.header.position }}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <main class="container">
+        <article class="page-content">
+            {% if not is_members and page.title %}
+                <h1>{{ page.title }}</h1>
+            {% endif %}
+
+            {{ page.content|raw }}
+        </article>
+
+        {% set siblings = page.parent.children.published %}
+        {% if siblings|length > 1 %}
+        <section class="related-posts">
+            <h2 class="related-posts__heading">{{ is_members ? 'Các thành viên khác' : 'Bài viết khác' }}</h2>
+            <div class="related-posts__grid">
+                {% for sibling in siblings %}
+                    {% if sibling.slug != page.slug %}
+                    <a href="{{ sibling.url }}" class="related-posts__card">
+                        {% if sibling.header.avatar %}
+                            <img src="{{ sibling.media[sibling.header.avatar].url }}" alt="{{ sibling.title }}" class="related-posts__thumb">
+                        {% elseif sibling.header.thumbnail %}
+                            <img src="{{ sibling.header.thumbnail }}" alt="{{ sibling.title }}" class="related-posts__thumb">
+                        {% elseif sibling.media.images|first %}
+                            <img src="{{ sibling.media.images|first.url }}" alt="{{ sibling.title }}" class="related-posts__thumb">
+                        {% else %}
+                            <div class="related-posts__thumb related-posts__thumb--placeholder"></div>
+                        {% endif %}
+                        <div class="related-posts__body">
+                            <h3 class="related-posts__title">{{ sibling.title }}</h3>
+                            {% if is_members %}
+                                {% if sibling.header.position %}
+                                    <p class="related-posts__subtitle">{{ sibling.header.position }}</p>
+                                {% endif %}
+                            {% elseif sibling.date %}
+                                <p class="related-posts__meta">{{ sibling.date|date("d/m/Y") }}</p>
+                            {% endif %}
+                        </div>
+                    </a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+    </main>
+{% endblock %}

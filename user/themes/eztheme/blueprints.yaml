@@ -1,0 +1,28 @@
+name: EzTheme
+slug: eztheme
+type: theme
+description: 'Custom theme for the EzNotary website — ported from the Grav 1.7 "eznotary" theme'
+icon: paint-brush
+author:
+  name: Admin
+  email: admin@eznotary.com
+
+dependencies:
+  - { name: pagination, version: '>=1.0.0' }
+
+form:
+  validation: loose
+  fields:
+    tabs:
+      type: tabs
+      active: 1
+      fields:
+        settings:
+          type: tab
+          title: Settings
+          fields:
+            logo:
+              type: file
+              label: Logo
+              size: small
+              destination: theme://images

@@ -1,0 +1,28 @@
+title: Slider
+form:
+  fields:
+    tabs:
+      type: tabs
+      active: 1
+      fields:
+        content:
+          type: tab
+          title: Slider
+          fields:
+            slides:
+              type: array
+              label: Slides
+              add_row: Add Slide
+              placeholder_key: Title
+              placeholder_value: Image URL
+              fields:
+                '.title':
+                  type: text
+                  label: Title
+                '.description':
+                  type: text
+                  label: Description
+                '.image':
+                  type: file
+                  label: Image
+                  destination: 'theme://images'

@@ -1,0 +1,25 @@
+{% set is_english = uri.path starts with '/en' %}
+{# Nội dung 2 panel lấy từ các page 'block-content' có custom_position == 'dichvucotloi' #}
+{% set bc_root = pages.find(is_english ? '/en/block-content' : '/vi/block-content') %}
+<section class="dichvucotloi">
+    <div class="container">
+        <div class="dichvucotloi__header">
+            <h2 class="dichvucotloi__heading">{{ page.title }}</h2>
+            <div class="dichvucotloi__divider"><span></span></div>
+        </div>
+        <div class="dichvucotloi__panels">
+            {% if bc_root %}
+            {% for panel in bc_root.children.published.order('folder') %}
+                {% if panel.header.custom_position == 'dichvucotloi' %}
+                <div class="dichvucotloi__panel ipeb-editable">
+                    {{ pml_edit_button(panel) }}
+                    <h3 class="dichvucotloi__title">{{ panel.title }}</h3>
+                    <p class="dichvucotloi__desc">{{ panel.content|striptags|trim }}</p>
+                    <a href="#" class="dichvucotloi__btn">{{ is_english ? 'Details' : 'Chi tiết' }}</a>
+                </div>
+                {% endif %}
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</section>

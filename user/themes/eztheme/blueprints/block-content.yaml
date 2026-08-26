@@ -1,0 +1,17 @@
+title: Block Content
+extends@: default
+
+form:
+  fields:
+    tabs:
+      fields:
+
+        # Thêm trường riêng vào tab "Content" có sẵn của blueprint default
+        content:
+          fields:
+
+            header.custom_position:
+              type: text
+              label: Custom Position
+              description: 'Vị trí (slot) để nạp nội dung này vào block modular. VD: home-hero, services-intro.'
+              placeholder: 'VD: home-hero'

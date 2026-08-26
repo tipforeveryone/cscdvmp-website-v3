@@ -1,0 +1,164 @@
+{% macro social_icon(name) %}
+{% if name == 'facebook' %}
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+{% elseif name == 'linkedin' %}
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+{% elseif name == 'google' %}
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+{% elseif name == 'x' %}
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg>
+{% endif %}
+{% endmacro %}
+
+{# Nhãn nút chuyển ngôn ngữ, theo kiểu hiển thị cấu hình ở plugin SMLS
+   (smls_switcher_display(): 'text' | 'flag' | 'flag_text'). lang.flag là mã
+   ISO (vd "VN"), render ảnh cờ SVG thật qua flagcdn.com — KHÔNG dùng emoji
+   cờ vì Windows hiển thị emoji cờ thành 2 chữ cái thay vì hình (giới hạn
+   font Segoe UI Emoji, không phải lỗi theme). Ngôn ngữ thiếu field "Cờ quốc
+   gia" tự rơi về hiển thị chữ, không để trống nút. #}
+{% macro lang_switcher_flag_img(lang, fill) %}<img src="https://flagcdn.com/{{ lang.flag|lower }}.svg" alt="" class="lang-switcher__flag-img{% if fill %} lang-switcher__flag-img--fill{% endif %}" width="{{ fill ? 28 : 18 }}" height="{{ fill ? 20 : 13 }}" loading="lazy">{% endmacro %}
+{% macro lang_switcher_label(lang, display) %}{%- if display == 'flag' and lang.flag -%}{{ _self.lang_switcher_flag_img(lang, true) }}{%- elseif display == 'flag_text' -%}{%- if lang.flag -%}{{ _self.lang_switcher_flag_img(lang, false) }} {{ lang.code|upper }}{%- else -%}{{ lang.code|upper }}{%- endif -%}{%- else -%}{{ lang.code|upper }}{%- endif -%}{% endmacro %}
+{# Ở kiểu hiển thị "flag" thuần (không kèm chữ), bỏ hẳn padding/border của
+   nút pill để ảnh cờ lấp đầy toàn bộ nút thay vì nằm nhỏ bên trong. #}
+{% macro lang_switcher_link_class(lang, display) %}lang-switcher__link{% if display == 'flag' and lang.flag %} lang-switcher__link--flag-only{% endif %}{% endmacro %}
+{% import _self as icons %}
+
+{% set current_lang = smls_current_language(page) %}
+{% set nav = page.find(smls_root_path(current_lang) ~ '/nav') %}
+{% set switcher_display = smls_switcher_display() %}
+
+{# Ngôn ngữ khác đã có bản dịch cho trang hiện tại (theo header.translations, gán qua plugin Simple Multi Language Site) #}
+{% set other_languages = [] %}
+{% for lang in smls_languages() %}
+    {% if lang.code != current_lang %}
+        {% set switch_route = smls_switch_route(page, lang.code) %}
+        {% if switch_route %}
+            {% set other_languages = other_languages|merge([{ 'code': lang.code, 'url': switch_route, 'flag': lang.flag }]) %}
+        {% endif %}
+    {% endif %}
+{% endfor %}
+
+<header>
+    <div class="container container--xl">
+        <div class="header-layout">
+            <!-- Cột trái: logo -->
+            <div class="header-logo">
+                <a href="{{ base_url ?: '/' }}" class="logo">
+                    <img src="{{ nav.header.logo }}" alt="EzNotary" class="logo--desktop">
+                    <img src="{{ nav.header.logo_mobile }}" alt="EzNotary" class="logo--mobile">
+                </a>
+            </div>
+
+            <!-- Hamburger (mobile) -->
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <!-- Cột phải: thông tin + menu (desktop) -->
+            <div class="header-right">
+                {% if nav.header.topbar %}
+                {% set tb = nav.header.topbar %}
+                <div class="header-info">
+                    <div class="header-info__row">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        <span>{{ tb.hours_label }}: <strong>{{ tb.hours }}</strong></span>
+                    </div>
+                    <div class="header-info__row">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.42 2 2 0 0 1 3.6 1.25h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.85a16 16 0 0 0 5.89 5.89l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.46 16z"/></svg>
+                        <span>{{ tb.support_label }}: <strong>{% for phone in tb.phones %}<a href="tel:{{ phone|replace({' ': '', '(': '', ')': ''}) }}">{{ phone }}</a>{% if not loop.last %} - {% endif %}{% endfor %}</strong> - <strong><a href="mailto:{{ tb.email }}">{{ tb.email }}</a></strong></span>
+                    </div>
+                </div>
+                {% endif %}
+
+                <div class="header-bottom">
+                    <ul class="menu">
+                        {% for item in nav.header.items %}
+                            <li class="menu-item{% if item.children is defined %} has-submenu{% endif %}">
+                                <a href="{{ base_url ~ item.url }}" class="menu-link">{{ item.label }}</a>
+                                {% if item.children is defined %}
+                                    <ul class="submenu">
+                                        {% for child in item.children %}
+                                            <li class="menu-item">
+                                                <a href="{{ base_url ~ child.url }}" class="menu-link">{{ child.label }}</a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <!-- Social + Language Switcher — cùng hàng, desktop only -->
+                <div class="lang-switcher-row">
+                    {% if nav.header.social %}
+                    <div class="header-social">
+                        {% for s in nav.header.social %}
+                            <a href="{{ s.url }}" class="social-link social-link--{{ s.name }}" target="_blank" rel="noopener" aria-label="{{ s.name }}">{{ icons.social_icon(s.name) }}</a>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    {% for lang in other_languages %}
+                    <a href="{{ base_url ~ lang.url }}" class="{{ icons.lang_switcher_link_class(lang, switcher_display) }}">{{ icons.lang_switcher_label(lang, switcher_display) }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Nav drawer — nằm ngoài header-right để không bị display:none ảnh hưởng -->
+    <nav id="mainNav" class="main-nav">
+        <div class="main-nav__logo">
+            <a href="{{ base_url ?: '/' }}">
+                <img src="{{ nav.header.logo_mobile }}" alt="EzNotary">
+            </a>
+        </div>
+
+        {% if nav.header.topbar %}
+        {% set tb = nav.header.topbar %}
+        <div class="main-nav__info">
+            <div class="header-info__row">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <span>{{ tb.hours_label }}: <strong>{{ tb.hours }}</strong></span>
+            </div>
+            <div class="header-info__row">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.42 2 2 0 0 1 3.6 1.25h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.85a16 16 0 0 0 5.89 5.89l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.46 16z"/></svg>
+                <span>{{ tb.support_label }}: <strong>{% for phone in tb.phones %}<a href="tel:{{ phone|replace({' ': '', '(': '', ')': ''}) }}">{{ phone }}</a>{% if not loop.last %} - {% endif %}{% endfor %}</strong><br><strong><a href="mailto:{{ tb.email }}">{{ tb.email }}</a></strong></span>
+            </div>
+        </div>
+        {% endif %}
+
+        <ul class="menu">
+            {% for item in nav.header.items %}
+                <li class="menu-item{% if item.children is defined %} has-submenu{% endif %}">
+                    <a href="{{ base_url ~ item.url }}" class="menu-link">{{ item.label }}</a>
+                    {% if item.children is defined %}
+                        <ul class="submenu">
+                            {% for child in item.children %}
+                                <li class="menu-item">
+                                    <a href="{{ base_url ~ child.url }}" class="menu-link">{{ child.label }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+
+        <!-- Social + Language Switcher ở cuối drawer -->
+        <div class="main-nav__footer">
+            {% if nav.header.social %}
+            <div class="header-social">
+                {% for s in nav.header.social %}
+                    <a href="{{ s.url }}" class="social-link" target="_blank" rel="noopener" aria-label="{{ s.name }}">{{ icons.social_icon(s.name) }}</a>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% for lang in other_languages %}
+            <a href="{{ base_url ~ lang.url }}" class="{{ icons.lang_switcher_link_class(lang, switcher_display) }}">{{ icons.lang_switcher_label(lang, switcher_display) }}</a>
+            {% endfor %}
+        </div>
+    </nav>
+</header>

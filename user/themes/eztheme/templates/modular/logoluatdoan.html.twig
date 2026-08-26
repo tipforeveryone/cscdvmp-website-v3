@@ -1,0 +1,11 @@
+{% if page.header.logos %}
+<section class="logoluatdoan">
+    <div class="container">
+        <div class="logoluatdoan__list">
+            {% for logo in page.header.logos %}
+            <img class="logoluatdoan__img" src="{{ url('theme://images/hoidoan/' ~ logo.image) }}" alt="{{ logo.alt }}" loading="lazy">
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}

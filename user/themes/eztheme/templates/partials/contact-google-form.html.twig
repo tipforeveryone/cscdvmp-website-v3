@@ -1,0 +1,88 @@
+{#
+    Form liên hệ nối trực tiếp tới Google Form "Service Request/ Yêu cầu Dịch vụ"
+    (không dùng iframe hiển thị form gốc — mỗi input được map tới đúng entry.ID
+    của Google Form rồi POST ngầm qua iframe ẩn, tránh chuyển hướng trang).
+
+    Google Form: https://docs.google.com/forms/d/e/1FAIpQLSenZtBhcwFE3miXaJ81L6DGAPv22TYwfNqzVuBJcCZxRsua1g/viewform
+#}
+{% set gform_action = 'https://docs.google.com/forms/d/e/1FAIpQLSenZtBhcwFE3miXaJ81L6DGAPv22TYwfNqzVuBJcCZxRsua1g/formResponse' %}
+
+<h2 class="lienhe__heading">{{ is_english ? 'Send an Inquiry' : 'Gửi yêu cầu tư vấn' }}</h2>
+<p class="lienhe__desc">{{ is_english ? "Fill in the information below and we'll get back to you within 24 business hours." : 'Điền thông tin bên dưới, chúng tôi sẽ liên hệ lại trong vòng 24 giờ làm việc.' }}</p>
+
+<form class="lienhe-form" id="lienhe-gform" action="{{ gform_action }}" method="POST" target="lienhe-gform-target" novalidate>
+    <div class="lienhe-form__grid">
+        <div class="lienhe-form__group">
+            <label for="contact-name">{{ is_english ? 'Full Name' : 'Họ và tên' }} <span>*</span></label>
+            <input type="text" id="contact-name" name="entry.2005620554" placeholder="{{ is_english ? 'John Smith' : 'Nguyễn Văn A' }}" required>
+        </div>
+        <div class="lienhe-form__group">
+            <label for="contact-email">Email <span>*</span></label>
+            <input type="email" id="contact-email" name="entry.1045781291" placeholder="email@example.com" required>
+        </div>
+        <div class="lienhe-form__group">
+            <label for="contact-phone">{{ is_english ? 'Phone Number' : 'Số điện thoại' }} <span>*</span></label>
+            <input type="text" id="contact-phone" name="entry.1166974658" placeholder="{{ is_english ? '+1 xxx xxx xxxx' : '0909 xxx xxx' }}" required>
+        </div>
+        <div class="lienhe-form__group">
+            <label for="contact-address">{{ is_english ? 'Address' : 'Địa chỉ' }} <span>*</span></label>
+            <input type="text" id="contact-address" name="entry.1065046570" placeholder="{{ is_english ? 'Street, city, province' : 'Số nhà, đường, thành phố' }}" required>
+        </div>
+        <div class="lienhe-form__group">
+            <label for="contact-subject">{{ is_english ? 'Type of Service' : 'Loại hình dịch vụ' }} <span>*</span></label>
+            <select id="contact-subject" name="entry.1209828264" required>
+                <option value="">{{ is_english ? '-- Select a service --' : '-- Chọn dịch vụ --' }}</option>
+                <option value="Certification of true copy of original document/ Sao y bản chính">{{ is_english ? 'Certification of true copy of original document' : 'Sao y bản chính' }}</option>
+                <option value="Commissioning of Oath, Affidavit, Statutory Declaration/ Chứng thực chữ ký, bản khai tuyên thệ">{{ is_english ? 'Commissioning of Oath, Affidavit, Statutory Declaration' : 'Chứng thực chữ ký, bản khai tuyên thệ' }}</option>
+                <option value="Licensee Witnessing/ Làm chứng thỏa thuận, hợp đồng, văn bản ủy quyền">{{ is_english ? 'Licensee Witnessing' : 'Làm chứng thỏa thuận, hợp đồng, văn bản ủy quyền' }}</option>
+                <option value="Canada Apostille Certificate/ Chứng nhận Apostille cho các văn bản của Canada">{{ is_english ? 'Canada Apostille Certificate' : 'Chứng nhận Apostille cho các văn bản của Canada' }}</option>
+                <option value="Vietnam Apostille Certificate/ Chứng nhận Apostille cho các văn bản của Việt Nam">{{ is_english ? 'Vietnam Apostille Certificate' : 'Chứng nhận Apostille cho các văn bản của Việt Nam' }}</option>
+                <option value="VN Embassy - Police Record/ Lý lịch tư pháp">{{ is_english ? 'VN Embassy - Police Record' : 'VN Embassy - Lý lịch tư pháp' }}</option>
+                <option value="VN Embassy - Renunciation of inheritance/ Từ chối di sản thừa kế">{{ is_english ? 'VN Embassy - Renunciation of inheritance' : 'VN Embassy - Từ chối di sản thừa kế' }}</option>
+                <option value="VN Embassy - Power of Attorney/ Hợp đồng ủy quyền">{{ is_english ? 'VN Embassy - Power of Attorney' : 'VN Embassy - Hợp đồng ủy quyền' }}</option>
+                <option value="VN Embassy - Single Certification (for marriage with Vietnamese)/ Công hàm độc thân (để kết hôn)">{{ is_english ? 'VN Embassy - Single Certification (for marriage with Vietnamese)' : 'VN Embassy - Công hàm độc thân (để kết hôn)' }}</option>
+                <option value="VN Embassy - Single Certification (for non-marriage purpose)/ Công hàm độc thân (không dùng cho kết hôn)">{{ is_english ? 'VN Embassy - Single Certification (for non-marriage purpose)' : 'VN Embassy - Công hàm độc thân (không dùng cho kết hôn)' }}</option>
+                <option value="VN Embassy - Citizenship Application Package/ Hồ sơ xin nhập quốc tịch Việt Nam">{{ is_english ? 'VN Embassy - Citizenship Application Package' : 'VN Embassy - Hồ sơ xin nhập quốc tịch Việt Nam' }}</option>
+                <option value="VN Embassy - Passport Application/ Đề nghị cấp hộ chiếu lần đầu">{{ is_english ? 'VN Embassy - Passport Application' : 'VN Embassy - Đề nghị cấp hộ chiếu lần đầu' }}</option>
+                <option value="VN Embassy - Passport Renewal/ Đề nghị gia hạn hộ chiếu">{{ is_english ? 'VN Embassy - Passport Renewal' : 'VN Embassy - Đề nghị gia hạn hộ chiếu' }}</option>
+                <option value="VN Embassy - Visa Exemption/ Miễn thị thực">{{ is_english ? 'VN Embassy - Visa Exemption' : 'VN Embassy - Miễn thị thực' }}</option>
+                <option value="Certified translation/ Dịch thuật công chứng">{{ is_english ? 'Certified translation' : 'Dịch thuật công chứng' }}</option>
+                <option value="English - Vietnamese Certified Interpretation/ Phiên dịch">{{ is_english ? 'English - Vietnamese Certified Interpretation' : 'Phiên dịch Anh - Việt' }}</option>
+                <option value="ICEF Consultation/ Tư vấn tuyển sinh với ICEF">{{ is_english ? 'ICEF Consultation' : 'Tư vấn tuyển sinh với ICEF' }}</option>
+            </select>
+        </div>
+    </div>
+    <div class="lienhe-form__group">
+        <label for="contact-message">{{ is_english ? 'Message' : 'Nội dung' }}</label>
+        <textarea id="contact-message" name="entry.839337160" rows="5" placeholder="{{ is_english ? 'Briefly describe your legal matter...' : 'Mô tả ngắn gọn vấn đề pháp lý của bạn...' }}"></textarea>
+    </div>
+    <button type="submit" class="lienhe-form__btn">{{ is_english ? 'Send Request' : 'Gửi yêu cầu' }}</button>
+    <p class="lienhe-form__success" id="lienhe-gform-success" role="status" hidden>{{ is_english ? 'Thank you! Your request has been sent successfully.' : 'Cảm ơn Quý vị! Yêu cầu đã được gửi thành công.' }}</p>
+</form>
+
+<iframe name="lienhe-gform-target" id="lienhe-gform-target" style="display:none" aria-hidden="true" title="google-form-submit-target"></iframe>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var form = document.getElementById('lienhe-gform');
+        var iframe = document.getElementById('lienhe-gform-target');
+        var success = document.getElementById('lienhe-gform-success');
+        var btn = form ? form.querySelector('.lienhe-form__btn') : null;
+        if (!form || !iframe) return;
+
+        var submitting = false;
+
+        form.addEventListener('submit', function () {
+            submitting = true;
+            if (btn) btn.disabled = true;
+        });
+
+        iframe.addEventListener('load', function () {
+            if (!submitting) return;
+            submitting = false;
+            if (btn) btn.disabled = false;
+            form.reset();
+            if (success) success.hidden = false;
+        });
+    });
+</script>

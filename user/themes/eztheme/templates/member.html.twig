@@ -1,0 +1,109 @@
+{% extends 'partials/base.html.twig' %}
+
+{% set is_english = uri.path starts with '/en' %}
+
+{% block content %}
+    {# ===== Hero: các trường suy ra từ front matter ===== #}
+    <div class="page-hero">
+        <div class="container">
+            <div class="page-hero__inner">
+                {% if page.header.avatar %}
+                    <img src="{{ page.media[page.header.avatar].url ?? page.header.avatar }}" alt="{{ page.title }}" class="page-hero__avatar">
+                {% endif %}
+                <div class="page-hero__text">
+                    <h1 class="page-hero__title">{{ page.title }}</h1>
+                    {% if page.header.position %}
+                        <p class="page-hero__subtitle">{{ page.header.position }}</p>
+                    {% endif %}
+
+                    {% set contacts = [] %}
+                    {% if page.header.experience_years %}
+                        {% set contacts = contacts|merge([page.header.experience_years ~ ' ' ~ (is_english ? 'years experience' : 'năm kinh nghiệm')]) %}
+                    {% endif %}
+                    {% if page.header.email %}{% set contacts = contacts|merge(['<a href="mailto:' ~ page.header.email ~ '">' ~ page.header.email ~ '</a>']) %}{% endif %}
+                    {% if page.header.phone %}{% set contacts = contacts|merge(['<a href="tel:' ~ page.header.phone ~ '">' ~ page.header.phone ~ '</a>']) %}{% endif %}
+                    {% if contacts is not empty %}
+                        <p class="page-hero__meta">{{ contacts|join(' · ')|raw }}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main class="container">
+        <article class="luatsu page-content ipeb-editable">
+            {{ pml_edit_button(page) }}
+            {% if page.header.bio %}
+                <p class="luatsu__bio">{{ page.header.bio }}</p>
+            {% endif %}
+
+            <div class="luatsu__facts">
+                {% if page.header.expertise is not empty %}
+                    <section class="luatsu__block">
+                        <h2 class="luatsu__block-title">{{ is_english ? 'Areas of expertise' : 'Lĩnh vực chuyên môn' }}</h2>
+                        <ul class="luatsu__list">
+                            {% for row in page.header.expertise %}
+                                {% set val = row.item is defined ? row.item : row %}
+                                {% if val %}<li>{{ val }}</li>{% endif %}
+                            {% endfor %}
+                        </ul>
+                    </section>
+                {% endif %}
+
+                {% if page.header.education is not empty %}
+                    <section class="luatsu__block">
+                        <h2 class="luatsu__block-title">{{ is_english ? 'Education' : 'Học vấn' }}</h2>
+                        <ul class="luatsu__list">
+                            {% for row in page.header.education %}
+                                {% set val = row.item is defined ? row.item : row %}
+                                {% if val %}<li>{{ val }}</li>{% endif %}
+                            {% endfor %}
+                        </ul>
+                    </section>
+                {% endif %}
+
+                {% if page.header.certificates is not empty %}
+                    <section class="luatsu__block">
+                        <h2 class="luatsu__block-title">{{ is_english ? 'Certifications' : 'Chứng chỉ hành nghề' }}</h2>
+                        <ul class="luatsu__list">
+                            {% for cert in page.header.certificates %}
+                                {% set val = cert.item is defined ? cert.item : cert %}
+                                {% if val %}<li>{{ val }}</li>{% endif %}
+                            {% endfor %}
+                        </ul>
+                    </section>
+                {% endif %}
+            </div>
+
+            {# ===== Phần nội dung chi tiết (thân Markdown) ===== #}
+            {{ page.content|raw }}
+        </article>
+
+        {# ===== Các thành viên khác cùng cấp ===== #}
+        {% set siblings = page.parent.children.published %}
+        {% if siblings|length > 1 %}
+        <section class="related-posts">
+            <h2 class="related-posts__heading">{{ is_english ? 'Other members' : 'Các thành viên khác' }}</h2>
+            <div class="related-posts__grid">
+                {% for sibling in siblings %}
+                    {% if sibling.slug != page.slug %}
+                    <a href="{{ sibling.url }}" class="related-posts__card">
+                        {% if sibling.header.avatar %}
+                            <img src="{{ sibling.media[sibling.header.avatar].url ?? sibling.header.avatar }}" alt="{{ sibling.title }}" class="related-posts__thumb">
+                        {% else %}
+                            <div class="related-posts__thumb related-posts__thumb--placeholder"></div>
+                        {% endif %}
+                        <div class="related-posts__body">
+                            <h3 class="related-posts__title">{{ sibling.title }}</h3>
+                            {% if sibling.header.position %}
+                                <p class="related-posts__subtitle">{{ sibling.header.position }}</p>
+                            {% endif %}
+                        </div>
+                    </a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+    </main>
+{% endblock %}

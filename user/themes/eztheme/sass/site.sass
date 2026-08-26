@@ -1,0 +1,2600 @@
+/*!
+ * PureCSS Theme - Phuong Mai Law
+ * A clean and modern theme for Grav CMS using Pure CSS
+ */
+
+// ─── Breakpoints ─────────────────────────────────────────────────────────────
+// Full HD    : ≥ 1440px
+// Laptop     : < 1440px  (1024px – 1439px)
+// Tablet landscape : < 1024px  (768px – 1023px)
+// Tablet portrait  : < 768px   (480px – 767px)
+// Phone      : < 480px
+$bp-fullhd:       1440px
+$bp-laptop:       1439px
+$bp-tablet-land:  1023px
+$bp-tablet-port:   767px
+$bp-phone:         479px
+
+// ─── CSS Custom Properties ───────────────────────────────────────────────────
+:root
+  --primary-color: #d14f1c
+  --secondary-color: #107c10
+  --text-color: #333
+  --light-gray: #f5f5f5
+  --border-color: #ddd
+  --spacing-unit: 1rem
+
+// ─── Base Styles ─────────────────────────────────────────────────────────────
+*
+  margin: 0
+  padding: 0
+  box-sizing: border-box
+
+html
+  font-size: 16px
+
+body
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif
+  line-height: 1.6
+  color: var(--text-color)
+  background-image: url('https://i.gyazo.com/6692921bcfe697df45523d46044c518e.jpg')
+  background-attachment: fixed
+  background-size: cover
+  background-position: center
+
+body.template-default,
+body.template-article,
+body.template-article-list,
+body.template-lienhe,
+body.template-member,
+body.template-dangxaydung
+  background-image: none
+  background-color: var(--light-gray)
+
+a
+  color: var(--primary-color)
+  text-decoration: none
+  transition: color 0.3s ease
+
+  &:hover
+    color: var(--secondary-color)
+    text-decoration: underline
+
+// ─── Typography ──────────────────────────────────────────────────────────────
+h1, h2, h3, h4, h5, h6
+  line-height: 1.2
+  margin: var(--spacing-unit) 0 0.5rem 0
+  font-weight: 600
+
+h1
+  font-size: 2.5rem
+
+h2
+  font-size: 2rem
+
+h3
+  font-size: 1.5rem
+
+h4
+  font-size: 1.25rem
+
+// Heading trong nội dung bài viết (Markdown) — không áp cho các heading khối
+// trang chủ (dichvucotloi/quytrinh/tamnhinsumenh...) vì chúng đã có style riêng
+// (uppercase + divider) và không cần thêm viền
+.page-content
+  h2, h3, h4
+    color: var(--primary-color)
+    border-bottom: 1px solid var(--primary-color)
+    padding-top: 0.4rem
+    padding-bottom: 0.75rem
+    margin-bottom: 1rem
+
+h5
+  font-size: 1.1rem
+
+h6
+  font-size: 1rem
+
+p
+  margin: 0.5rem 0 1rem 0
+
+// ─── Container ───────────────────────────────────────────────────────────────
+.container
+  max-width: 1265px
+  margin: 0 auto
+  padding: 0 var(--spacing-unit)
+  width: 100%
+
+  &--xl
+    max-width: 1265px
+
+// ─── Header ──────────────────────────────────────────────────────────────────
+header
+  background: #fff
+  border-bottom: 1px solid var(--border-color)
+  padding: 0.4rem 0
+
+.header-content
+  display: flex
+  align-items: center
+  justify-content: space-between
+
+.logo-cell
+  display: flex
+  align-items: center
+
+.logo
+  display: flex
+  align-items: center
+  font-size: 1.5rem
+  font-weight: 700
+  color: var(--primary-color)
+  transition: font-size 0.3s ease
+  white-space: nowrap
+
+  img
+    height: 125px
+    margin-right: 0
+    transition: height 0.3s ease
+
+.logo--mobile
+  display: none
+
+// ─── Navigation ──────────────────────────────────────────────────────────────
+nav
+  display: flex
+  gap: 2rem
+  align-items: center
+
+  a
+    color: var(--text-color)
+    font-weight: 500
+    transition: color 0.3s ease
+
+    &:hover
+      color: var(--primary-color)
+      text-decoration: none
+
+.main-nav
+  display: none
+  align-items: center
+  width: 100%
+
+.menu
+  list-style: none
+  display: flex
+  gap: 0
+  margin: 0
+  padding: 0
+  width: 100%
+  align-items: center
+  justify-content: flex-end
+
+// Chỉ áp dụng trên desktop (không phải mobile drawer)
+.header-right .menu-item:last-child > .menu-link
+  padding-right: 0
+
+.menu-item
+  position: relative
+  margin: 0
+  padding: 0
+
+.menu-link
+  display: block
+  padding: 0.6rem 0.85rem
+  font-size: 0.875rem
+  color: var(--text-color)
+  font-weight: 500
+  text-decoration: none
+  border-bottom: 3px solid transparent
+  transition: padding 0.3s ease, color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease
+
+  &:hover
+    color: var(--primary-color)
+    border-bottom-color: var(--primary-color)
+    background-color: rgba(3, 69, 119, 0.05)
+
+// ─── Dropdown Menu ───────────────────────────────────────────────────────────
+.has-submenu
+  position: relative
+
+  > .menu-link::after
+    content: ''
+    display: inline-block
+    width: 0
+    height: 0
+    border-left: 4px solid transparent
+    border-right: 4px solid transparent
+    border-top: 5px solid currentColor
+    margin-left: 0.5rem
+    transition: transform 0.3s ease
+
+  &:hover,
+  &.active
+    .submenu
+      opacity: 1
+      visibility: visible
+      transform: translateY(0)
+
+    > .menu-link::after
+      transform: rotate(180deg)
+
+.submenu
+  list-style: none
+  position: absolute
+  top: 100%
+  left: 0
+  background: white
+  min-width: 200px
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1)
+  border-radius: 4px
+  margin: 0
+  padding: 0.5rem 0
+  opacity: 0
+  visibility: hidden
+  transform: translateY(-10px)
+  transition: all 0.3s ease
+  z-index: 1000
+  border-top: 3px solid var(--primary-color)
+
+  .menu-item
+    margin: 0
+    padding: 0
+
+  .menu-link
+    padding: 0.75rem 1.5rem
+    font-size: 0.95rem
+    border-bottom: none
+
+    &:hover
+      background-color: var(--light-gray)
+      border-bottom: none
+
+// ─── Nav drawer logo ─────────────────────────────────────────────────────────
+.main-nav__logo
+  display: none
+  padding: 1rem 1.25rem
+  border-bottom: 1px solid var(--border-color)
+
+  img
+    height: 48px
+
+// ─── Hamburger Menu ───────────────────────────────────────────────────────────
+.menu-toggle
+  display: none
+  flex-direction: column
+  gap: 5px
+  cursor: pointer
+  width: 30px
+  height: 24px
+  justify-content: center
+  z-index: 1001
+
+  span
+    display: block
+    width: 100%
+    height: 3px
+    background-color: var(--text-color)
+    border-radius: 2px
+    transition: all 0.3s ease
+
+  &.active
+    span:nth-child(1)
+      transform: rotate(45deg) translate(8px, 8px)
+
+    span:nth-child(2)
+      opacity: 0
+
+    span:nth-child(3)
+      transform: rotate(-45deg) translate(8px, -8px)
+
+// ─── Hero Slider ─────────────────────────────────────────────────────────────
+.hero-slider
+  position: relative
+  width: 100vw
+  left: 50%
+  right: 50%
+  margin-left: -50vw
+  margin-right: -50vw
+  aspect-ratio: 1672 / 635.175
+  overflow: hidden
+  background: #000
+
+.slider-container
+  position: relative
+  width: 100%
+  height: 100%
+  overflow: hidden
+
+.slider-track
+  position: relative
+  width: 100%
+  height: 100%
+
+.slide
+  position: absolute
+  inset: 0
+  opacity: 0
+  transition: opacity 0.9s ease
+
+.slide-image
+  position: absolute
+  width: 100%
+  height: 100%
+  object-fit: cover
+  z-index: 1
+
+// ─── Slider Controls ─────────────────────────────────────────────────────────
+.slider-btn
+  position: absolute
+  top: 50%
+  transform: translateY(-50%)
+  z-index: 10
+  background: rgba(255, 255, 255, 0.7)
+  color: var(--text-color)
+  border: none
+  width: 50px
+  height: 50px
+  border-radius: 50%
+  font-size: 1.5rem
+  cursor: pointer
+  transition: all 0.3s ease
+  display: flex
+  align-items: center
+  justify-content: center
+  font-weight: bold
+
+  &:hover
+    background: rgba(255, 255, 255, 0.95)
+    color: var(--primary-color)
+
+.slider-btn-prev
+  left: 20px
+
+.slider-btn-next
+  right: 20px
+
+.slider-paging
+  position: absolute
+  bottom: 20px
+  left: 50%
+  transform: translateX(-50%)
+  z-index: 10
+  display: flex
+  gap: 12px
+  justify-content: center
+
+.paging-dot
+  width: 12px
+  height: 12px
+  border-radius: 50%
+  background: rgba(255, 255, 255, 0.5)
+  border: 2px solid rgba(255, 255, 255, 0.7)
+  cursor: pointer
+  transition: all 0.3s ease
+  padding: 0
+
+  &:hover
+    background: rgba(255, 255, 255, 0.7)
+
+  &.active
+    background: rgba(255, 255, 255, 1)
+    border-color: var(--primary-color)
+    box-shadow: 0 0 0 3px rgba(3, 69, 119, 0.3)
+
+// ─── Main Content ─────────────────────────────────────────────────────────────
+main
+  min-height: calc(100vh - 200px)
+  padding: 2rem 0
+
+// ─── Đội ngũ ─────────────────────────────────────────────────────────────────
+.doingu
+  padding: 4rem 0
+  background: rgba(255, 255, 255, 0.93)
+
+  &__header
+    text-align: center
+    margin-bottom: 3rem
+
+  &__heading
+    font-size: 2rem
+    font-weight: 700
+    letter-spacing: normal
+    color: var(--primary-color)
+    text-transform: uppercase
+    margin: 0 0 1rem
+
+  &__divider
+    display: flex
+    align-items: center
+    justify-content: center
+    gap: 0
+
+    &::before,
+    &::after
+      content: ''
+      display: block
+      height: 1px
+      width: 80px
+      background: var(--border-color)
+
+    span
+      display: block
+      width: 8px
+      height: 8px
+      border-radius: 50%
+      background: var(--primary-color)
+      margin: 0 4px
+
+  &__grid
+    display: grid
+    grid-template-columns: repeat(2, 1fr)
+    gap: 2.5rem
+
+  &__card
+    display: flex
+    gap: 1.25rem
+    align-items: flex-start
+
+  &__avatar-wrap
+    flex-shrink: 0
+
+  &__avatar
+    width: 90px
+    height: 90px
+    border-radius: 50%
+    object-fit: cover
+    border: 3px solid var(--primary-color)
+    display: block
+    background: var(--light-gray)
+
+  &__info
+    display: flex
+    flex-direction: column
+    gap: 0.5rem
+
+  &__name
+    margin: 0
+    font-size: 1rem
+    font-weight: 700
+    line-height: 1.4
+
+    a
+      color: var(--primary-color)
+      text-decoration: none
+
+      &:hover
+        text-decoration: underline
+
+  &__subtitle
+    font-size: 0.8rem
+    color: #888
+    margin: 0.1rem 0 0
+    line-height: 1.3
+
+  &__summary
+    font-size: 0.9rem
+    color: var(--text-color)
+    line-height: 1.6
+    margin: 0
+
+  &__link
+    display: inline-block
+    align-self: flex-start
+    font-size: 0.875rem
+    font-weight: 600
+    color: #fff
+    background: var(--primary-color)
+    text-decoration: none
+    padding: 0.4rem 1.1rem
+    border-radius: 4px
+    transition: transform 0.2s ease, box-shadow 0.2s ease
+
+    &:hover
+      transform: scale(1.05)
+      box-shadow: 0 4px 12px rgba(3, 69, 119, 0.35)
+      text-decoration: none
+
+  &__footer
+    text-align: center
+    margin-top: 2.5rem
+
+  &__more
+    font-size: 0.95rem
+    font-weight: 600
+    color: var(--primary-color)
+    text-decoration: none
+
+    &:hover
+      text-decoration: underline
+
+// ─── Kiến thức pháp lý ───────────────────────────────────────────────────────
+.kienthucphaply
+  padding: 4rem 0
+  background: var(--light-gray)
+
+  &__header
+    text-align: center
+    margin-bottom: 3rem
+
+  &__heading
+    font-size: 2rem
+    font-weight: 700
+    letter-spacing: normal
+    color: var(--primary-color)
+    text-transform: uppercase
+    margin: 0 0 1rem
+
+  &__divider
+    display: flex
+    align-items: center
+    justify-content: center
+
+    &::before,
+    &::after
+      content: ''
+      display: block
+      height: 1px
+      width: 80px
+      background: var(--border-color)
+
+    span
+      display: block
+      width: 8px
+      height: 8px
+      border-radius: 50%
+      background: var(--primary-color)
+      margin: 0 4px
+
+  &__grid
+    display: grid
+    grid-template-columns: repeat(4, 1fr)
+    gap: 1.5rem
+
+  &__card
+    background: #fff
+    border-radius: 6px
+    overflow: hidden
+    display: flex
+    flex-direction: column
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06)
+    transition: box-shadow 0.25s ease
+
+    &:hover
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12)
+
+  &__thumb-link
+    display: block
+    aspect-ratio: 1 / 1
+    overflow: hidden
+
+  &__thumb
+    width: 100%
+    height: 100%
+    object-fit: cover
+    display: block
+    transition: transform 0.35s ease
+
+    &:hover
+      transform: scale(1.04)
+
+  &__body
+    padding: 1.25rem
+    display: flex
+    flex-direction: column
+    gap: 0.5rem
+    flex: 1
+
+  &__date
+    font-size: 0.8rem
+    color: #999
+    margin: 0
+
+  &__title
+    font-size: 1rem
+    font-weight: 700
+    line-height: 1.4
+    margin: 0
+
+    a
+      color: var(--primary-color)
+      text-decoration: none
+
+      &:hover
+        color: var(--primary-color)
+
+  &__summary
+    font-size: 0.875rem
+    color: #666
+    line-height: 1.6
+    margin: 0
+    flex: 1
+    display: -webkit-box
+    -webkit-line-clamp: 3
+    -webkit-box-orient: vertical
+    overflow: hidden
+
+  &__btn
+    display: inline-block
+    margin-top: 0.5rem
+    font-size: 0.875rem
+    font-weight: 600
+    color: #fff
+    background: var(--primary-color)
+    text-decoration: none
+    border-radius: 4px
+    padding: 0.4rem 1.1rem
+    align-self: flex-start
+    transition: transform 0.2s ease, box-shadow 0.2s ease
+
+    &:hover
+      transform: scale(1.05)
+      box-shadow: 0 4px 12px rgba(3, 69, 119, 0.35)
+      text-decoration: none
+
+  &__footer
+    text-align: center
+    margin-top: 2.5rem
+
+  &__more
+    font-size: 0.95rem
+    font-weight: 600
+    color: var(--primary-color)
+    text-decoration: none
+    border: 2px solid var(--primary-color)
+    border-radius: 4px
+    padding: 0.6rem 2rem
+    display: inline-block
+    transition: background 0.2s ease, color 0.2s ease
+
+    &:hover
+      background: var(--primary-color)
+      color: #fff
+      text-decoration: none
+
+// ─── Logo Luật Đoàn ──────────────────────────────────────────────────────────
+.logoluatdoan
+  padding: 3rem 0
+  text-align: center
+  background: #fff
+
+  &__list
+    display: flex
+    align-items: center
+    justify-content: center
+    flex-wrap: wrap
+    gap: 2.5rem
+
+  &__img
+    max-width: 100%
+    max-height: 80px
+    width: auto
+    height: auto
+    display: inline-block
+
+// ─── Tầm nhìn & Sứ mệnh ──────────────────────────────────────────────────────
+.tamnhinsumenh
+  position: relative
+  display: flex
+  align-items: center
+  background-color: var(--primary-color)
+  background-size: cover
+  background-position: center
+  background-repeat: no-repeat
+
+  &__overlay
+    position: absolute
+    inset: 0
+    background: rgba(0, 0, 0, 0.45)
+
+  &__inner
+    position: relative
+    z-index: 1
+    display: flex
+    align-items: center
+    min-height: 80vh
+
+  &__content
+    width: 50%
+    padding: 4rem 0
+
+  &__heading
+    font-size: 2rem
+    font-weight: 700
+    color: #fff
+    text-transform: uppercase
+    letter-spacing: normal
+    margin: 0 0 1rem
+
+  &__divider
+    display: flex
+    align-items: center
+    margin-bottom: 2.5rem
+
+    &::before,
+    &::after
+      content: ''
+      display: block
+      height: 1px
+      width: 60px
+      background: rgba(255, 255, 255, 0.5)
+
+    span
+      display: block
+      width: 8px
+      height: 8px
+      border-radius: 50%
+      background: #fff
+      margin: 0 4px
+
+  &__block
+    margin-bottom: 2rem
+
+    &:last-child
+      margin-bottom: 0
+
+  &__subheading
+    font-size: 1.1rem
+    font-weight: 700
+    color: #fff
+    margin: 0 0 0.5rem
+    text-transform: uppercase
+    letter-spacing: 0.05em
+
+  &__text
+    font-size: 0.95rem
+    color: rgba(255, 255, 255, 0.93)
+    line-height: 1.75
+    margin: 0
+
+  // Nội dung markdown từ block-content (h3 + p)
+  &__body
+    position: relative
+
+    h3
+      font-size: 1.1rem
+      font-weight: 700
+      color: #fff
+      margin: 1.75rem 0 0.5rem
+      text-transform: uppercase
+      letter-spacing: 0.05em
+
+      &:first-child
+        margin-top: 0
+
+    p
+      font-size: 0.95rem
+      color: rgba(255, 255, 255, 0.93)
+      line-height: 1.75
+      margin: 0 0 0.75rem
+
+      &:last-child
+        margin-bottom: 0
+
+// ─── Dịch vụ cốt lõi ─────────────────────────────────────────────────────────
+.dichvucotloi
+  background: rgba(255, 255, 255, 0.93)
+  padding: 4rem 0
+
+  &__header
+    text-align: center
+    padding: 0 0 0
+
+  &__heading
+    font-size: 2rem
+    font-weight: 700
+    letter-spacing: normal
+    color: var(--primary-color)
+    text-transform: uppercase
+    margin: 0 0 1rem
+
+  &__divider
+    display: flex
+    align-items: center
+    justify-content: center
+    margin-bottom: 2rem
+
+    &::before,
+    &::after
+      content: ''
+      display: block
+      height: 1px
+      width: 80px
+      background: var(--border-color)
+
+    span
+      display: block
+      width: 8px
+      height: 8px
+      border-radius: 50%
+      background: var(--primary-color)
+      margin: 0 4px
+
+  &__panels
+    display: grid
+    grid-template-columns: 1fr 1fr 1fr
+
+  &__panel
+    display: grid
+    grid-template-rows: subgrid
+    grid-row: span 4
+    align-items: start
+    padding: 2rem
+    gap: 1.5rem
+    opacity: 0
+    transform: translateY(40px)
+    transition: opacity 0.6s ease, transform 0.6s ease
+
+    &.is-visible
+      opacity: 1
+      transform: translateY(0)
+
+    @for $i from 1 through 3
+      &:nth-child(#{$i})
+        transition-delay: #{($i - 1) * 0.12}s
+
+    .dichvucotloi__title
+      color: var(--primary-color)
+
+    .dichvucotloi__desc
+      color: var(--text-color)
+
+  &__title
+    font-size: 1.15rem
+    font-weight: 700
+    text-align: center
+    margin: 0
+    line-height: 1.3
+
+  &__desc
+    font-size: 1rem
+    text-align: justify
+    line-height: 1.7
+    margin: 0
+    opacity: 0.9
+
+  &__btn
+    display: inline-block
+    align-self: start
+    justify-self: center
+    padding: 0.75rem 2.75rem 0.75rem 2.25rem
+    border-radius: 6px
+    font-weight: 700
+    font-size: 0.9rem
+    letter-spacing: 0.03em
+    text-transform: uppercase
+    text-decoration: none
+    color: #fff
+    background: var(--primary-color) url('https://eznotary.ca/sites/all/themes/bootstrapsub/images/viewmorebullet.svg') no-repeat right 1.1rem center / 8px 14px
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2)
+    transition: transform 0.2s ease, box-shadow 0.2s ease
+
+    &:hover
+      transform: scale(1.05)
+      box-shadow: 0 4px 12px rgba(3, 69, 119, 0.35)
+      text-decoration: none
+
+  @media (prefers-reduced-motion: reduce)
+    &__panel
+      opacity: 1
+      transform: none
+      transition: none
+
+// ─── Quy trình ────────────────────────────────────────────────────────────────
+.quytrinh
+  background-color: var(--light-gray)
+  background-size: cover
+  background-position: center
+  background-repeat: no-repeat
+  padding: 4rem 0
+
+  &__header
+    text-align: center
+    padding: 0 0 0
+
+  &__heading
+    font-size: 2rem
+    font-weight: 700
+    letter-spacing: normal
+    color: var(--primary-color)
+    text-transform: uppercase
+    margin: 0 0 1rem
+
+  &__divider
+    display: flex
+    align-items: center
+    justify-content: center
+    margin-bottom: 3rem
+
+    &::before,
+    &::after
+      content: ''
+      display: block
+      height: 1px
+      width: 80px
+      background: var(--border-color)
+
+    span
+      display: block
+      width: 8px
+      height: 8px
+      border-radius: 50%
+      background: var(--primary-color)
+      margin: 0 4px
+
+  &__steps
+    display: flex
+    justify-content: center
+    align-items: flex-start
+    flex-wrap: wrap
+    gap: 1.5rem 2.5rem
+
+  &__step
+    display: flex
+    flex-direction: column
+    align-items: center
+    opacity: 0
+    transform: translateY(40px)
+    transition: opacity 0.6s ease, transform 0.6s ease
+
+    &.is-visible
+      opacity: 1
+      transform: translateY(0)
+
+    @for $i from 1 through 5
+      &:nth-child(#{$i})
+        transition-delay: #{($i - 1) * 0.12}s
+
+  @media (prefers-reduced-motion: reduce)
+    &__step
+      opacity: 1
+      transform: none
+      transition: none
+
+  &__circle
+    width: 160px
+    height: 160px
+    border-radius: 50%
+    border: 2px solid var(--primary-color)
+    background: var(--primary-color)
+    color: #fff
+    font-size: 2.25rem
+    font-weight: 600
+    line-height: 1
+    padding: 0
+    cursor: pointer
+    display: flex
+    align-items: center
+    justify-content: center
+    transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease
+
+  &__step:not(.active) &__circle:hover
+    background: #58595b
+    border-color: #58595b
+
+  &__step.active &__circle
+    background: #fff
+    color: var(--text-color)
+    border-color: var(--text-color)
+
+  &__stem
+    width: 1px
+    height: 2.5rem
+    background: var(--text-color)
+    opacity: 0
+    transition: opacity 0.25s ease
+
+  &__step.active &__stem
+    opacity: 1
+
+  &__baseline
+    height: 1px
+    background: var(--text-color)
+    opacity: 0.6
+    margin: 0 0 3rem
+
+  &__panel
+    display: none
+    text-align: center
+    // 90% chiều rộng cụm 5 hình tròn ở base: 5×160px + 4×2.5rem gap = 960px
+    max-width: 864px
+    margin: 0 auto
+    opacity: 1
+    transition: opacity 0.3s ease
+
+    &.active
+      display: block
+      // Chiều cao cố định (laptop trở lên) để layout không nhảy khi đổi bước
+      // có độ dài đoạn text khác nhau; overflow-y để phòng nội dung dài hơn dự kiến.
+      // overflow-x phải khoá "hidden" tường minh — nếu chỉ set overflow-y mà bỏ
+      // trống overflow-x, trình duyệt tự nâng overflow-x: visible thành auto
+      // (theo CSS Overflow spec), sinh ra scrollbar ngang dù chỉ lệch vài px.
+      height: 15rem
+      overflow-y: auto
+      overflow-x: hidden
+
+  &__panel-title
+    font-size: 1.5rem
+    font-weight: 700
+    color: var(--text-color)
+    margin: 0 0 1rem
+
+  &__panel-desc
+    font-size: 1rem
+    line-height: 1.7
+    color: var(--text-color)
+    opacity: 0.9
+    margin: 0
+
+// ─── Nội dung bài viết ───────────────────────────────────────────────────────
+.page-content
+  max-width: 792px
+  margin: 3rem auto 0
+
+  p
+    text-align: justify
+
+  img.center
+    display: block
+    margin: 0 auto
+
+  img.portrait-float
+    display: block
+    width: 100%
+    margin: 0 auto 1.5rem
+
+    @media (min-width: #{$bp-tablet-land + 1})
+      float: right
+      width: 33%
+      margin: 0 0 1rem 2rem
+
+  p:has(> img.credential-grid)
+    display: grid
+    grid-template-columns: repeat(2, 1fr)
+    gap: 1.5rem
+    align-items: center
+    justify-items: center
+    margin: 2rem 0
+
+    @media (max-width: 480px)
+      grid-template-columns: 1fr
+
+  img.credential-grid
+    width: 100%
+    height: auto
+
+  p.cta-wrap
+    text-align: center
+    margin: 2rem 0
+
+  a.cta-button
+    display: inline-block
+    background-color: var(--primary-color)
+    color: #fff
+    text-transform: uppercase
+    font-weight: 600
+    letter-spacing: 1px
+    padding: 0 28px
+    height: 40px
+    line-height: 40px
+    border-radius: 4px
+    font-size: 0.875rem
+    text-decoration: none
+    transition: background-color 0.3s ease
+
+    &:hover
+      background-color: var(--secondary-color)
+      color: #fff
+      text-decoration: none
+
+// Background toàn trang cho trang chi tiết bài viết — trực tiếp trên body,
+// KHÔNG dùng ::before + opacity + ép z-index toàn bộ con của body như trước
+// (từng làm .float-contacts/.aqm-menu — mọi phần tử position:fixed chèn
+// thẳng vào <body> của các plugin — bị mất position:fixed, rớt xuống dòng
+// chảy bình thường của trang).
+body.template-article
+  background-image: url('https://i.gyazo.com/d6c1b4f87ad0883052b3816b7d7faac9.jpg')
+  background-repeat: no-repeat
+  background-position: top center
+  background-size: 100% auto
+  background-attachment: fixed
+
+// ─── Page Hero (tiêu đề bài viết chi tiết) ───────────────────────────────────
+.page-hero
+  position: relative
+  background-image: url('https://i.gyazo.com/36409e2985ca18830bcb5ecc263914b1.png')
+  background-size: cover
+  background-position: center
+  padding: 2.5rem 0
+
+  &::before
+    content: ''
+    position: absolute
+    inset: 0
+    background: color-mix(in srgb, var(--primary-color) 82%, transparent)
+
+  .container
+    position: relative
+    z-index: 1
+
+  &--light
+    background-image: none
+    background-color: #fff
+
+    &::before
+      display: none
+
+    .page-hero__title
+      color: var(--primary-color)
+
+    .page-hero__subtitle
+      color: #888
+
+  &:not(&--simple)
+    .page-hero__text
+      align-items: center
+      text-align: center
+
+  &__inner
+    display: flex
+    align-items: center
+    justify-content: center
+    gap: 3rem
+
+  &__avatar
+    width: 150px
+    height: 150px
+    border-radius: 50%
+    object-fit: cover
+    border: 3px solid rgba(255, 255, 255, 0.7)
+    flex-shrink: 0
+
+  &__text
+    display: flex
+    flex-direction: column
+    gap: 0.5rem
+
+  &__title
+    font-size: 2.5rem
+    font-weight: 700
+    color: #fff
+    margin: 0
+
+  &__subtitle
+    font-size: 1.2rem
+    color: rgba(255, 255, 255, 0.85)
+    margin: 0
+    font-style: italic
+
+  &__meta
+    font-size: 0.95rem
+    color: rgba(255, 255, 255, 0.8)
+    margin: 0.25rem 0 0
+
+    a
+      color: #fff
+      text-decoration: underline
+
+// ─── Hồ sơ luật sư (trang chi tiết đội ngũ) ──────────────────────────────────
+.luatsu
+  &__bio
+    font-size: 1.1rem
+    font-style: italic
+    color: #555
+    border-left: 3px solid var(--secondary-color)
+    padding-left: 1rem
+    margin-bottom: 2rem
+
+  &__facts
+    display: grid
+    gap: 1.5rem
+    margin-bottom: 2.5rem
+
+  &__block
+    background: #fff
+    border: 1px solid var(--border-color)
+    border-radius: 8px
+    padding: 1.25rem 1.5rem
+
+  &__block-title
+    font-size: 1.1rem
+    color: var(--primary-color)
+    margin: 0 0 0.75rem
+
+  &__list
+    margin: 0
+    padding-left: 1.25rem
+
+    li
+      margin-bottom: 0.35rem
+
+// ─── Danh sách bài viết ───────────────────────────────────────────────────────
+.article-list-page
+  background: #fff
+  padding: 3rem 0
+
+// Article grid dùng chung (trang danh sách + khối "Bài viết khác")
+.article-grid
+  display: grid
+  grid-template-columns: repeat(3, 1fr)
+  gap: 2rem
+
+.article-card
+  position: relative
+  display: flex
+
+  &__link
+    flex: 1 1 auto
+    display: flex
+    flex-direction: column
+    background: #fff
+    border-radius: 6px
+    overflow: hidden
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07)
+    text-decoration: none
+    transition: box-shadow 0.25s ease, transform 0.25s ease
+
+    &:hover
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12)
+      transform: translateY(-2px)
+      text-decoration: none
+
+  &__thumb
+    width: 100%
+    aspect-ratio: 16/9
+    object-fit: cover
+    display: block
+
+    &--placeholder
+      background: var(--light-gray)
+
+  &__body
+    padding: 1.25rem
+    display: flex
+    flex-direction: column
+    gap: 0.5rem
+    flex: 1
+
+  &__date
+    font-size: 0.8rem
+    color: #999
+    margin: 0
+
+  &__title
+    font-size: 1.1rem
+    font-weight: 700
+    color: var(--primary-color)
+    margin: 0
+    line-height: 1.4
+
+  &__excerpt
+    font-size: 0.9rem
+    color: #555
+    line-height: 1.6
+    margin: 0
+    flex: 1
+    display: -webkit-box
+    -webkit-line-clamp: 3
+    -webkit-box-orient: vertical
+    overflow: hidden
+
+  &__more
+    margin-top: 0.5rem
+    align-self: flex-start
+    font-size: 0.875rem
+    font-weight: 600
+    color: #fff
+    background: var(--primary-color)
+    padding: 0.4rem 1.1rem
+    border-radius: 4px
+    transition: transform 0.2s ease, box-shadow 0.2s ease
+
+    &:hover
+      transform: scale(1.05)
+      box-shadow: 0 4px 12px rgba(3, 69, 119, 0.35)
+
+@media (max-width: #{$bp-tablet-port})
+  .article-grid
+    grid-template-columns: repeat(2, 1fr)
+
+@media (max-width: #{$bp-phone})
+  .article-grid
+    grid-template-columns: 1fr
+
+// Phân trang danh sách bài viết
+ul.pagination
+  display: flex
+  justify-content: center
+  align-items: center
+  flex-wrap: wrap
+  gap: 0.4rem
+  list-style: none
+  margin: 2.5rem 0 0
+  padding: 0
+
+  li
+    display: flex
+
+    a, span
+      display: flex
+      align-items: center
+      justify-content: center
+      min-width: 2.25rem
+      height: 2.25rem
+      padding: 0 0.5rem
+      border-radius: 4px
+      font-size: 0.9rem
+      font-weight: 600
+      text-decoration: none
+
+    a
+      color: var(--primary-color)
+      border: 1px solid var(--primary-color)
+      transition: background 0.2s ease, color 0.2s ease
+
+      &:hover
+        background: var(--primary-color)
+        color: #fff
+        text-decoration: none
+
+    span
+      color: #bbb
+      border: 1px solid #e0e0e0
+
+    span.active
+      color: #fff
+      background: var(--primary-color)
+      border-color: var(--primary-color)
+
+// ─── Bài viết liên quan ───────────────────────────────────────────────────────
+.related-posts
+  padding: 3rem 0 2rem
+
+  &__heading
+    font-size: 1.5rem
+    font-weight: 700
+    color: var(--primary-color)
+    margin: 0 0 1.5rem
+
+  &__grid
+    display: grid
+    grid-template-columns: repeat(4, 1fr)
+    gap: 1.25rem
+
+  // Wrapper cho nút in-place edit; là grid-item, flex để card lấp đầy ô
+  &__item
+    position: relative
+    display: flex
+
+  &__card
+    flex: 1 1 auto
+    display: flex
+    flex-direction: column
+    background: #fff
+    border-radius: 6px
+    overflow: hidden
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07)
+    text-decoration: none
+    transition: box-shadow 0.25s ease, transform 0.25s ease
+
+    &:hover
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12)
+      transform: translateY(-2px)
+      text-decoration: none
+
+  &__thumb
+    width: 100%
+    aspect-ratio: 1 / 1
+    object-fit: cover
+    display: block
+
+    &--placeholder
+      background: var(--light-gray)
+
+  &__body
+    padding: 0.75rem 1rem
+
+  &__title
+    font-size: 0.95rem
+    font-weight: 700
+    color: var(--primary-color)
+    margin: 0 0 0.25rem
+    line-height: 1.4
+
+  &__subtitle
+    font-size: 0.85rem
+    color: #666
+    margin: 0
+    font-style: italic
+
+  &__meta
+    font-size: 0.8rem
+    color: #888
+    margin: 0
+
+// ─── Float contact buttons ───────────────────────────────────────────────────
+.float-contacts
+  position: fixed
+  bottom: 2rem
+  right: 1.5rem
+  z-index: 9999
+  display: flex
+  flex-direction: column
+  gap: 0.75rem
+
+  &__btn
+    width: 52px
+    height: 52px
+    border-radius: 50%
+    display: flex
+    align-items: center
+    justify-content: center
+    color: #fff
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2)
+    transition: transform 0.2s ease, box-shadow 0.2s ease
+    text-decoration: none
+
+    &:hover
+      transform: scale(1.1)
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.28)
+      text-decoration: none
+      color: #fff
+
+    &--whatsapp
+      background: #25d366
+
+    &--zalo
+      background: #0068ff
+
+
+// ─── Trang đang xây dựng ─────────────────────────────────────────────────────
+.coming-soon-page
+  background: #fff
+  min-height: calc(100vh - 200px)
+  display: flex
+  align-items: center
+  justify-content: center
+
+.coming-soon
+  text-align: center
+  padding: 4rem 2rem
+  max-width: 520px
+  margin: 0 auto
+
+  &__icon
+    color: var(--primary-color)
+    opacity: 0.6
+    margin-bottom: 1.5rem
+
+    svg
+      display: inline-block
+
+  &__title
+    font-size: 1.6rem
+    font-weight: 700
+    color: var(--primary-color)
+    margin: 0 0 1rem
+
+  &__desc
+    font-size: 1rem
+    color: #666
+    line-height: 1.7
+    margin: 0 0 2rem
+
+  &__btn
+    display: inline-block
+    padding: 0.7rem 2.5rem
+    background: var(--primary-color)
+    color: #fff
+    border-radius: 4px
+    font-weight: 600
+    font-size: 0.95rem
+    text-decoration: none
+    transition: transform 0.2s ease, box-shadow 0.2s ease
+
+    &:hover
+      transform: scale(1.03)
+      box-shadow: 0 4px 12px rgba(3, 69, 119, 0.35)
+      text-decoration: none
+      color: #fff
+
+// ─── Trang bảo trì (standalone, không header/footer) ────────────────────────
+.maintenance-page
+  min-height: 100vh
+  display: flex
+  align-items: center
+  justify-content: center
+  background: #fff
+
+.maintenance-box
+  text-align: center
+  padding: 4rem 2rem
+  max-width: 520px
+  margin: 0 auto
+
+  &__icon
+    color: var(--primary-color)
+    opacity: 0.6
+    margin-bottom: 1.5rem
+
+    svg
+      display: inline-block
+
+  &__title
+    font-size: 1.6rem
+    font-weight: 700
+    color: var(--primary-color)
+    margin: 0 0 1rem
+
+  &__desc
+    font-size: 1rem
+    color: #666
+    line-height: 1.7
+
+// ─── Trang liên hệ ───────────────────────────────────────────────────────────
+.lienhe-page
+  background: #fff
+  padding: 4rem 0
+
+.lienhe-layout
+  display: grid
+  grid-template-columns: 1fr 380px
+  gap: 4rem
+  align-items: start
+
+.lienhe__heading
+  font-size: 1.4rem
+  font-weight: 700
+  color: var(--primary-color)
+  margin: 0 0 0.75rem
+
+.lienhe__desc
+  font-size: 0.95rem
+  color: #666
+  margin: 0 0 2rem
+
+.lienhe-booking
+  margin-bottom: 3rem
+  padding-bottom: 2.5rem
+  border-bottom: 1px solid var(--border-color)
+
+  &__grid
+    display: grid
+    grid-template-columns: 1fr 1fr
+    gap: 2rem
+
+  &__col
+    display: flex
+    flex-direction: column
+
+    .lienhe__desc
+      flex: 1
+
+      strong
+        color: var(--primary-color)
+        font-weight: 700
+
+  &__btn
+    align-self: flex-start
+    padding: 0.7rem 1.75rem
+    background: var(--primary-color)
+    color: #fff
+    border-radius: 4px
+    font-size: 0.95rem
+    font-weight: 600
+    text-align: center
+    transition: transform 0.2s ease, box-shadow 0.2s ease
+
+    &:hover
+      transform: scale(1.03)
+      box-shadow: 0 4px 12px rgba(3, 69, 119, 0.35)
+      color: #fff
+      text-decoration: none
+
+.lienhe-section
+  margin-bottom: 3rem
+  padding-bottom: 2.5rem
+  border-bottom: 1px solid var(--border-color)
+
+  p
+    font-size: 0.95rem
+    color: #555
+    line-height: 1.7
+    margin: 0 0 1rem
+
+    &:last-child
+      margin-bottom: 0
+
+  strong
+    color: var(--primary-color)
+    font-weight: 700
+
+.lienhe-form
+  display: flex
+  flex-direction: column
+  gap: 1.25rem
+
+  &__grid
+    display: grid
+    grid-template-columns: 1fr 1fr
+    gap: 1.25rem
+
+  &__group
+    display: flex
+    flex-direction: column
+    gap: 0.4rem
+
+    label
+      font-size: 0.9rem
+      font-weight: 600
+      color: var(--text-color)
+      margin: 0
+
+      span
+        color: #e53e3e
+
+    input[type="text"],
+    input[type="email"],
+    select,
+    textarea
+      width: 100%
+      max-width: 100%
+      padding: 0.65rem 0.9rem
+      border: 1px solid var(--border-color)
+      border-radius: 4px
+      font-family: inherit
+      font-size: 0.95rem
+      color: var(--text-color)
+      background: #fafafa
+      transition: border-color 0.2s ease, box-shadow 0.2s ease
+      margin: 0
+
+      &:focus
+        outline: none
+        border-color: var(--primary-color)
+        box-shadow: 0 0 0 3px rgba(3, 69, 119, 0.1)
+        background: #fff
+
+    textarea
+      resize: vertical
+      min-height: 130px
+
+  &__btn
+    align-self: flex-start
+    padding: 0.7rem 2.5rem
+    background: var(--primary-color)
+    color: #fff
+    border: none
+    border-radius: 4px
+    font-size: 1rem
+    font-weight: 600
+    cursor: pointer
+    transition: transform 0.2s ease, box-shadow 0.2s ease
+
+    &:hover
+      transform: scale(1.03)
+      box-shadow: 0 4px 12px rgba(3, 69, 119, 0.35)
+      background: var(--primary-color)
+
+    &:disabled
+      opacity: 0.6
+      cursor: not-allowed
+      transform: none
+      box-shadow: none
+
+  &__success
+    margin: 0
+    padding: 0.75rem 1rem
+    border-radius: 4px
+    background: #e6f4ea
+    color: #1e7a34
+    font-size: 0.9rem
+    font-weight: 600
+
+.lienhe-info
+  background: var(--light-gray)
+  border-radius: 6px
+  padding: 2rem
+
+  .lienhe__heading
+    margin-bottom: 1.5rem
+
+.lienhe-notice
+  margin: 0 0 1.5rem
+  padding-bottom: 1.5rem
+  border-bottom: 1px solid var(--border-color)
+
+  p
+    font-size: 0.875rem
+    font-weight: 700
+    color: var(--primary-color)
+    line-height: 1.6
+    margin: 0 0 0.75rem
+
+    &:last-child
+      margin-bottom: 0
+
+.lienhe-office
+  padding: 1rem 0
+  border-bottom: 1px solid var(--border-color)
+
+  &:last-child
+    border-bottom: none
+    padding-bottom: 0
+
+  &__name
+    font-size: 0.95rem
+    font-weight: 700
+    color: var(--primary-color)
+    margin: 0 0 0.5rem
+
+  &__phone,
+  &__address
+    font-size: 0.875rem
+    color: #555
+    margin: 0.3rem 0 0
+    display: flex
+    align-items: flex-start
+    gap: 0.5rem
+    line-height: 1.5
+
+    svg
+      flex-shrink: 0
+      margin-top: 2px
+      color: var(--primary-color)
+
+.lienhe-map
+  width: 100%
+  height: 260px
+  margin-top: 0.75rem
+  border-radius: 6px
+  z-index: 0
+  text-align: left
+
+// ─── Footer ──────────────────────────────────────────────────────────────────
+footer
+  background-color: var(--primary-color)
+  background-image: url('../images/bgfooter.jpg')
+  background-repeat: repeat
+  border-top: none
+  padding: 2.5rem 0
+  margin-top: 0
+  color: #fff
+
+  a
+    color: rgba(255, 255, 255, 0.8)
+    text-decoration: none
+
+    &:hover
+      color: #fff
+      text-decoration: underline
+
+  p
+    margin: 0.2rem 0
+
+.footer-content
+  display: grid
+  grid-template-columns: 180px 1fr 1fr
+  gap: 3rem
+  align-items: start
+
+.footer-col
+  display: flex
+  flex-direction: column
+  gap: 0.75rem
+
+  &--logo
+    align-items: center
+    justify-content: flex-start
+
+.footer-logo
+  width: 100%
+  height: auto
+  display: block
+
+.footer-office
+  p
+    font-size: 0.875rem
+    line-height: 1.5
+
+    strong
+      color: #fff
+
+.footer-disclaimer-heading
+  font-size: 0.875rem
+  color: #fff
+  margin-bottom: 0.5rem
+
+.footer-disclaimer
+  font-size: 0.8rem
+  line-height: 1.7
+  color: rgba(255, 255, 255, 0.75)
+  margin-bottom: 1rem
+
+  strong
+    color: #fff
+
+.footer-bottom
+  text-align: center
+  margin-top: 2rem
+  padding-top: 1.5rem
+  border-top: 1px solid rgba(255, 255, 255, 0.2)
+  color: rgba(255, 255, 255, 0.5)
+  font-size: 0.8rem
+
+// ─── Buttons ─────────────────────────────────────────────────────────────────
+.btn, button, input[type="submit"], input[type="button"]
+  display: inline-block
+  padding: 0.5rem 1rem
+  background: var(--primary-color)
+  color: white
+  border: none
+  border-radius: 4px
+  cursor: pointer
+  font-size: 0.95rem
+  font-weight: 500
+  transition: background 0.3s ease
+  text-decoration: none
+
+.btn:hover, button:hover, input[type="submit"]:hover, input[type="button"]:hover
+  background: var(--secondary-color)
+
+.btn-secondary
+  background: var(--secondary-color)
+
+  &:hover
+    background: #0d5e0f
+
+// ─── Forms ───────────────────────────────────────────────────────────────────
+form
+  margin: 1rem 0
+
+  label
+    display: block
+    margin-bottom: 0.5rem
+    font-weight: 500
+    color: var(--text-color)
+
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  input[type="date"],
+  textarea,
+  select
+    width: 100%
+    max-width: 500px
+    padding: 0.5rem
+    border: 1px solid var(--border-color)
+    border-radius: 4px
+    font-family: inherit
+    font-size: 0.95rem
+    margin-bottom: 1rem
+
+  input:focus,
+  textarea:focus,
+  select:focus
+    outline: none
+    border-color: var(--primary-color)
+    box-shadow: 0 0 0 3px rgba(3, 69, 119, 0.1)
+
+  textarea
+    resize: vertical
+    min-height: 150px
+
+// ─── Lists ───────────────────────────────────────────────────────────────────
+ul, ol
+  margin-left: 2rem
+  margin-bottom: 1rem
+
+li
+  margin-bottom: 0.5rem
+
+// ─── Code ────────────────────────────────────────────────────────────────────
+code
+  background: var(--light-gray)
+  padding: 0.2rem 0.4rem
+  border-radius: 3px
+  font-family: 'Courier New', monospace
+  font-size: 0.9em
+
+pre
+  background: var(--light-gray)
+  padding: 1rem
+  border-radius: 4px
+  overflow-x: auto
+  margin: 1rem 0
+
+  code
+    background: none
+    padding: 0
+
+// ─── Images ──────────────────────────────────────────────────────────────────
+img
+  max-width: 100%
+  height: auto
+  display: block
+
+// ─── Tables ──────────────────────────────────────────────────────────────────
+table
+  width: 100%
+  border-collapse: collapse
+  margin: 1rem 0
+
+th, td
+  padding: 0.75rem
+  text-align: left
+  border-bottom: 1px solid var(--border-color)
+
+th
+  background: var(--light-gray)
+  font-weight: 600
+
+// ─── Cards ───────────────────────────────────────────────────────────────────
+.card
+  background: white
+  border: 1px solid var(--border-color)
+  border-radius: 4px
+  padding: 1.5rem
+  margin-bottom: 1.5rem
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1)
+  transition: box-shadow 0.3s ease
+
+  &:hover
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15)
+
+  h2, h3
+    margin-top: 0
+
+// ─── Grid ────────────────────────────────────────────────────────────────────
+// Dùng PureCSS grid: pure-g (row) + pure-u-* (column)
+// Ví dụ 3 cột responsive:
+//   <div class="pure-g">
+//     <div class="pure-u-1 pure-u-md-1-3"> ... </div>
+//   </div>
+// Breakpoints của PureCSS: sm ≥568px | md ≥768px | lg ≥1024px | xl ≥1280px
+
+// ─── Alerts ──────────────────────────────────────────────────────────────────
+.alert
+  padding: 1rem
+  margin: 1rem 0
+  border-radius: 4px
+  border-left: 4px solid
+
+.alert-info
+  background: #e7f3ff
+  border-color: var(--primary-color)
+  color: #003366
+
+.alert-success
+  background: #e6f7ed
+  border-color: var(--secondary-color)
+  color: #133300
+
+.alert-warning
+  background: #fff3cd
+  border-color: #ffc107
+  color: #664d00
+
+.alert-danger
+  background: #f8d7da
+  border-color: #dc3545
+  color: #721c24
+
+
+// ═════════════════════════════════════════════════════════════════════════════
+// RESPONSIVE — Full HD (≥ 1440px)
+// ═════════════════════════════════════════════════════════════════════════════
+@media (min-width: #{$bp-fullhd})
+  .container
+    max-width: 1265px
+
+  .slider-btn
+    width: 60px
+    height: 60px
+    font-size: 1.75rem
+
+  .slider-btn-prev
+    left: 32px
+
+  .slider-btn-next
+    right: 32px
+
+  .paging-dot
+    width: 14px
+    height: 14px
+
+
+// ═════════════════════════════════════════════════════════════════════════════
+// RESPONSIVE — Laptop (< 1440px)
+// ═════════════════════════════════════════════════════════════════════════════
+@media (max-width: #{$bp-laptop})
+  .container
+    max-width: 1265px
+
+  .slider-btn
+    width: 45px
+    height: 45px
+    font-size: 1.25rem
+
+
+// ═════════════════════════════════════════════════════════════════════════════
+// RESPONSIVE — Tablet nằm ngang / Tablet landscape (< 1024px)
+// ═════════════════════════════════════════════════════════════════════════════
+@media (max-width: #{$bp-tablet-land})
+  .container
+    max-width: 100%
+
+  .slider-btn
+    width: 42px
+    height: 42px
+    font-size: 1.1rem
+
+  .slider-btn-prev
+    left: 14px
+
+  .slider-btn-next
+    right: 14px
+
+  // Kiến thức pháp lý & bài viết liên quan: 4 cột → 2 cột
+  .kienthucphaply__grid,
+  .related-posts__grid
+    grid-template-columns: repeat(2, 1fr)
+
+  // Tầm nhìn & Sứ mệnh: nội dung chiếm 70%
+  .tamnhinsumenh__content
+    width: 70%
+
+  // Footer: 3 cột → 2 cột
+  .footer-content
+    grid-template-columns: 1fr 1fr
+    gap: 2rem
+
+  .footer-col--logo
+    grid-column: 1 / -1
+    align-items: flex-start
+
+  // Quy trình: bỏ chiều cao cố định dưới laptop, để tự nhiên theo nội dung
+  .quytrinh__panel.active
+    height: auto
+    overflow-y: visible
+
+
+// ═════════════════════════════════════════════════════════════════════════════
+// RESPONSIVE — Tablet đứng / Tablet portrait (< 768px)
+// ═════════════════════════════════════════════════════════════════════════════
+@media (max-width: #{$bp-tablet-port})
+  // Typography
+  h1
+    font-size: 1.75rem
+
+  h2
+    font-size: 1.5rem
+
+  h3
+    font-size: 1.25rem
+
+  // Header & Nav — chuyển sang hamburger menu
+  .menu-toggle
+    display: flex
+
+  .header-content
+    justify-content: space-between
+    align-items: center
+
+  .logo-cell
+    flex: 1
+    width: auto !important
+
+  .main-nav
+    display: flex
+    flex-direction: column
+    justify-content: flex-start
+    position: fixed
+    top: 0
+    left: -100%
+    width: 100% !important
+    max-width: 300px
+    height: 100vh
+    padding-top: 60px
+    background: white
+    flex-direction: column
+    overflow-y: auto
+    transition: left 0.3s ease
+    z-index: 999
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1)
+
+    &.active
+      left: 0
+
+  .menu
+    flex-direction: column
+    width: 100%
+    gap: 0
+
+  .menu-item
+    width: 100%
+
+  .menu-link
+    padding: 1rem 1.25rem
+    border-bottom: 1px solid var(--border-color)
+    border-radius: 0
+    font-size: 1rem
+
+    &:hover
+      background-color: var(--light-gray)
+      border-bottom-color: var(--border-color)
+
+  .has-submenu
+    > .menu-link::after
+      float: right
+      margin-left: auto
+      margin-right: 0
+
+    &.active
+      .submenu
+        opacity: 1
+        max-height: 1000px
+        visibility: visible
+
+      > .menu-link::after
+        transform: rotate(180deg)
+
+  .submenu
+    position: static
+    background: var(--light-gray)
+    box-shadow: none
+    border-radius: 0
+    border-top: 1px solid var(--border-color)
+    border-left: 3px solid var(--primary-color)
+    margin: 0
+    padding: 0
+    opacity: 0
+    max-height: 0
+    overflow: hidden
+    transition: all 0.3s ease
+    visibility: hidden
+    transform: none
+
+    .menu-link
+      padding: 0.75rem 1.25rem
+      padding-left: 2rem
+      font-size: 0.9rem
+      border-bottom: 1px solid #e0e0e0
+
+      &:hover
+        background-color: #efefef
+
+  // Slider
+  .slider-btn
+    width: 38px
+    height: 38px
+    font-size: 1rem
+
+  .slider-btn-prev
+    left: 10px
+
+  .slider-btn-next
+    right: 10px
+
+  .paging-dot
+    width: 10px
+    height: 10px
+
+  nav
+    gap: 1rem
+    width: 100%
+    justify-content: center
+    flex-wrap: wrap
+
+  // Dịch vụ cốt lõi: 2 cột → 1 cột, reset subgrid về flex
+  .dichvucotloi__panels
+    grid-template-columns: 1fr
+
+  .dichvucotloi__panel
+    display: flex
+    flex-direction: column
+    grid-row: span 1
+    gap: 1rem
+    border-bottom: 1px solid var(--border-color)
+
+    &:last-child
+      border-bottom: none
+
+  // Quy trình: vòng tròn nhỏ hơn để 5 số luôn nằm 1 hàng, không xuống dòng
+  .quytrinh__circle
+    width: 80px
+    height: 80px
+    font-size: 1.3rem
+
+  .quytrinh__steps
+    flex-wrap: nowrap
+    gap: 0.6rem
+
+  // Nội dung bài viết
+  .page-content
+    padding-left: 2rem
+    padding-right: 2rem
+
+  // Page hero thành viên: căn giữa trên mobile
+  .page-hero__inner
+    flex-direction: column
+    text-align: center
+
+  .page-hero__avatar
+    width: 90px
+    height: 90px
+
+  // Danh sách bài viết: 3 cột → 2 cột
+  .article-list
+    grid-template-columns: repeat(2, 1fr)
+    padding-left: 2rem
+    padding-right: 2rem
+
+  // Trang liên hệ: 2 cột → 1 cột
+  .lienhe-layout
+    grid-template-columns: 1fr
+    gap: 2.5rem
+
+  .lienhe-page
+    padding: 3rem 2rem
+
+  .lienhe-form__grid,
+  .lienhe-booking__grid
+    grid-template-columns: 1fr
+
+  // Đội ngũ: 2 cột → 1 cột
+  .doingu
+    padding-left: 2rem
+    padding-right: 2rem
+
+  .doingu__grid
+    grid-template-columns: 1fr
+
+  // Kiến thức pháp lý & bài viết liên quan: 2 cột trên tablet đứng
+  .kienthucphaply__grid,
+  .related-posts__grid
+    grid-template-columns: repeat(2, 1fr)
+
+  .related-posts
+    padding-left: 2rem
+    padding-right: 2rem
+
+  // Tầm nhìn & Sứ mệnh: chiếm full width, căn giữa nội dung
+  .tamnhinsumenh__content
+    width: 100%
+    padding: 3rem 2rem
+    text-align: center
+
+  .tamnhinsumenh__divider
+    justify-content: center
+
+  .tamnhinsumenh__subheading,
+  .tamnhinsumenh__text
+    text-align: center
+
+  // Footer: 1 cột
+  footer
+    padding-left: 2rem
+    padding-right: 2rem
+
+  .footer-content
+    grid-template-columns: 1fr
+    gap: 2rem
+
+  .footer-logo
+    width: 40%
+
+  form
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="number"],
+    input[type="date"],
+    textarea,
+    select
+      max-width: 100%
+
+
+// ═════════════════════════════════════════════════════════════════════════════
+// RESPONSIVE — Phone (< 480px)
+// ═════════════════════════════════════════════════════════════════════════════
+@media (max-width: #{$bp-phone})
+  html
+    font-size: 14px
+
+  h1
+    font-size: 1.5rem
+
+  h2
+    font-size: 1.25rem
+
+  h3
+    font-size: 1rem
+
+  .container
+    padding: 0 0.5rem
+
+  .header-content
+    padding: 0.5rem 0
+
+  .logo
+    font-size: 1rem
+
+    img
+      height: 40px
+      margin-right: 0
+
+
+  .main-nav
+    max-width: 100%
+    width: 100%
+
+  .menu-link
+    padding: 0.75rem 1rem
+    font-size: 0.9rem
+
+  .submenu .menu-link
+    padding: 0.5rem 1rem
+    padding-left: 1.75rem
+
+  .slider-btn
+    width: 32px
+    height: 32px
+    font-size: 0.85rem
+
+  .slider-btn-prev
+    left: 5px
+
+  .slider-btn-next
+    right: 5px
+
+  .paging-dot
+    width: 8px
+    height: 8px
+
+  // Kiến thức pháp lý & bài viết liên quan: 1 cột trên phone
+  .kienthucphaply__grid,
+  .related-posts__grid,
+  .article-list
+    grid-template-columns: 1fr
+
+  // Dịch vụ cốt lõi padding nhỏ hơn
+  .dichvucotloi__panel
+    padding: 1.25rem 0.75rem
+
+  // Quy trình: vòng tròn nhỏ hơn nữa trên điện thoại, vẫn luôn 1 hàng
+  .quytrinh__circle
+    width: 52px
+    height: 52px
+    font-size: 1rem
+
+  .quytrinh__steps
+    flex-wrap: nowrap
+    gap: 0.4rem
+
+  // Tầm nhìn & Sứ mệnh
+  .tamnhinsumenh__inner
+    min-height: auto
+
+  .tamnhinsumenh__content
+    padding: 2rem 0
+
+  // Đội ngũ: avatar lên trên, căn giữa
+  .doingu__card
+    flex-direction: column
+    align-items: center
+    text-align: center
+
+  .doingu__avatar
+    width: 40vw
+    height: 40vw
+    max-width: 200px
+    max-height: 200px
+
+  .doingu__info
+    align-items: center
+
+  .doingu__link
+    align-self: center
+
+  // Footer: logo căn giữa, thu gọn
+  .footer-content
+    gap: 1.5rem
+
+  .footer-col--logo
+    align-items: center
+
+  .footer-logo
+    width: 40%
+
+  // Kiến thức pháp lý: thumbnail giảm chiều cao còn 50%
+  .kienthucphaply__thumb-link
+    aspect-ratio: 2 / 1
+
+// Social links
+.header-social
+  display: flex
+  align-items: center
+  gap: 0.55rem
+
+.social-link
+  display: flex
+  align-items: center
+  justify-content: center
+  width: 26px
+  height: 26px
+  border-radius: 50%
+  background-color: #888
+  color: #fff
+  transition: opacity 0.2s ease
+  flex-shrink: 0
+
+  svg
+    display: block
+
+  &:hover
+    opacity: 0.85
+
+  &--facebook, &--linkedin, &--google, &--x
+    background-color: var(--primary-color)
+
+// Language switcher row — social icons + lang button cùng hàng, căn phải
+.lang-switcher-row
+  display: flex
+  align-items: center
+  justify-content: flex-end
+  gap: 1rem
+  padding: 0.3rem 0
+  border-top: 1px solid rgba(0, 0, 0, 0.06)
+
+.lang-switcher__link
+  display: inline-flex
+  align-items: center
+  gap: 0.3rem
+  padding: 0.2rem 0.55rem
+  font-size: 0.75rem
+  font-weight: 700
+  border: 2px solid var(--primary-color)
+  border-radius: 4px
+  color: var(--primary-color) !important
+  text-decoration: none
+  transition: background-color 0.2s ease, color 0.2s ease
+
+  &:hover
+    background-color: var(--primary-color)
+    color: #fff !important
+
+.lang-switcher__flag-img
+  display: inline-block
+  width: 18px
+  height: 13px
+  object-fit: cover
+  border-radius: 2px
+  vertical-align: middle
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1)
+
+// Kiểu hiển thị "chỉ cờ" (switcher_display = flag): bỏ hết padding/border
+// của nút pill, để ảnh cờ lấp đầy toàn bộ vùng bấm thay vì nằm nhỏ bên trong
+.lang-switcher__link--flag-only
+  padding: 0
+  border: none
+  border-radius: 3px
+  line-height: 0
+  transition: box-shadow 0.2s ease
+
+  &:hover
+    background-color: transparent !important
+    box-shadow: 0 0 0 2px var(--primary-color)
+
+.lang-switcher__flag-img--fill
+  width: 28px
+  height: 20px
+  border-radius: 3px
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15)
+
+// Header 2-column layout
+.header-layout
+  display: flex
+  align-items: stretch
+  gap: 1.5rem
+
+.header-logo
+  display: flex
+  align-items: center
+  flex-shrink: 0
+  padding: 0.5rem 0
+
+.header-right
+  flex: 1
+  display: flex
+  flex-direction: column
+  justify-content: space-between
+  min-width: 0
+
+.header-info
+  text-align: right
+  font-size: 0.8rem
+  color: var(--text-color)
+  display: flex
+  flex-direction: column
+  gap: 0.2rem
+  padding: 0.5rem 0
+
+  a
+    color: var(--primary-color)
+    text-decoration: none
+    &:hover
+      text-decoration: underline
+
+.header-info__row
+  display: flex
+  align-items: center
+  justify-content: flex-end
+  gap: 0.3rem
+
+// Nav row below info
+.header-bottom
+  border-top: 1px solid rgba(0, 0, 0, 0.08)
+
+// Info block inside mobile nav
+.main-nav__info
+  display: none
+  padding: 1rem 1.5rem
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08)
+  font-size: 0.82rem
+  color: var(--text-color)
+
+  a
+    color: var(--primary-color)
+    text-decoration: none
+
+  .header-info__row
+    justify-content: flex-start
+    margin-bottom: 0.4rem
+
+// main-nav__footer hidden on desktop, shown in drawer on mobile
+.main-nav__footer
+  display: none
+  padding: 1rem 1.5rem
+  border-top: 1px solid rgba(0, 0, 0, 0.08)
+  gap: 1rem
+  align-items: center
+
+@media (max-width: #{$bp-tablet-port})
+  // Header: logo trái + hamburger phải, 1 hàng ngang
+  .header-layout
+    flex-direction: row
+    align-items: center
+
+  .header-logo
+    display: flex
+    align-items: center
+
+  .logo--desktop
+    display: none
+
+  .logo--mobile
+    display: block
+
+  // Hamburger nằm giữa logo và header-right, đẩy ra phải bằng margin-left: auto
+  .menu-toggle
+    display: flex
+    align-items: center
+    margin-left: auto
+    order: 1
+
+  .header-right
+    display: none
+
+  .lang-switcher-row
+    display: none
+
+  .main-nav__info
+    display: block
+
+  .main-nav__logo
+    display: block
+
+  .main-nav__footer
+    display: flex

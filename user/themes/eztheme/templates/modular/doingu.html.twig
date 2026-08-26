@@ -1,0 +1,32 @@
+{% set is_english = uri.path starts with '/en' %}
+{% set members_root = pages.find(is_english ? '/en/members' : '/vi/members') %}
+{% set members = members_root ? members_root.children.published.order('header.order', 'asc') : [] %}
+<section class="doingu">
+    <div class="container">
+        <div class="doingu__header">
+            <h2 class="doingu__heading">{{ page.title }}</h2>
+            <div class="doingu__divider"><span></span></div>
+        </div>
+
+        <div class="doingu__grid">
+            {% for member in members %}
+            <div class="doingu__card ipeb-editable">
+                {{ pml_edit_button(member) }}
+                <div class="doingu__avatar-wrap">
+                    {% set avatar_url = member.header.avatar ? (member.media[member.header.avatar].url ?? member.header.avatar) : null %}
+                    <img class="doingu__avatar" src="{{ avatar_url ?? url('theme://images/avatar-placeholder.png') }}" alt="{{ member.title }}" onerror="this.onerror=null;this.src='{{ url('theme://images/avatar-placeholder.png') }}'">
+                </div>
+                <div class="doingu__info">
+                    <h3 class="doingu__name"><a href="{{ member.url }}">{{ member.title }}</a></h3>
+                    {% if member.header.position %}
+                    <p class="doingu__subtitle">{{ member.header.position }}</p>
+                    {% endif %}
+                    <p class="doingu__summary">{{ member.header.bio }}</p>
+                    <a href="{{ member.url }}" class="doingu__link">{{ is_english ? 'Learn more' : 'Tìm hiểu' }}</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</section>

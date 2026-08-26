@@ -1,0 +1,84 @@
+title: Luật sư (Đội ngũ)
+extends@: default
+
+form:
+  fields:
+    tabs:
+      fields:
+
+        # Gộp toàn bộ trường riêng vào tab "Content" có sẵn của blueprint default
+        content:
+          fields:
+
+            header.position:
+              type: text
+              label: Chức danh
+              placeholder: 'VD: Giám đốc điều hành'
+
+            header.avatar:
+              type: file
+              label: Ảnh đại diện
+              multiple: false
+              destination: 'self@'
+              accept:
+                - image/*
+
+            header.bio:
+              type: textarea
+              label: Giới thiệu ngắn
+              description: 'Đoạn mô tả hiển thị ở thẻ đội ngũ và đầu trang.'
+              rows: 4
+
+            header.featured:
+              type: toggle
+              label: Nổi bật
+              description: 'Đưa lên đầu danh sách đội ngũ.'
+              highlight: 0
+              default: 0
+              options:
+                1: 'Có'
+                0: 'Không'
+
+            header.email:
+              type: text
+              label: Email
+              validate:
+                type: email
+
+            header.phone:
+              type: text
+              label: Số điện thoại
+
+            header.experience_years:
+              type: number
+              label: Số năm kinh nghiệm
+
+            header.education:
+              type: list
+              label: Học vấn
+              style: vertical
+              collapsed: false
+              fields:
+                .item:
+                  type: text
+                  label: Bằng cấp / Trình độ
+
+            header.expertise:
+              type: list
+              label: Lĩnh vực chuyên môn
+              style: vertical
+              collapsed: false
+              fields:
+                .item:
+                  type: text
+                  label: Lĩnh vực
+
+            header.certificates:
+              type: list
+              label: Chứng chỉ hành nghề
+              style: vertical
+              collapsed: false
+              fields:
+                .item:
+                  type: text
+                  label: Chứng chỉ

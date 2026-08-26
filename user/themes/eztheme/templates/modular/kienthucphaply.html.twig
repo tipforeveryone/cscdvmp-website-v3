@@ -1,0 +1,44 @@
+{% set is_english = uri.path starts with '/en' %}
+{% if is_english %}
+    {% set articles = page.find('/en/kienthucphaply').children().order('date', 'desc').slice(0, 4) %}
+    {% set label_detail = 'Read more' %}
+    {% set label_all = 'View all articles' %}
+    {% set url_all = '/en/kienthucphaply' %}
+{% else %}
+    {% set articles = page.find('/vi/kienthucphaply').children().order('date', 'desc').slice(0, 4) %}
+    {% set label_detail = 'Chi tiết' %}
+    {% set label_all = 'Xem tất cả bài viết' %}
+    {% set url_all = '/vi/kienthucphaply' %}
+{% endif %}
+
+<section class="kienthucphaply">
+    <div class="container">
+        <div class="kienthucphaply__header">
+            <h2 class="kienthucphaply__heading">{{ page.title }}</h2>
+            <div class="kienthucphaply__divider"><span></span></div>
+        </div>
+
+        <div class="kienthucphaply__grid">
+            {% for article in articles %}
+            <article class="kienthucphaply__card ipeb-editable">
+                {{ pml_edit_button(article) }}
+                <a href="{{ article.url }}" class="kienthucphaply__thumb-link">
+                    <img class="kienthucphaply__thumb" src="{{ article.header.thumbnail }}" alt="{{ article.title }}">
+                </a>
+                <div class="kienthucphaply__body">
+                    <p class="kienthucphaply__date">{{ article.date|date("d/m/Y") }}</p>
+                    <h3 class="kienthucphaply__title">
+                        <a href="{{ article.url }}">{{ article.title }}</a>
+                    </h3>
+                    <p class="kienthucphaply__summary">{{ article.header.excerpt }}</p>
+                    <a href="{{ article.url }}" class="kienthucphaply__btn">{{ label_detail }}</a>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+
+        <div class="kienthucphaply__footer">
+            <a href="{{ url_all }}" class="kienthucphaply__more">{{ label_all }}</a>
+        </div>
+    </div>
+</section>

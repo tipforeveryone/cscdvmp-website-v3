@@ -1,0 +1,22 @@
+{% extends 'partials/base.html.twig' %}
+
+{% block content %}
+    <main class="container">
+    <div class="error-page">
+        <h1>{{ status_code }}</h1>
+        <h2>{{ status_text }}</h2>
+        
+        {% if status_code == 404 %}
+            <p>Trang bạn tìm kiếm không được tìm thấy.</p>
+        {% elseif status_code == 403 %}
+            <p>Bạn không có quyền truy cập trang này.</p>
+        {% elseif status_code == 500 %}
+            <p>Có lỗi máy chủ nội bộ. Vui lòng thử lại sau.</p>
+        {% else %}
+            <p>Có lỗi xảy ra. Vui lòng thử lại sau.</p>
+        {% endif %}
+
+        <a href="{{ base_url ?: '/' }}" class="btn">Quay về trang chủ</a>
+    </div>
+    </main>
+{% endblock %}

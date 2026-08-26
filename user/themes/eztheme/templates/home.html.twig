@@ -1,0 +1,11 @@
+{% extends 'partials/base.html.twig' %}
+
+{% block title %}{{ page.title }}{% endblock %}
+
+{% block content %}
+    {% include 'partials/slider.html.twig' %}
+
+    {% for module in page.collection() %}
+        {% include module.template ~ '.html.twig' with { page: module } %}
+    {% endfor %}
+{% endblock %}

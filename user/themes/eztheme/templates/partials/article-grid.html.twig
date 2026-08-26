@@ -1,0 +1,39 @@
+{#
+  Grid bài viết dùng chung — cho trang danh sách & khối "Bài viết khác".
+  Tham số (truyền qua include ... with {...}):
+    articles      : collection các page bài viết (bắt buộc)
+    show_excerpt  : bool — hiện đoạn trích (mặc định false)
+    more_label    : string|null — nếu set thì hiện nút "Đọc thêm"
+    exclude_slug  : string|null — bỏ qua page có slug này (vd loại bài đang xem)
+#}
+{% set show_excerpt = show_excerpt|default(false) %}
+{% set more_label   = more_label|default(null) %}
+{% set exclude_slug = exclude_slug|default(null) %}
+
+<div class="article-grid">
+    {% for article in articles %}
+        {% if exclude_slug is null or article.slug != exclude_slug %}
+        <div class="article-card ipeb-editable">
+            {{ pml_edit_button(article) }}
+            <a href="{{ article.url }}" class="article-card__link">
+                {% if article.header.thumbnail %}
+                    <img src="{{ article.header.thumbnail }}" alt="{{ article.title }}" class="article-card__thumb">
+                {% elseif article.media.images|first %}
+                    <img src="{{ article.media.images|first.url }}" alt="{{ article.title }}" class="article-card__thumb">
+                {% else %}
+                    <div class="article-card__thumb article-card__thumb--placeholder"></div>
+                {% endif %}
+                <div class="article-card__body">
+                    <h3 class="article-card__title">{{ article.title }}</h3>
+                    {% if show_excerpt and article.header.excerpt %}
+                        <p class="article-card__excerpt">{{ article.header.excerpt }}</p>
+                    {% endif %}
+                    {% if more_label %}
+                        <span class="article-card__more">{{ more_label }}</span>
+                    {% endif %}
+                </div>
+            </a>
+        </div>
+        {% endif %}
+    {% endfor %}
+</div>

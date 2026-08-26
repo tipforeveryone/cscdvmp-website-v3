@@ -1,0 +1,29 @@
+{% extends 'partials/base.html.twig' %}
+
+{% block content %}
+{% set is_english = smls_current_language(page) == 'en' %}
+    <div class="page-hero page-hero--simple">
+        <div class="container">
+            <div class="page-hero__inner">
+                <div class="page-hero__text">
+                    <h1 class="page-hero__title">{{ page.title }}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main class="article-list-page">
+    <div class="container">
+        {% if page.collection|length %}
+            {% include 'partials/article-grid.html.twig' with {
+                articles: page.collection,
+                show_excerpt: true,
+                more_label: (is_english ? 'Read more' : 'Đọc thêm')
+            } %}
+            {% include 'partials/pagination.html.twig' %}
+        {% else %}
+            <p>Chưa có bài viết nào.</p>
+        {% endif %}
+    </div>
+    </main>
+{% endblock %}

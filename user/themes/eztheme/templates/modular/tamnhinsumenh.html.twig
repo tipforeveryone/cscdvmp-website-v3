@@ -1,0 +1,22 @@
+{% set is_english = uri.path starts with '/en' %}
+{# Nội dung lấy từ page 'block-content' có custom_position == 'home-tamnhin-sumenh' #}
+{% set bc_root = pages.find(is_english ? '/en/block-content' : '/vi/block-content') %}
+<section class="tamnhinsumenh"{% if page.header.background_image %} style="background-image: url('{{ page.header.background_image }}')"{% endif %}>
+    <div class="tamnhinsumenh__overlay"></div>
+    <div class="container tamnhinsumenh__inner">
+        <div class="tamnhinsumenh__content">
+            <h2 class="tamnhinsumenh__heading">{{ page.title }}</h2>
+            <div class="tamnhinsumenh__divider"><span></span></div>
+            {% if bc_root %}
+            {% for block in bc_root.children.published.order('folder') %}
+                {% if block.header.custom_position == 'home-tamnhin-sumenh' %}
+                <div class="tamnhinsumenh__body ipeb-editable">
+                    {{ pml_edit_button(block) }}
+                    {{ block.content|raw }}
+                </div>
+                {% endif %}
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</section>

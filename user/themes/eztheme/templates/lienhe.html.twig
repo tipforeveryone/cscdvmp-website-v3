@@ -1,0 +1,151 @@
+{% extends 'partials/base.html.twig' %}
+
+{% block content %}
+    {% set is_english = uri.path starts with '/en' %}
+    {% set footer = page.find(is_english ? '/en/footer' : '/vi/footer') %}
+
+    <div class="page-hero page-hero--simple">
+        <div class="container">
+            <div class="page-hero__inner">
+                <div class="page-hero__text">
+                    <h1 class="page-hero__title">{{ page.title }}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main class="lienhe-page">
+        <div class="container">
+            <div class="lienhe-layout">
+
+                {# Cột trái: đặt lịch hẹn + form liên hệ #}
+                <div class="lienhe-form-wrap">
+
+                    {# Đặt lịch hẹn #}
+                    <div class="lienhe-booking">
+                        <h2 class="lienhe__heading">{{ is_english ? 'Book Appointment with Us' : 'Đặt lịch hẹn với chúng tôi' }}</h2>
+                        <div class="lienhe-booking__grid">
+                            <div class="lienhe-booking__col">
+                                <p class="lienhe__desc">{{ is_english ? 'Please call <strong>the telephone number provided</strong> to book an appointment with the Notary Public, or <strong>click the button below</strong> to reserve the best time slot of your choice.' : 'Quý vị vui lòng gọi số điện thoại <strong>(613) 608 4046</strong> để đặt lịch hẹn với Công chứng viên Giang Lê hoặc sử dụng công cụ đặt lịch hẹn trực tuyến dưới đây. Chúng tôi làm việc <strong>tất cả các ngày trong tuần (kể cả ngày nghỉ cuối tuần và ngày lễ)</strong>.' }}</p>
+                                <a href="https://app.squareup.com/appointments/book/v5uqz6qgv01cw4/LV0TKVV6GH2FB/start" class="lienhe-booking__btn" target="_blank" rel="noopener noreferrer">{{ is_english ? 'Meet Giang Le Notary' : 'Hẹn gặp công chứng viên' }}</a>
+                            </div>
+                            <div class="lienhe-booking__col">
+                                <p class="lienhe__desc">{{ is_english ? 'If you are seeking advice on an immigration matter, please use the booking tool below to schedule a meeting with <strong>Aziz Fatima</strong>, a Regulated Canadian Immigration Consultant <strong>(RCIC# R718477)</strong>. The booking button will connect you directly to her via video call or telephone call.' : 'Nếu Quý vị cần tư vấn di trú hoặc tư vấn du học Canada, vui lòng sử dụng công cụ đặt lịch hẹn tư vấn dưới đây. Vui lòng lưu ý rằng dịch vụ này là <strong>dịch vụ có tính phí theo giờ</strong> bởi chuyên gia Tư vấn di trú.' }}</p>
+                                <a href="https://calendly.com/immifile-ca/meeting-with-rcic" class="lienhe-booking__btn" target="_blank" rel="noopener noreferrer">{{ is_english ? 'Meet RCIC' : 'Hẹn gặp tư vấn di trú' }}</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    {# Xác nhận lịch hẹn và Hủy cuộc hẹn #}
+                    <div class="lienhe-section">
+                        {% if is_english %}
+                            <h2 class="lienhe__heading">Confirming Appointments</h2>
+                            <p>Once you have scheduled an appointment, an <strong>automatic confirmation</strong> will be sent to your email. If the Notary is not available at your preferred time, she will call you to reschedule an appointment.</p>
+                            <p>Please be advised that a <strong>government-issued photo identity card</strong> must be presented to the Notary for client verification purposes. If you are unable to attend the meeting on the scheduled date and time, please inform us <strong>at least 03 hours in advance</strong>. A cancellation fee of <strong>$30</strong> will be charged on cancellation without notice or with less than 3 hours' notice.</p>
+                        {% else %}
+                            <h2 class="lienhe__heading">Xác nhận lịch hẹn và Hủy cuộc hẹn</h2>
+                            <p>Sau khi Quý vị đặt lịch hẹn trực tuyến, <strong>thư xác nhận sẽ tự động gửi về email</strong> cho Quý vị. Trong trường hợp Công chứng viên không thể thực hiện được cuộc hẹn, Công chứng viên sẽ gọi lại cho Quý vị để thu xếp lịch làm việc phù hợp nhất.</p>
+                            <p>Quý vị cần thông báo cho chúng tôi <strong>trước 03 (ba) tiếng</strong> nếu Quý vị không thể tới gặp Công chứng viên như đã yêu cầu. Chúng tôi giữ quyền yêu cầu thanh toán <strong>phí hủy hẹn $30</strong> nếu Quý vị hủy hẹn mà không báo trước hoặc thông báo muộn dưới 3 tiếng.</p>
+                            <p>Xin lưu ý rằng một số Khách hàng sẽ không được tiếp cận dịch vụ nếu Quý vị không thực hiện thông báo hủy hẹn. Chúng tôi chân thành mong nhận được sự hợp tác và tôn trọng của Quý vị.</p>
+                        {% endif %}
+                    </div>
+
+                    {# Chứng thực chữ ký/ Tuyên thệ từ xa qua Video Calls #}
+                    <div class="lienhe-section">
+                        {% if is_english %}
+                            <h2 class="lienhe__heading">Virtual Meeting via Video Call</h2>
+                            <p>We understand and respect how busy life you have. If you either don't live in Ottawa or you are unable to make an appointment in-person or walk in our office because of any reason, we can schedule a virtual appointment using <strong>Google Meet or MS Teams</strong>. Please consult the instructions for our online commissioning service <a href="/en/online-commissioning">here</a>.</p>
+                            <p>Please be advised that online service applies <strong>only to the commissioning of an Oath or Declaration</strong>. Any document to be certified as a true copy of the original document <strong>must be done in-person</strong>.</p>
+                            <p>You will need a cellphone, tablet, laptop, or PC with internet access to sign the document digitally. <strong>Book an appointment with us today</strong> and let's start talking!</p>
+                        {% else %}
+                            <h2 class="lienhe__heading">Chứng thực chữ ký/ Tuyên thệ từ xa qua Video Calls</h2>
+                            <p>Thấu hiểu sự bận rộn và bất tiện do khoảng cách địa lý, nếu Quý vị không sinh sống tại Ottawa, hoặc Quý vị không thể đến văn phòng gặp gỡ trực tiếp bởi bất kỳ lí do gì, chúng tôi cung cấp giải pháp linh hoạt bằng việc chứng thực chữ ký từ xa qua Video Calls bằng các ứng dụng trên điện thoại thông minh hoặc các thiết bị điện tử có trang bị camera. Giải pháp này được sử dụng không chỉ trong giờ làm việc quy định mà còn ở bất kỳ thời gian nào Quý vị cần, bất kỳ địa điểm nào thuận tiện cho Quý vị dù ở nhà riêng hay văn phòng.</p>
+                            <p>Để thu xếp lịch hẹn cho dịch vụ chứng thực chữ ký/ tuyên thệ từ xa, vui lòng liên lạc với chúng tôi qua số điện thoại <strong>+1613 6084046 (Canada)</strong> hoặc <strong>+84941280956 (Việt Nam)</strong> hoặc email: <strong>services@eznotary.ca</strong>.</p>
+                            <p>Xin Quý vị lưu ý, nội dung cuộc trao đổi bằng Video Calls có thể được xem là đối tượng được bảo mật bởi mối quan hệ giữa Công chứng viên và khách hàng, do đó có thể được ghi âm, ghi hình và có cùng mức độ bảo mật như cuộc gặp gỡ tư vấn trực tiếp.</p>
+                            <p>Vui lòng đọc kỹ hướng dẫn quy trình chứng thực trực tuyến trước khi gặp Công chứng viên qua cuộc gọi video. Giấy tờ tùy thân được chấp nhận là <strong>Hộ chiếu, thẻ thường trú nhân Canada và giấy phép lái xe</strong>. Tại Ontario, <strong>thẻ bảo hiểm y tế OHIP không được phép sử dụng thay thế</strong> như giấy tờ tùy thân.</p>
+                            <p>Tất cả mọi cuộc gọi Video Calls đều <strong>miễn phí</strong> khi sử dụng các ứng dụng điện thoại thông minh FaceTime, Whatsapp, Viber hoặc Zalo. Thật thuận tiện và dễ dàng, hãy bắt đầu liên lạc với chúng tôi theo cách này nhé!</p>
+                        {% endif %}
+                    </div>
+
+                    {% include 'partials/contact-google-form.html.twig' %}
+                </div>
+
+                {# Cột phải: thông tin văn phòng #}
+                <div class="lienhe-info">
+                    <h2 class="lienhe__heading">{{ is_english ? 'Offices' : 'Văn phòng' }}</h2>
+                    {% if footer.header.hours_notice %}
+                        <div class="lienhe-notice">
+                            {% for line in footer.header.hours_notice %}
+                                <p>{{ line }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    {% if footer %}
+                        {% for office in footer.header.offices %}
+                        <div class="lienhe-office">
+                            <h3 class="lienhe-office__name">{{ office.location }}</h3>
+                            {% for addr in office.addresses %}
+                                <p class="lienhe-office__address">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                    {{ addr }}
+                                </p>
+                            {% endfor %}
+                        </div>
+                        {% endfor %}
+
+                        {% if footer.header.phones %}
+                        <div class="lienhe-office">
+                            <h3 class="lienhe-office__name">{{ footer.header.phone_label }}</h3>
+                            <p class="lienhe-office__phone">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.62 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                                {% for p in footer.header.phones %}<a href="tel:{{ p|replace({' ': '', '(': '', ')': ''}) }}">{{ p }}</a>{% if not loop.last %} - {% endif %}{% endfor %}
+                            </p>
+                        </div>
+                        {% endif %}
+
+                        {% if footer.header.emails %}
+                        <div class="lienhe-office">
+                            <h3 class="lienhe-office__name">{{ footer.header.email_label }}</h3>
+                            <p class="lienhe-office__phone">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                                {% for e in footer.header.emails %}<a href="mailto:{{ e }}">{{ e }}</a>{% if not loop.last %} - {% endif %}{% endfor %}
+                            </p>
+                        </div>
+                        {% endif %}
+
+                        {# Bản đồ trụ sở chính #}
+                        <div class="lienhe-office">
+                            <h3 class="lienhe-office__name">{{ is_english ? 'Visit Us at Our Office' : 'Ghé thăm văn phòng của chúng tôi' }}</h3>
+                            <p class="lienhe-office__address">{{ is_english ? "We're always happy to welcome you in person. Stop by and let's talk!" : 'Chúng tôi luôn sẵn lòng chào đón bạn trực tiếp tại văn phòng. Hãy đến và cùng trò chuyện!' }}</p>
+                            <div id="lienhe-map" class="lienhe-map" data-lat="45.450315537659" data-lon="-75.466761498453" data-zoom="10" data-popup="364 Ravenswood Way, Orleans, ON K4A 0R8"></div>
+                        </div>
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+    </main>
+{% endblock %}
+
+{% block extra_head %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var el = document.getElementById('lienhe-map');
+            if (!el || typeof L === 'undefined') return;
+            var lat = parseFloat(el.dataset.lat);
+            var lon = parseFloat(el.dataset.lon);
+            var map = L.map(el).setView([lat, lon], parseInt(el.dataset.zoom, 10));
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+            L.marker([lat, lon]).addTo(map).bindPopup(el.dataset.popup);
+        });
+    </script>
+{% endblock %}
