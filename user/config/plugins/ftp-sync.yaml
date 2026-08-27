@@ -2,7 +2,7 @@ enabled: true
 force_allow_remote: false
 backup_enabled: true
 remote_base_path: /
-sync_plugins: null
+sync_plugins: ''
 ignore_patterns:
   - .git
   - .ddev
