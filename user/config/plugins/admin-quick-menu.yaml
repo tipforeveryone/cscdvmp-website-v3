@@ -8,3 +8,7 @@ menu_shortcuts:
     label: 'Bài viết dịch vụ (EN)'
     parent_path: /en/services
     template: article
+custom_links:
+  -
+    label: 'Quản lý nội dung'
+    url: /admin/easy-content-manager
