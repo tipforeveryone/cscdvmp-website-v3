@@ -1817,7 +1817,7 @@ footer p {
   justify-content: flex-start;
 }
 
-.footer-logo {
+.footer-col--logo img {
   width: 100%;
   height: auto;
   display: block;
@@ -1831,20 +1831,19 @@ footer p {
   color: #fff;
 }
 
-.footer-disclaimer-heading {
-  font-size: 0.875rem;
-  color: #fff;
-  margin-bottom: 0.5rem;
-}
-
-.footer-disclaimer {
+.footer-disclaimer p {
   font-size: 0.8rem;
   line-height: 1.7;
   color: rgba(255, 255, 255, 0.75);
   margin-bottom: 1rem;
 }
-.footer-disclaimer strong {
+.footer-disclaimer p strong {
   color: #fff;
+}
+.footer-disclaimer p:first-child {
+  font-size: 0.875rem;
+  color: #fff;
+  margin-bottom: 0.5rem;
 }
 
 .footer-bottom {
@@ -2286,7 +2285,7 @@ th {
     grid-template-columns: 1fr;
     gap: 2rem;
   }
-  .footer-logo {
+  .footer-col--logo img {
     width: 40%;
   }
   form input[type=text],
@@ -2398,7 +2397,7 @@ th {
   .footer-col--logo {
     align-items: center;
   }
-  .footer-logo {
+  .footer-col--logo img {
     width: 40%;
   }
   .kienthucphaply__thumb-link {

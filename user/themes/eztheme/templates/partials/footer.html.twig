@@ -1,59 +1,57 @@
 {% set is_english = uri.path starts with '/en' %}
 {% set footer = page.find(is_english ? '/en/footer' : '/vi/footer') %}
+{# Nội dung 4 cột lấy từ page 'block-content' có custom_position == 'footer-*' #}
+{% set bc_root = pages.find(is_english ? '/en/block-content' : '/vi/block-content') %}
 
 <footer>
     <div class="container">
         <div class="footer-content">
 
             {# Cột 0: Logo công ty #}
-            <div class="footer-col footer-col--logo">
-                <img src="{{ url('theme://images/logo-footer.png') }}" alt="EzNotary" class="footer-logo">
-            </div>
+            {% if bc_root %}
+            {% for block in bc_root.children.published.order('folder') %}
+                {% if block.header.custom_position == 'footer-logo' %}
+                <div class="footer-col footer-col--logo ipeb-editable">
+                    {{ pml_edit_button(block) }}
+                    {{ block.content|raw }}
+                </div>
+                {% endif %}
+            {% endfor %}
 
             {# Cột 1: Địa chỉ văn phòng + liên hệ #}
-            <div class="footer-col">
-                {% for office in footer.header.offices %}
-                <div class="footer-office">
-                    <p><strong>{{ office.location }}:</strong></p>
-                    {% for addr in office.addresses %}
-                    <p>{{ addr }}</p>
-                    {% endfor %}
-                </div>
-                {% endfor %}
-
-                {% if footer.header.emails %}
-                <div class="footer-office">
-                    <p><strong>{{ footer.header.email_label }}:</strong> {% for e in footer.header.emails %}<a href="mailto:{{ e }}">{{ e }}</a>{% if not loop.last %} - {% endif %}{% endfor %}</p>
+            {% for block in bc_root.children.published.order('folder') %}
+                {% if block.header.custom_position == 'footer-contact' %}
+                <div class="footer-col footer-office ipeb-editable">
+                    {{ pml_edit_button(block) }}
+                    {{ block.content|raw }}
                 </div>
                 {% endif %}
-
-                {% if footer.header.phones %}
-                <div class="footer-office">
-                    <p><strong>{{ footer.header.phone_label }}:</strong> {% for p in footer.header.phones %}<a href="tel:{{ p|replace({' ': '', '(': '', ')': ''}) }}">{{ p }}</a>{% if not loop.last %} - {% endif %}{% endfor %}</p>
-                </div>
-                {% endif %}
-
-                {% if footer.header.tax_number %}
-                <div class="footer-office">
-                    <p><strong>{{ footer.header.tax_number_label }}:</strong> {{ footer.header.tax_number }}</p>
-                </div>
-                {% endif %}
-            </div>
+            {% endfor %}
 
             {# Cột 2: Disclaimer #}
-            <div class="footer-col">
-                {% if footer.header.disclaimer_label %}
-                <p class="footer-disclaimer-heading"><strong>{{ footer.header.disclaimer_label }}:</strong></p>
+            {% for block in bc_root.children.published.order('folder') %}
+                {% if block.header.custom_position == 'footer-disclaimer' %}
+                <div class="footer-col footer-disclaimer ipeb-editable">
+                    {{ pml_edit_button(block) }}
+                    {{ block.content|raw }}
+                </div>
                 {% endif %}
-                {% for para in footer.header.disclaimer %}
-                <p class="footer-disclaimer">{{ para }}</p>
-                {% endfor %}
-            </div>
+            {% endfor %}
+            {% endif %}
 
         </div>
 
         <div class="footer-bottom">
-            <p>&copy; {{ now|date('Y') }} {{ footer.header.copyright }}</p>
+            {% if bc_root %}
+            {% for block in bc_root.children.published.order('folder') %}
+                {% if block.header.custom_position == 'footer-copyright' %}
+                <p class="ipeb-editable">
+                    {{ pml_edit_button(block) }}
+                    &copy; {{ now|date('Y') }} {{ block.content|raw|striptags }}
+                </p>
+                {% endif %}
+            {% endfor %}
+            {% endif %}
             {% if tip_visitor_gadget_available and footer.header.pageviews_label and footer.header.visitors_label %}
             {{ tip_visitor_gadget(footer.header.pageviews_label, footer.header.visitors_label) }}
             {% endif %}

@@ -1787,7 +1787,7 @@ footer
     align-items: center
     justify-content: flex-start
 
-.footer-logo
+.footer-col--logo img
   width: 100%
   height: auto
   display: block
@@ -1800,19 +1800,20 @@ footer
     strong
       color: #fff
 
-.footer-disclaimer-heading
-  font-size: 0.875rem
-  color: #fff
-  margin-bottom: 0.5rem
-
 .footer-disclaimer
-  font-size: 0.8rem
-  line-height: 1.7
-  color: rgba(255, 255, 255, 0.75)
-  margin-bottom: 1rem
+  p
+    font-size: 0.8rem
+    line-height: 1.7
+    color: rgba(255, 255, 255, 0.75)
+    margin-bottom: 1rem
 
-  strong
-    color: #fff
+    strong
+      color: #fff
+
+    &:first-child
+      font-size: 0.875rem
+      color: #fff
+      margin-bottom: 0.5rem
 
 .footer-bottom
   text-align: center
@@ -2282,7 +2283,7 @@ th
     grid-template-columns: 1fr
     gap: 2rem
 
-  .footer-logo
+  .footer-col--logo img
     width: 40%
 
   form
@@ -2405,7 +2406,7 @@ th
   .footer-col--logo
     align-items: center
 
-  .footer-logo
+  .footer-col--logo img
     width: 40%
 
   // Kiến thức pháp lý: thumbnail giảm chiều cao còn 50%
