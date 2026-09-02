@@ -1,6 +1,5 @@
-enabled: true
 templates:
-  article: true
+  article: false
   article-list: false
   baotri: false
   block-content: false
@@ -17,4 +16,7 @@ templates:
   members: false
   modular: false
   root: false
+  blog: false
+  wiki: true
+  blog-item: true
 enable_slms: true

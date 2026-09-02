@@ -190,6 +190,10 @@ nav a:hover {
   text-decoration: none;
   border-bottom: 3px solid transparent;
   transition: padding 0.3s ease, color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+  /* Mục cha không có link thật (Download, Giới thiệu...) render bằng <span>,
+     mặc định trình duyệt hiện con trỏ chọn chữ (I-beam) thay vì bàn tay — vẫn
+     bấm/hover được để mở submenu nên nên có cursor pointer như link thật. */
+  cursor: pointer;
 }
 .menu-link:hover {
   color: var(--primary-color);
@@ -2599,129 +2603,374 @@ th {
   }
 }
 
-/* ===================== CSCD: Vietnam Mobile Police — homepage blocks =====================
-   Palette/typography reverse-engineered from the live reference site's own SSR markup
-   (rgb(17,17,17)/rgb(28,28,28) dark overlays, rgb(255,197,0) gold heading, rgb(187,187,187)
-   muted body text on dark, rgb(19,112,158)/rgb(255,77,77) pill-button colors, Roboto font,
-   h1 2.5rem / h2 2rem @ font-weight 600). Whole homepage is a dark "cinematic" theme except
-   the Game Features section, which is the one light (#f8f8f8) block on the page. */
 
-body.template-home {
+/* =====================================================================
+   CSCD: Vietnam Mobile Police — giao diện "tactical shooter"
+   ---------------------------------------------------------------------
+   Ngôn ngữ thị giác: bảng điều khiển HUD của một đơn vị tác chiến —
+   nền gần như đen, chữ condensed in hoa, đường kẻ mảnh, góc vát chéo,
+   khung ngắm ở 4 góc, lớp scanline mờ và một màu nhấn hổ phách duy nhất.
+
+   Toàn bộ chữ đều đến từ nội dung trang (EN /en, VI /vi) nên khối CSS này
+   dùng chung cho cả hai ngôn ngữ; font Oswald + Barlow đều có bộ dấu
+   tiếng Việt. Chỉ áp cho .template-home để các trang tutorial (template
+   default, nền sáng) giữ nguyên như cũ.
+   ===================================================================== */
+
+body.template-home, body.template-wiki , body.template-blog , body.template-blog-item {
+  --t-bg: #07090b;
+  --t-bg-2: #0b0e12;
+  --t-panel: rgba(18, 22, 27, 0.72);
+  --t-line: rgba(255, 255, 255, 0.1);
+  --t-line-strong: rgba(255, 255, 255, 0.22);
+  --t-amber: #ffb020;
+  --t-amber-dim: rgba(255, 176, 32, 0.16);
+  --t-red: #e63946;
+  --t-steel: #78929f;
+  --t-text: #d5dade;
+  --t-muted: #8c98a1;
+  --t-heading: #e6e9eb;
+  --t-notch: 14px;
+
+  background: var(--t-bg);
   background-image: none;
+  color: var(--t-text);
+  font-family: 'Barlow', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
-.cscd-hero,
-.cscd-intro,
-.cscd-feature-cards,
-.cscd-about,
-.cscd-faq,
-.cscd-cta,
-.cscd-social,
-.cscd-game-features {
-  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+body.template-home h1, body.template-wiki h1, body.template-blog h1, body.template-blog-item h1,
+body.template-home h2, body.template-wiki h2, body.template-blog h2, body.template-blog-item h2,
+body.template-home h3, body.template-wiki h3, body.template-blog h3, body.template-blog-item h3,
+body.template-home h4, body.template-wiki h4 , body.template-blog h4 , body.template-blog-item h4 {
+  font-family: 'Oswald', 'Barlow Condensed', sans-serif;
+  letter-spacing: 0.02em;
 }
 
-.cscd-heading,
-.cscd-hero__heading {
-  font-weight: 600;
-  text-align: center;
+/* Neo cuộn: bù chiều cao thanh điều hướng dính ở trên */
+body.template-home [id], body.template-wiki [id] , body.template-blog [id] , body.template-blog-item [id] {
+  scroll-margin-top: 84px;
 }
 
-.cscd-heading {
-  font-size: 2rem;
-  margin: 0 0 2rem;
-}
-.cscd-heading--gold {
-  color: #ffc500;
-}
-
-.cscd-text-muted {
-  color: #bbbbbb;
-}
-.cscd-section--light .cscd-text-muted {
-  color: #555;
-}
-
-/* Section shell: full-bleed background image + dark tint, content sits above it */
-.cscd-section {
-  position: relative;
-}
-.cscd-section .container {
-  position: relative;
-  z-index: 1;
-}
-.cscd-section--dark {
-  background: #111 center/cover no-repeat;
-  background-attachment: fixed;
-  color: rgba(255, 255, 255, 0.93);
-  padding: 5rem 0;
-}
-.cscd-section--light {
-  background: #f8f8f8;
-  color: #1c1c1c;
-  padding: 5rem 0;
-}
-.cscd-overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background: rgba(17, 17, 17, 0.72);
-}
-.cscd-overlay--strong {
-  background: rgba(0, 0, 0, 0.6);
-}
-@media (max-width: 768px) {
-  .cscd-section--dark {
-    background-attachment: scroll;
+@media (prefers-reduced-motion: reduce) {
+  body.template-home, body.template-wiki, body.template-blog, body.template-blog-item,
+  body.template-home *, body.template-wiki * , body.template-blog * , body.template-blog-item * {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto;
   }
 }
 
-/* Buttons: solid brand-color pills (from real hero/CTA/social markup) + an outline-white pill */
-.cscd-btn {
-  display: inline-block;
-  padding: 0.85rem 2rem;
-  border-radius: 999px;
-  font-weight: 600;
-  text-decoration: none;
-  color: #fff;
-  border: 2px solid transparent;
-  transition: opacity 0.2s ease, background-color 0.2s ease;
+/* ---------------------------------------------------------------------
+   Vỏ section + các lớp phủ khí quyển
+   --------------------------------------------------------------------- */
+.cscd-section {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(4rem, 9vw, 7.5rem) 0;
+  background: var(--t-bg);
+  overflow: hidden;
 }
-.cscd-btn--teal {
-  background: #13709e;
-}
-.cscd-btn--red {
-  background: #ff4d4d;
-}
-.cscd-btn--teal:hover,
-.cscd-btn--red:hover {
-  opacity: 0.85;
-}
-.cscd-btn--outline-light {
-  background: transparent;
-  border-color: currentColor;
-  color: #fff;
-}
-.cscd-btn--outline-light:hover {
-  background: rgba(255, 255, 255, 0.12);
+.cscd-section .container {
+  position: relative;
+  z-index: 2;
 }
 
-/* Hero */
-.cscd-hero__content {
-  padding: 4rem var(--spacing-unit);
-  text-align: center;
+/* Ảnh nền lấy từ biến --cscd-bg do Twig gán theo từng module */
+.cscd-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: var(--cscd-bg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
-.cscd-hero__heading {
-  font-size: 2.5rem;
+
+/* Nền đứng yên khi cuộn (không cuộn theo section) — áp dụng cho các khối nội dung
+   tĩnh (không có animation drift như hero), để tạo cảm giác lớp sâu khi cuộn qua. */
+.cscd-about .cscd-bg,
+.cscd-faq .cscd-bg,
+.wiki-hero .cscd-bg,
+.wiki-layout-wrap .cscd-bg {
+  background-attachment: fixed;
+}
+.cscd-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(7, 9, 11, 0.82) 0%, rgba(7, 9, 11, 0.68) 45%, rgba(7, 9, 11, 0.94) 100%);
+}
+.cscd-bg--dim::after {
+  background: linear-gradient(180deg, rgba(7, 9, 11, 0.92) 0%, rgba(7, 9, 11, 0.84) 50%, rgba(7, 9, 11, 0.96) 100%);
+}
+.cscd-bg--deep {
+  filter: saturate(0.4);
+}
+.cscd-bg--deep::after {
+  background: linear-gradient(180deg, rgba(7, 9, 11, 0.95) 0%, rgba(7, 9, 11, 0.9) 50%, rgba(7, 9, 11, 0.98) 100%);
+}
+
+/* Scanline: gợi cảm giác nhìn qua màn hình khí tài, giữ rất mờ để không nhiễu chữ */
+.cscd-scanlines {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.035) 0px, rgba(255, 255, 255, 0.035) 1px, transparent 1px, transparent 4px);
+  mix-blend-mode: overlay;
+}
+
+/* Lưới toạ độ mảnh cho các khối không có ảnh nền */
+.cscd-grid-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.032) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.032) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(ellipse 90% 70% at 50% 40%, #000 30%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 40%, #000 30%, transparent 100%);
+}
+
+.cscd-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(ellipse 75% 65% at 50% 45%, transparent 30%, rgba(0, 0, 0, 0.72) 100%);
+}
+
+/* Khung ngắm 4 góc quanh khối nội dung */
+.cscd-brackets {
+  position: absolute;
+  inset: -1.75rem -0.5rem;
+  pointer-events: none;
+}
+.cscd-brackets i {
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  border: 2px solid var(--t-amber);
+  opacity: 0.55;
+}
+.cscd-brackets i:nth-child(1) { top: 0; left: 0; border-right: 0; border-bottom: 0; }
+.cscd-brackets i:nth-child(2) { top: 0; right: 0; border-left: 0; border-bottom: 0; }
+.cscd-brackets i:nth-child(3) { bottom: 0; left: 0; border-right: 0; border-top: 0; }
+.cscd-brackets i:nth-child(4) { bottom: 0; right: 0; border-left: 0; border-top: 0; }
+
+/* ---------------------------------------------------------------------
+   Kiểu chữ dùng chung
+   --------------------------------------------------------------------- */
+/* Chỉ còn dùng ở hero — các khối khác đã bỏ subtitle theo yêu cầu */
+.cscd-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0 0 1rem;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.32em;
   text-transform: uppercase;
-  margin-bottom: 1.5rem;
+  color: var(--t-amber);
+}
+.cscd-eyebrow__dot {
+  width: 7px;
+  height: 7px;
+  background: var(--t-amber);
+  transform: rotate(45deg);
+  flex: none;
+  animation: cscd-pulse 2.4s ease-in-out infinite;
+}
+@keyframes cscd-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
+
+.cscd-heading {
+  margin: 0;
+  font-size: clamp(1.9rem, 3.6vw, 2.9rem);
+  font-weight: 600;
+  line-height: 1.1;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--t-heading);
+}
+.cscd-heading--left {
+  text-align: left;
+}
+.cscd-heading--accent {
+  color: var(--t-amber);
+}
+
+.cscd-rule {
+  width: 84px;
+  height: 2px;
+  margin: 1.25rem 0 1.75rem;
+  background: linear-gradient(90deg, var(--t-amber), rgba(255, 176, 32, 0));
+}
+.cscd-about__lore-link {
+  margin-top: -0.75rem;
+  font-size: 0.82rem;
+}
+.cscd-rule--center {
+  margin-left: auto;
+  margin-right: auto;
+  background: linear-gradient(90deg, rgba(255, 176, 32, 0), var(--t-amber), rgba(255, 176, 32, 0));
+}
+
+.cscd-text-muted {
+  color: var(--t-muted);
+}
+
+.cscd-section-head {
+  text-align: center;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+/* ---------------------------------------------------------------------
+   Nút bấm: khối vát góc, không bo tròn
+   --------------------------------------------------------------------- */
+.cscd-btn {
+  --notch: var(--t-notch);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.95rem 2.4rem;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.02rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 0;
+  clip-path: polygon(0 0, calc(100% - var(--notch)) 0, 100% var(--notch), 100% 100%, var(--notch) 100%, 0 calc(100% - var(--notch)));
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease, color 0.18s ease;
+}
+.cscd-btn:hover {
+  text-decoration: none;
+  transform: translateY(-2px);
+}
+
+.cscd-btn--primary {
+  background: var(--t-amber);
+  color: #10130f;
+}
+.cscd-btn--primary:hover {
+  background: #ffc44d;
+  color: #10130f;
+  box-shadow: 0 10px 30px rgba(255, 176, 32, 0.3);
+}
+
+/* Nút phụ: viền mảnh ôm đúng cả hai cạnh vát. box-shadow/border thật đều bị
+   clip-path cắt mất ở góc chéo, nên viền được dựng bằng hai lớp: nền nút là
+   màu viền, còn ::after thu vào 1px phủ màu nền lên giữa — phần thừa ra rìa
+   chính là đường viền, và nó chạy trọn theo hình vát. */
+.cscd-btn--ghost {
+  background: var(--t-line-strong);
+  color: var(--t-text);
+  transition: transform 0.18s ease, background-color 0.18s ease, color 0.18s ease;
+}
+.cscd-btn--ghost::after {
+  content: '';
+  position: absolute;
+  inset: 1px;
+  background: rgba(16, 20, 25, 0.88);
+  clip-path: inherit;
+  transition: background-color 0.18s ease;
+}
+.cscd-btn--ghost > span {
+  position: relative;
+  z-index: 1;
+}
+.cscd-btn--ghost:hover {
+  background: var(--t-amber);
   color: #fff;
 }
+.cscd-btn--ghost:hover::after {
+  background: rgba(28, 24, 12, 0.9);
+}
+
+/* Liên kết dạng "xem tiếp" với mũi tên trượt */
+.cscd-link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--t-amber);
+  text-decoration: none;
+}
+.cscd-link-arrow::after {
+  content: '';
+  width: 18px;
+  height: 1px;
+  background: currentColor;
+  transition: width 0.2s ease;
+}
+.cscd-link-arrow:hover {
+  color: #ffc44d;
+  text-decoration: none;
+}
+.cscd-link-arrow:hover::after {
+  width: 30px;
+}
+
+/* ---------------------------------------------------------------------
+   Hero
+   --------------------------------------------------------------------- */
+.cscd-hero {
+  min-height: min(100vh, 860px);
+  display: flex;
+  align-items: center;
+  padding: 6.5rem 0;
+}
+.cscd-hero .cscd-bg {
+  animation: cscd-drift 32s ease-in-out infinite alternate;
+}
+@keyframes cscd-drift {
+  from { transform: scale(1.06) translate3d(0, 0, 0); }
+  to { transform: scale(1.14) translate3d(-1.5%, -1%, 0); }
+}
+
+.cscd-hero__content {
+  position: relative;
+  max-width: 860px;
+  text-align: center;
+}
+.cscd-hero__eyebrow {
+  justify-content: center;
+}
+/* Cỡ chữ bám theo vw để tên game luôn nằm gọn 1 dòng thay vì bị bẻ xuống dòng 2 —
+   khoảng vw được canh để vừa với .cscd-hero__content (max-width 860px) ở mọi bề rộng
+   màn hình đã kiểm tra (390–1920px), xem ghi chú kiểm chứng trong feature-cards.html.twig. */
+.cscd-hero__heading {
+  margin: 0;
+  font-size: clamp(1.5rem, 7.2vw, 3.6rem);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--t-heading);
+  text-shadow: 0 4px 40px rgba(0, 0, 0, 0.7);
+}
+.cscd-hero__content .cscd-rule {
+  margin: 1.5rem auto 1.75rem;
+  width: 120px;
+  background: linear-gradient(90deg, rgba(255, 176, 32, 0), var(--t-amber), rgba(255, 176, 32, 0));
+}
 .cscd-hero__text {
-  max-width: 720px;
-  margin: 0 auto 2rem;
-  font-size: 1.2rem;
-  line-height: 1.5;
+  max-width: 660px;
+  margin: 0 auto 2.5rem;
+  font-size: 1.06rem;
+  line-height: 1.7;
 }
 .cscd-hero__buttons {
   display: flex;
@@ -2730,143 +2979,680 @@ body.template-home {
   flex-wrap: wrap;
 }
 
-/* Intro / Dive into the Action */
-.cscd-intro__content {
+.cscd-hero__stats {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2.5rem;
+  list-style: none;
+  margin: 3rem 0 0;
+  padding: 1.75rem 0 0;
+  border-top: 1px solid var(--t-line);
+}
+.cscd-stat {
   text-align: center;
 }
-.cscd-intro__text {
-  max-width: 720px;
-  margin: 0 auto;
-  font-size: 1.1rem;
-  line-height: 1.5;
+.cscd-stat__value {
+  display: block;
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--t-amber);
+}
+.cscd-stat__label {
+  display: block;
+  margin-top: 0.2rem;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--t-muted);
 }
 
-/* Feature cards grid — dark, images keep the site's thin translucent border */
+/* Gợi ý cuộn xuống */
+.cscd-hero__scroll {
+  position: absolute;
+  left: 50%;
+  bottom: 2rem;
+  z-index: 2;
+  width: 1px;
+  height: 54px;
+  background: linear-gradient(180deg, rgba(255, 176, 32, 0), var(--t-amber));
+  transform: translateX(-50%);
+  animation: cscd-scroll-cue 2.2s ease-in-out infinite;
+}
+@keyframes cscd-scroll-cue {
+  0%, 100% { opacity: 0.2; transform: translateX(-50%) scaleY(0.6); }
+  50% { opacity: 1; transform: translateX(-50%) scaleY(1); }
+}
+
+/* ---------------------------------------------------------------------
+   Thẻ tính năng — "hồ sơ tác chiến"
+   --------------------------------------------------------------------- */
 .cscd-feature-cards__grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2rem;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  max-width: 860px;
+  margin: 0 auto;
 }
+
 .cscd-feature-card {
-  text-align: center;
+  --notch: 18px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--t-panel);
+  box-shadow: inset 0 0 0 1px var(--t-line);
+  clip-path: polygon(0 0, calc(100% - var(--notch)) 0, 100% var(--notch), 100% 100%, var(--notch) 100%, 0 calc(100% - var(--notch)));
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+}
+.cscd-feature-card:hover {
+  transform: translateY(-6px);
+  background: rgba(24, 29, 35, 0.9);
+  box-shadow: inset 0 0 0 1px rgba(255, 176, 32, 0.5), 0 18px 40px rgba(0, 0, 0, 0.5);
+}
+
+.cscd-feature-card__index {
+  position: absolute;
+  top: 0.7rem;
+  left: 0.9rem;
+  z-index: 2;
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--t-amber);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.9);
+}
+
+/* Ảnh thẻ là banner ngang (~615x115). Để nguyên tỉ lệ gốc thay vì ép vào một
+   khung cố định rồi object-fit:cover — cách cũ cắt mất hai đầu và phóng to ảnh. */
+.cscd-feature-card__image {
+  position: relative;
+  overflow: hidden;
+  background: #0a0d10;
 }
 .cscd-feature-card__image img {
   width: 100%;
   height: auto;
-  border-radius: 10px;
-  border: 3px solid rgba(150, 150, 150, 0.3);
-  margin-bottom: 1rem;
+  display: block;
+  filter: grayscale(0.65) contrast(1.08) brightness(0.82);
+  transition: filter 0.35s ease, transform 0.5s ease;
+}
+.cscd-feature-card:hover .cscd-feature-card__image img {
+  filter: grayscale(0) contrast(1.05) brightness(1);
+  transform: scale(1.05);
+}
+/* Vệt sáng chéo chạy qua ảnh khi rê chuột */
+.cscd-feature-card__shine {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 40%, rgba(255, 176, 32, 0.22) 50%, transparent 60%);
+  transform: translateX(-120%);
+  transition: transform 0.7s ease;
+  pointer-events: none;
+}
+.cscd-feature-card:hover .cscd-feature-card__shine {
+  transform: translateX(120%);
+}
+
+.cscd-feature-card__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 1.4rem 1.35rem 1.6rem;
 }
 .cscd-feature-card__title {
-  font-size: 1.2rem;
+  margin: 0 0 0.7rem;
+  font-size: 1.14rem;
   font-weight: 600;
-  margin-bottom: 0.5rem;
-  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--t-heading);
 }
 .cscd-feature-card__desc {
-  font-size: 0.95rem;
-  line-height: 1.5;
+  flex: 1;
+  margin: 0 0 1.2rem;
+  font-size: 0.93rem;
+  line-height: 1.65;
+}
+
+/* ---------------------------------------------------------------------
+   About — tóm tắt nhiệm vụ, 2 cột
+   --------------------------------------------------------------------- */
+.cscd-about__layout {
+  display: grid;
+  grid-template-columns: minmax(220px, 340px) 1fr;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: start;
+}
+.cscd-about__aside {
+  position: sticky;
+  top: 110px;
+}
+/* Tiêu đề "CSCD là game gì" giờ xuống 2 dòng (từ "CSCD" tách riêng ở
+   modular/about.html.twig) — line-height mặc định 1.1 của .cscd-heading quá
+   sát cho 2 dòng, tăng lên riêng ở đây thay vì sửa chung (chỗ khác dùng
+   .cscd-heading vẫn 1 dòng, không cần giãn thêm). */
+.cscd-about__aside .cscd-heading {
+  line-height: 1.35;
+}
+.cscd-about__lede {
+  margin: 0 0 2rem;
+  font-size: 1.14rem;
+  line-height: 1.75;
+  color: var(--t-text);
+  padding-left: 1.25rem;
+  border-left: 2px solid var(--t-amber);
+}
+
+.cscd-panel {
+  position: relative;
+  padding: 1.6rem 1.6rem 1.6rem 1.7rem;
+  margin-bottom: 1.1rem;
+  background: var(--t-panel);
+  box-shadow: inset 0 0 0 1px var(--t-line);
+  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+  transition: box-shadow 0.25s ease, background-color 0.25s ease;
+}
+.cscd-panel:hover {
+  background: rgba(24, 29, 35, 0.85);
+  box-shadow: inset 0 0 0 1px rgba(255, 176, 32, 0.4);
+}
+.cscd-panel__tag {
+  display: block;
+  margin-bottom: 0.55rem;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  color: var(--t-amber);
+}
+.cscd-panel__title {
+  margin: 0 0 0.65rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--t-heading);
+}
+.cscd-panel p {
+  margin: 0;
+  line-height: 1.75;
+}
+
+/* ---------------------------------------------------------------------
+   Game features — tab dọc: đề mục bên trái, nội dung bên phải
+   --------------------------------------------------------------------- */
+.cscd-game-features {
+  background: var(--t-bg-2);
+  border-top: 1px solid var(--t-line);
+}
+
+.cscd-tabs {
+  display: block;
+}
+
+/* Dải đề mục nằm ngang phía trên khối nội dung */
+.cscd-tabs__nav {
+  display: flex;
+  gap: 0.6rem;
   margin-bottom: 1.25rem;
 }
 
-/* About CSCD */
-.cscd-about__content {
-  max-width: 860px;
-  margin: 0 auto;
-}
-.cscd-about__content h3 {
-  font-size: 1.4rem;
+.cscd-tab {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  flex: 1;
+  min-width: 0;
+  padding: 1.05rem 1.1rem;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.02rem;
   font-weight: 600;
-  margin: 2rem 0 0.75rem;
-  color: #fff;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: left;
+  color: var(--t-muted);
+  background: rgba(18, 22, 27, 0.55);
+  border: 0;
+  cursor: pointer;
+  box-shadow: inset 0 0 0 1px var(--t-line);
+  clip-path: polygon(0 0, calc(100% - 13px) 0, 100% 13px, 100% 100%, 13px 100%, 0 calc(100% - 13px));
+  transition: color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
 }
-.cscd-about__content p {
-  line-height: 1.6;
-  margin-bottom: 1rem;
+.cscd-tab:hover {
+  color: var(--t-text);
+  background: rgba(26, 31, 38, 0.85);
+}
+/* Vạch chỉ báo ở cạnh dưới, nối tab đang mở xuống khối nội dung bên dưới */
+.cscd-tab::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: var(--t-amber);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.22s ease;
+}
+.cscd-tab.is-active {
+  color: #fff;
+  background: rgba(30, 35, 42, 0.95);
+  box-shadow: inset 0 0 0 1px rgba(255, 176, 32, 0.5);
+}
+.cscd-tab.is-active::before {
+  transform: scaleX(1);
+}
+.cscd-tab:focus-visible {
+  outline: 2px solid var(--t-amber);
+  outline-offset: 2px;
 }
 
-/* Game features — the one light section on the page */
-.cscd-section--light .cscd-heading {
-  color: #1c1c1c;
-}
-.cscd-game-feature {
-  max-width: 860px;
-  margin: 0 auto 2.5rem;
-}
-.cscd-game-feature__title {
-  font-size: 1.3rem;
+.cscd-tab__num {
+  flex: none;
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.05rem;
   font-weight: 600;
-  color: #1c1c1c;
-  margin-bottom: 0.5rem;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 176, 32, 0.6);
+  transition: color 0.2s ease;
 }
-.cscd-game-feature__desc {
-  line-height: 1.6;
-  margin-bottom: 1rem;
-  color: #333;
+.cscd-tab.is-active .cscd-tab__num {
+  color: var(--t-amber);
+  -webkit-text-stroke: 0;
 }
-.cscd-game-feature__gallery {
-  column-count: 4;
-  column-gap: 10px;
+.cscd-tab__label {
+  flex: 1;
+  min-width: 0;
+  line-height: 1.3;
 }
-.cscd-game-feature__gallery-item {
-  break-inside: avoid;
-  margin-bottom: 10px;
+
+/* Cột nội dung */
+.cscd-tabs__panels {
+  position: relative;
+  min-width: 0;
 }
-.cscd-game-feature__gallery-item img {
-  width: 100%;
-  height: auto;
-  border-radius: 5px;
+.cscd-tabpanel {
+  position: relative;
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  background: var(--t-panel);
+  box-shadow: inset 0 0 0 1px var(--t-line);
+  clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
 }
+/* Chỉ ẩn panel khi JS đã gắn xong (.is-enhanced) — xem initGameFeatureTabs() */
+.cscd-tabs.is-enhanced .cscd-tabpanel {
+  display: none;
+}
+.cscd-tabs.is-enhanced .cscd-tabpanel.is-active {
+  display: block;
+  animation: cscd-panel-in 0.32s ease both;
+}
+.cscd-tabs:not(.is-enhanced) .cscd-tabpanel + .cscd-tabpanel {
+  margin-top: 1rem;
+}
+/* Tab nằm trên nên nội dung trượt xuống từ phía tab, không trượt ngang nữa */
+@keyframes cscd-panel-in {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: none; }
+}
+
+.cscd-tabpanel__head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.85rem;
+  margin-bottom: 1.1rem;
+  padding-bottom: 1.1rem;
+  border-bottom: 1px solid var(--t-line);
+}
+.cscd-tabpanel__num {
+  flex: none;
+  font-family: 'Oswald', sans-serif;
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-weight: 700;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 176, 32, 0.55);
+  user-select: none;
+}
+.cscd-tabpanel__title {
+  margin: 0;
+  font-size: clamp(1.2rem, 2.2vw, 1.55rem);
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--t-heading);
+}
+.cscd-tabpanel__desc {
+  margin: 0 0 1.4rem;
+  max-width: 68ch;
+  line-height: 1.8;
+}
+/* Nội dung có thể gồm nhiều đoạn văn (xem ghi chú |raw ở template) */
+.cscd-tabpanel__desc p + p {
+  margin-top: 1em;
+}
+.cscd-tabpanel__desc p:last-child {
+  margin-bottom: 0;
+}
+.cscd-tabpanel > *:last-child {
+  margin-bottom: 0;
+}
+
+/* Xếp hàng ngang thành các panel vát góc (giống .cscd-panel ở khối About), thay vì
+   danh sách dọc — auto-fit tự co giãn số cột theo bề rộng thực tế thay vì cắt cứng
+   ở một breakpoint, nên 3 mục vẫn đều nhau ở desktop và tự dồn xuống 1-2 cột khi hẹp. */
 .cscd-game-feature__bullets {
-  list-style: disc;
-  padding-left: 1.25rem;
-  color: #333;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.6rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.1rem;
 }
 .cscd-game-feature__bullets li {
-  margin-bottom: 0.75rem;
-  line-height: 1.6;
+  padding: 1.4rem 1.5rem;
+  background: var(--t-panel);
+  box-shadow: inset 0 0 0 1px var(--t-line);
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+  transition: box-shadow 0.2s ease, background-color 0.2s ease;
 }
-@media (max-width: 800px) {
-  .cscd-game-feature__gallery {
-    column-count: 2;
-  }
+.cscd-game-feature__bullets li:hover {
+  background: rgba(24, 29, 35, 0.9);
+  box-shadow: inset 0 0 0 1px rgba(255, 176, 32, 0.4);
+}
+.cscd-game-feature__bullet-title {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-bottom: 0.65rem;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--t-heading);
+}
+/* Dấu hình thoi thay cho chấm tròn mặc định, đặt trước tiêu đề thay vì đầu dòng văn bản */
+.cscd-game-feature__bullet-title::before {
+  content: '';
+  flex: none;
+  width: 7px;
+  height: 7px;
+  background: var(--t-amber);
+  transform: rotate(45deg);
+}
+.cscd-game-feature__bullet-text {
+  display: block;
+  line-height: 1.7;
+  font-size: 0.95rem;
 }
 
-/* FAQ — dark, accordion */
+/* Vạch góc dưới-trái, nhại khung ngắm của khí tài */
+.cscd-shot__corner {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  z-index: 2;
+  width: 14px;
+  height: 14px;
+  border-left: 2px solid var(--t-amber);
+  border-bottom: 2px solid var(--t-amber);
+  opacity: 0.75;
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------------------
+   Panel: chữ bên trái, slideshow ảnh bên phải
+   --------------------------------------------------------------------- */
+.cscd-tabpanel__body--split {
+  display: grid;
+  /* Chữ 1/3, slideshow 2/3 */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  /* Chữ thường ngắn hơn slideshow nhiều; căn giữa để không bỏ lại một mảng
+     trống lớn dưới cột chữ */
+  align-items: center;
+}
+.cscd-tabpanel__text {
+  min-width: 0;
+}
+.cscd-tabpanel__text > *:last-child {
+  margin-bottom: 0;
+}
+
+.cscd-gallery {
+  min-width: 0;
+}
+
+/* Ảnh lớn — ảnh gallery gốc là 16:9 (1600x900). Khung theo đúng tỉ lệ đó và dùng
+   object-fit:contain thay vì cover, để hiển thị trọn ảnh thay vì crop trên dưới;
+   nền tối phía sau (#0a0d10) lấp khoảng trống nếu có ảnh khác tỉ lệ được thêm sau này. */
+.cscd-gallery__stage {
+  position: relative;
+  margin: 0 0 0.7rem;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #0a0d10;
+  box-shadow: inset 0 0 0 1px var(--t-line);
+  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+}
+.cscd-gallery__stage img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  filter: saturate(0.9) contrast(1.05);
+  transition: opacity 0.25s ease;
+}
+/* Mờ đi trong lúc chờ ảnh mới tải, rồi hiện lại — xem initGalleries() */
+.cscd-gallery__stage img.is-swapping {
+  opacity: 0.35;
+}
+
+/* Dải thumbnail + hai mũi tên */
+.cscd-gallery__strip {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.cscd-gallery__thumbs {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  /* Thanh cuộn ẩn đi, việc cuộn đã có hai mũi tên đảm nhiệm */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.cscd-gallery__thumbs::-webkit-scrollbar {
+  display: none;
+}
+
+.cscd-gallery__thumb {
+  position: relative;
+  /* Cố định 3 thumbnail mỗi khung: luôn có ảnh bị khuất khi thư viện từ 4 ảnh
+     trở lên, nên hai mũi tên luôn có việc để làm */
+  flex: 0 0 calc((100% - 1rem) / 3);
+  /* Giữ nguyên bề ngang, giảm chiều cao còn một nửa so với khung 4/3 */
+  aspect-ratio: 8 / 3;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  cursor: pointer;
+  background: #0a0d10;
+  box-shadow: inset 0 0 0 1px var(--t-line);
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  transition: box-shadow 0.2s ease;
+}
+.cscd-gallery__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: grayscale(0.5) brightness(0.72);
+  transition: filter 0.25s ease, transform 0.35s ease;
+}
+.cscd-gallery__thumb:hover img {
+  filter: grayscale(0) brightness(0.95);
+  transform: scale(1.06);
+}
+.cscd-gallery__thumb.is-active {
+  box-shadow: inset 0 0 0 2px var(--t-amber);
+}
+.cscd-gallery__thumb.is-active img {
+  filter: grayscale(0) brightness(1);
+}
+.cscd-gallery__thumb:focus-visible {
+  outline: 2px solid var(--t-amber);
+  outline-offset: 2px;
+}
+
+.cscd-gallery__arrow {
+  flex: none;
+  display: none;
+  place-items: center;
+  width: 30px;
+  height: 46px;
+  padding: 0;
+  border: 0;
+  cursor: pointer;
+  color: var(--t-text);
+  background: rgba(24, 29, 35, 0.9);
+  box-shadow: inset 0 0 0 1px var(--t-line);
+  clip-path: polygon(0 0, calc(100% - 9px) 0, 100% 9px, 100% 100%, 9px 100%, 0 calc(100% - 9px));
+  transition: color 0.2s ease, background-color 0.2s ease, opacity 0.2s ease;
+}
+/* Chỉ hiện mũi tên khi thật sự có ảnh bị khuất (JS gắn .has-overflow) */
+.cscd-gallery.has-overflow .cscd-gallery__arrow {
+  display: grid;
+}
+.cscd-gallery__arrow svg {
+  width: 16px;
+  height: 16px;
+}
+.cscd-gallery__arrow:hover:not(:disabled) {
+  color: #10130f;
+  background: var(--t-amber);
+}
+.cscd-gallery__arrow:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+.cscd-gallery__arrow:focus-visible {
+  outline: 2px solid var(--t-amber);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------
+   FAQ — đóng/mở kiểu bảng điều khiển
+   --------------------------------------------------------------------- */
 .cscd-faq__list {
-  max-width: 860px;
+  max-width: 880px;
   margin: 0 auto;
 }
 .cscd-faq__item {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-  padding: 1.1rem 0;
+  position: relative;
+  margin-bottom: 0.7rem;
+  background: var(--t-panel);
+  box-shadow: inset 0 0 0 1px var(--t-line);
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+  transition: box-shadow 0.25s ease, background-color 0.25s ease;
 }
-.cscd-faq__item:last-child {
-  border-bottom: none;
+.cscd-faq__item[open] {
+  background: rgba(24, 29, 35, 0.9);
+  box-shadow: inset 0 0 0 1px rgba(255, 176, 32, 0.45);
 }
 .cscd-faq__question {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 1.15rem 1.4rem;
   cursor: pointer;
+  list-style: none;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.12rem;
   font-weight: 600;
-  font-size: 1.05rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--t-text);
+}
+.cscd-faq__question::-webkit-details-marker {
+  display: none;
+}
+.cscd-faq__item[open] .cscd-faq__question {
   color: #fff;
 }
+/* Dấu +/− tự vẽ: thanh ngang cố định + thanh dọc xoay biến mất khi mở */
+.cscd-faq__marker {
+  position: relative;
+  flex: none;
+  width: 14px;
+  height: 14px;
+}
+.cscd-faq__marker::before,
+.cscd-faq__marker::after {
+  content: '';
+  position: absolute;
+  background: var(--t-amber);
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+.cscd-faq__marker::before {
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  transform: translateY(-50%);
+}
+.cscd-faq__marker::after {
+  left: 50%;
+  top: 0;
+  width: 2px;
+  height: 100%;
+  transform: translateX(-50%);
+}
+.cscd-faq__item[open] .cscd-faq__marker::after {
+  transform: translateX(-50%) rotate(90deg);
+  opacity: 0;
+}
 .cscd-faq__answer {
-  margin-top: 0.75rem;
-  line-height: 1.6;
+  padding: 0 1.4rem 1.4rem 3.25rem;
+  line-height: 1.8;
 }
 .cscd-faq__answer ul {
-  padding-left: 1.25rem;
+  padding-left: 1.2rem;
+  margin: 0.5rem 0 0;
+}
+.cscd-faq__answer p {
+  margin: 0 0 0.6rem;
 }
 
-/* Closing CTA */
+/* ---------------------------------------------------------------------
+   CTA kết trang
+   --------------------------------------------------------------------- */
 .cscd-cta__content {
-  max-width: 720px;
+  position: relative;
+  max-width: 760px;
   margin: 0 auto;
   text-align: center;
 }
+/* Ảnh nền ở khối này sáng và nhiều chi tiết, nên đặt thêm một quầng tối
+   ngay sau chữ để giữ độ tương phản mà không phải làm mờ cả ảnh. */
+.cscd-cta__content::before {
+  content: '';
+  position: absolute;
+  inset: -3rem -4rem;
+  z-index: -1;
+  background: radial-gradient(ellipse at center, rgba(5, 7, 10, 0.96) 0%, rgba(5, 7, 10, 0.9) 45%, rgba(5, 7, 10, 0.6) 75%, rgba(5, 7, 10, 0) 100%);
+  pointer-events: none;
+}
 .cscd-cta__text {
-  margin-bottom: 1.5rem;
-  line-height: 1.6;
+  margin: 1.5rem 0 2.25rem;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: #cdd5db;
 }
 .cscd-cta__buttons {
   display: flex;
@@ -2875,33 +3661,904 @@ body.template-home {
   flex-wrap: wrap;
 }
 
-/* Community / Social */
+/* ---------------------------------------------------------------------
+   Kênh cộng đồng
+   --------------------------------------------------------------------- */
 .cscd-social__content {
   text-align: center;
 }
+.cscd-social__title {
+  max-width: 640px;
+  margin: 0 auto;
+  font-size: clamp(1.3rem, 2.4vw, 1.7rem);
+  font-weight: 500;
+  line-height: 1.4;
+  text-transform: uppercase;
+  color: var(--t-heading);
+}
 .cscd-social__links {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1rem;
-  justify-content: center;
-  flex-wrap: wrap;
+  max-width: 940px;
+  margin: 2.5rem auto 0;
+}
+.cscd-channel {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 1.1rem 1.2rem;
+  text-align: left;
+  text-decoration: none;
+  color: var(--t-text);
+  background: var(--t-panel);
+  box-shadow: inset 0 0 0 1px var(--t-line);
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+}
+.cscd-channel:hover {
+  transform: translateY(-4px);
+  color: #fff;
+  text-decoration: none;
+  background: rgba(24, 29, 35, 0.95);
+  box-shadow: inset 0 0 0 1px rgba(255, 176, 32, 0.55);
+}
+.cscd-channel__icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  color: var(--t-amber);
+}
+.cscd-channel__icon svg {
+  width: 22px;
+  height: 22px;
+}
+.cscd-channel__name {
+  flex: 1;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1.25;
+}
+.cscd-channel__arrow {
+  flex: none;
+  width: 9px;
+  height: 9px;
+  border-top: 2px solid var(--t-steel);
+  border-right: 2px solid var(--t-steel);
+  transform: rotate(45deg);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.cscd-channel:hover .cscd-channel__arrow {
+  border-color: var(--t-amber);
+  transform: rotate(45deg) translate(3px, -3px);
 }
 
+/* ---------------------------------------------------------------------
+   Thanh điều hướng — dính trên đầu, nền kính mờ
+   --------------------------------------------------------------------- */
+body.template-home header, body.template-wiki header , body.template-blog header , body.template-blog-item header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(7, 9, 11, 0.82);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--t-line);
+  box-shadow: none;
+  padding: 0.5rem 0;
+}
+body.template-home .header-layout, body.template-wiki .header-layout , body.template-blog .header-layout , body.template-blog-item .header-layout {
+  align-items: center;
+}
+/* Bố cục gốc xếp menu và nút đổi ngôn ngữ thành hai hàng (di sản của header
+   có dải giờ làm việc/hotline). Trang game không có dải đó, nên gom tất cả
+   về một hàng để nút cờ không bị "mồ côi" bên dưới. */
+body.template-home .header-right, body.template-wiki .header-right , body.template-blog .header-right , body.template-blog-item .header-right {
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1.25rem;
+}
+body.template-home .lang-switcher-row, body.template-wiki .lang-switcher-row , body.template-blog .lang-switcher-row , body.template-blog-item .lang-switcher-row {
+  padding: 0;
+  margin: 0;
+}
+body.template-home .logo img, body.template-wiki .logo img , body.template-blog .logo img , body.template-blog-item .logo img {
+  max-height: 52px;
+  width: auto;
+}
+body.template-home .header-bottom, body.template-wiki .header-bottom , body.template-blog .header-bottom , body.template-blog-item .header-bottom {
+  border: 0;
+}
+body.template-home .menu, body.template-wiki .menu , body.template-blog .menu , body.template-blog-item .menu {
+  gap: 0.35rem;
+}
+body.template-home .menu-link, body.template-wiki .menu-link , body.template-blog .menu-link , body.template-blog-item .menu-link {
+  position: relative;
+  padding: 0.55rem 0.85rem;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--t-muted);
+  background: none;
+  /* Đè border-bottom mặc định của theme gốc (site.css dòng ~184-197) — nếu không
+     đè thì hover sẽ ra 2 gạch chân cùng lúc: viền màu cam/đỏ cũ của theme PureCSS
+     CỘNG với gạch hổ phách ::after riêng của bản tactical bên dưới. */
+  border-bottom-color: transparent;
+  transition: color 0.2s ease;
+}
+/* Gạch chân duy nhất, chạy từ trái sang khi rê chuột */
+body.template-home .menu-link::after, body.template-wiki .menu-link::after , body.template-blog .menu-link::after , body.template-blog-item .menu-link::after {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  right: 0.85rem;
+  bottom: 0.28rem;
+  height: 2px;
+  background: var(--t-amber);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.22s ease;
+}
+body.template-home .menu-link:hover, body.template-wiki .menu-link:hover , body.template-blog .menu-link:hover , body.template-blog-item .menu-link:hover {
+  color: #fff;
+  text-decoration: none;
+  border-bottom-color: transparent;
+  background: none;
+}
+body.template-home .menu-link:hover::after, body.template-wiki .menu-link:hover::after , body.template-blog .menu-link:hover::after , body.template-blog-item .menu-link:hover::after {
+  transform: scaleX(1);
+}
+body.template-home .submenu, body.template-wiki .submenu , body.template-blog .submenu , body.template-blog-item .submenu {
+  background: rgba(11, 14, 18, 0.97);
+  border: 1px solid var(--t-line);
+  backdrop-filter: blur(10px);
+}
+
+/* Mục menu "nổi bật" (vd Ủng hộ Dev) — chỉ đổi màu chữ sang hổ phách, không
+   thêm nền/khung, để vẫn đồng bộ hình thức với các link khác trong thanh nav. */
+body.template-home .menu-link--cta, body.template-wiki .menu-link--cta , body.template-blog .menu-link--cta , body.template-blog-item .menu-link--cta {
+  color: var(--t-amber);
+}
+body.template-home .menu-link--cta:hover, body.template-wiki .menu-link--cta:hover , body.template-blog .menu-link--cta:hover , body.template-blog-item .menu-link--cta:hover {
+  color: #ffc44d;
+}
+/* .has-submenu > .menu-link::after ở site.css dòng ~203 (theme gốc) vẽ mũi tên tam
+   giác bằng border-trick và xoay 180° khi hover — dùng chung ::after với gạch chân
+   hổ phách ở trên nên hai hiệu ứng chồng lên nhau. Set content:none sẽ xoá luôn pseudo
+   element (mất cả gạch chân), nên phải reset từng thuộc tính triangle về 0 thay vì
+   xoá hẳn, để gạch chân hổ phách vẫn còn nguyên trên mục "Overview". */
+body.template-home .has-submenu > .menu-link::after, body.template-wiki .has-submenu > .menu-link::after , body.template-blog .has-submenu > .menu-link::after , body.template-blog-item .has-submenu > .menu-link::after {
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
+  margin-left: 0;
+}
+body.template-home .has-submenu:hover > .menu-link::after, body.template-wiki .has-submenu:hover > .menu-link::after, body.template-blog .has-submenu:hover > .menu-link::after, body.template-blog-item .has-submenu:hover > .menu-link::after,
+body.template-home .has-submenu.active > .menu-link::after, body.template-wiki .has-submenu.active > .menu-link::after , body.template-blog .has-submenu.active > .menu-link::after , body.template-blog-item .has-submenu.active > .menu-link::after {
+  transform: scaleX(1);
+}
+
+body.template-home .lang-switcher__link, body.template-wiki .lang-switcher__link , body.template-blog .lang-switcher__link , body.template-blog-item .lang-switcher__link {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--t-text);
+  border-color: var(--t-line-strong);
+  border-radius: 0;
+  background: rgba(255, 255, 255, 0.05);
+}
+body.template-home .lang-switcher__link:hover, body.template-wiki .lang-switcher__link:hover , body.template-blog .lang-switcher__link:hover , body.template-blog-item .lang-switcher__link:hover {
+  color: #10130f;
+  background: var(--t-amber);
+  border-color: var(--t-amber);
+}
+body.template-home .header-social .social-link, body.template-wiki .header-social .social-link , body.template-blog .header-social .social-link , body.template-blog-item .header-social .social-link {
+  color: var(--t-muted);
+  background: none;
+}
+body.template-home .header-social .social-link:hover, body.template-wiki .header-social .social-link:hover , body.template-blog .header-social .social-link:hover , body.template-blog-item .header-social .social-link:hover {
+  color: var(--t-amber);
+}
+body.template-home .menu-toggle span, body.template-wiki .menu-toggle span , body.template-blog .menu-toggle span , body.template-blog-item .menu-toggle span {
+  background: var(--t-text);
+}
+body.template-home .main-nav, body.template-wiki .main-nav , body.template-blog .main-nav , body.template-blog-item .main-nav {
+  background: rgba(9, 11, 14, 0.98);
+  backdrop-filter: blur(12px);
+  border-right: 1px solid var(--t-line);
+}
+body.template-home .main-nav .menu-link, body.template-wiki .main-nav .menu-link , body.template-blog .main-nav .menu-link , body.template-blog-item .main-nav .menu-link {
+  color: var(--t-text);
+}
+
+/* ---------------------------------------------------------------------
+   Chân trang
+   --------------------------------------------------------------------- */
+body.template-home footer, body.template-wiki footer , body.template-blog footer , body.template-blog-item footer {
+  position: relative;
+  background: #05070a;
+  background-image: none;
+  color: var(--t-muted);
+  border-top: 1px solid var(--t-line);
+  padding: 3.5rem 0 2rem;
+}
+body.template-home footer::before, body.template-wiki footer::before , body.template-blog footer::before , body.template-blog-item footer::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 160px;
+  height: 2px;
+  background: var(--t-amber);
+}
+body.template-home footer a, body.template-wiki footer a , body.template-blog footer a , body.template-blog-item footer a {
+  color: var(--t-steel);
+}
+body.template-home footer a:hover, body.template-wiki footer a:hover , body.template-blog footer a:hover , body.template-blog-item footer a:hover {
+  color: var(--t-amber);
+  text-decoration: none;
+}
+body.template-home footer h1, body.template-wiki footer h1, body.template-blog footer h1, body.template-blog-item footer h1,
+body.template-home footer h2, body.template-wiki footer h2, body.template-blog footer h2, body.template-blog-item footer h2,
+body.template-home footer h3, body.template-wiki footer h3, body.template-blog footer h3, body.template-blog-item footer h3,
+body.template-home footer h4, body.template-wiki footer h4, body.template-blog footer h4, body.template-blog-item footer h4,
+body.template-home footer strong, body.template-wiki footer strong , body.template-blog footer strong , body.template-blog-item footer strong {
+  color: var(--t-text);
+  font-family: 'Barlow Condensed', sans-serif;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+body.template-home .footer-bottom, body.template-wiki .footer-bottom , body.template-blog .footer-bottom , body.template-blog-item .footer-bottom {
+  border-top: 1px solid var(--t-line);
+  color: var(--t-muted);
+  font-family: 'Barlow Condensed', sans-serif;
+  letter-spacing: 0.1em;
+}
+body.template-home .footer-col--logo img, body.template-wiki .footer-col--logo img , body.template-blog .footer-col--logo img , body.template-blog-item .footer-col--logo img {
+  max-height: 64px;
+  width: auto;
+}
+
+/* ---------------------------------------------------------------------
+   Thích ứng màn hình nhỏ
+   --------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .cscd-social__links {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .cscd-about__layout {
+    grid-template-columns: 1fr;
+  }
+  .cscd-about__aside {
+    position: static;
+  }
+  .cscd-heading--left {
+    text-align: left;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Hẹp thì 4 tab không đủ chỗ nằm cạnh nhau -> cho cuộn ngang, giữ nguyên nhãn
+     (chỉ còn số hiệu thì không biết tab nào là gì). */
+  .cscd-tabs__nav {
+    overflow-x: auto;
+    padding-bottom: 0.4rem;
+    scrollbar-width: thin;
+  }
+  .cscd-tab {
+    flex: none;
+    padding: 0.75rem 0.95rem;
+    font-size: 0.92rem;
+  }
+  .cscd-tab__label {
+    white-space: nowrap;
+  }
+  /* Hẹp thì chữ và slideshow xếp chồng thay vì hai cột */
+  .cscd-tabpanel__body--split {
+    grid-template-columns: 1fr;
+  }
+  .cscd-hero {
+    min-height: auto;
+    padding: 6rem 0 5rem;
+  }
+  .cscd-brackets {
+    display: none;
+  }
+  body.template-home [id], body.template-wiki [id] , body.template-blog [id] , body.template-blog-item [id] {
+    scroll-margin-top: 70px;
+  }
+}
+
+@media (max-width: 560px) {
+  .cscd-feature-cards__grid,
+  .cscd-social__links {
+    grid-template-columns: 1fr;
+  }
+  .cscd-btn {
+    width: 100%;
+  }
+  .cscd-hero__stats {
+    gap: 1.5rem;
+  }
+}
+
+/* =====================================================================
+   Wiki — trang bài viết phân cấp (user/themes/eztheme/templates/wiki.html.twig)
+   ---------------------------------------------------------------------
+   Dùng lại đúng bộ biến --t-* và ngôn ngữ thị giác HUD của trang chủ (đã mở scope
+   sang body.template-wiki ở khối biến phía trên), body.template-blog ở khối biến phía trên), body.template-blog-item ở khối biến phía trên), nhưng bố cục đơn giản hơn nhiều
+   vì đây là nội dung đọc dài chứ không phải các khối marketing dàn dựng sẵn: một
+   cột văn bản rộng vừa đủ để đọc thoải mái, không có ảnh nền/hiệu ứng cuộn.
+   ===================================================================== */
+
+.wiki-hero {
+  position: relative;
+  padding: clamp(6.5rem, 12vw, 9rem) 0 clamp(2.5rem, 5vw, 3.5rem);
+  border-bottom: 1px solid var(--t-line);
+  overflow: hidden;
+}
+.wiki-hero .container {
+  position: relative;
+  z-index: 1;
+  /* Luôn rộng bằng khung site chuẩn (giống trang wiki gốc) ở MỌI trang wiki —
+     hero không còn co hẹp 860px riêng cho bài viết nữa, để tiêu đề luôn bám
+     sát mép trái của độ rộng site như các section khác trên trang chủ. */
+  max-width: 1265px;
+}
+.wiki-hero__title {
+  margin: 0.75rem 0 0;
+  font-size: clamp(1.9rem, 4vw, 2.75rem);
+  font-weight: 600;
+  line-height: 1.15;
+  text-transform: uppercase;
+  color: var(--t-heading);
+}
+
+.wiki-breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0.5rem 0 0;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--t-muted);
+}
+.wiki-breadcrumb a {
+  color: var(--t-steel);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.wiki-breadcrumb a:hover {
+  color: var(--t-amber);
+  text-decoration: none;
+}
+.wiki-breadcrumb__sep {
+  opacity: 0.5;
+}
+.wiki-breadcrumb__current {
+  color: var(--t-text);
+}
+
+.wiki-layout-wrap {
+  /* Không đặt overflow:hidden ở đây — nó biến div này thành "scroll container",
+     khiến position:sticky của .wiki-toc bên trong bị tính theo khung của div
+     này thay vì viewport, gây lỗi TOC không dính đúng vị trí khi cuộn (thấy rõ
+     hơn ở một số trình duyệt/độ phân giải). .cscd-bg bên trong đã absolute
+     inset:0 vừa khít khung cha nên không cần cắt tràn. */
+  position: relative;
+}
+.wiki-layout {
+  position: relative;
+  z-index: 2;
+  /* Khung ngoài luôn rộng bằng độ rộng site chuẩn (như trang wiki gốc) — phần
+     đọc hẹp hơn (khi bài không có TOC) được co lại ở .wiki-body/.wiki-index
+     bên trong (không margin:auto nên tự bám mép trái của khung này), thay vì
+     co hẹp + căn giữa cả khung ngoài như trước (khiến bài luôn nằm giữa
+     trang thay vì thẳng hàng với hero/hero của các trang wiki khác). */
+  max-width: 1265px;
+  padding-top: clamp(2.5rem, 5vw, 3.5rem);
+  padding-bottom: clamp(4rem, 8vw, 6rem);
+}
+
+/* Mục lục (TOC) bên trái nội dung bài viết — JS dựng danh sách, CSS chỉ lo bố
+   cục 2 cột + trạng thái sticky. Mặc định 1 cột (mobile / khi JS chưa chạy
+   hoặc bài quá ngắn không cần mục lục), chuyển 2 cột khi có class .has-toc
+   do initWikiToc() gắn sau khi xác nhận bài có đủ đề mục. */
+.wiki-body {
+  display: block;
+  /* Mặc định (không TOC) giữ đúng khổ đọc 860px như trước — không margin:auto
+     nên khối này tự bám mép trái của .wiki-layout (giờ đã rộng) thay vì nằm
+     giữa trang. Rộng hết khung khi có TOC (.has-toc, quy tắc bên dưới) hoặc
+     ở trang gốc wiki (.wiki-layout--wide, quy tắc bên dưới). */
+  max-width: 860px;
+}
+.wiki-index {
+  max-width: 860px;
+}
+.wiki-body.has-toc,
+.wiki-layout--wide .wiki-body,
+.wiki-layout--wide .wiki-index {
+  max-width: none;
+}
+.wiki-toc {
+  display: none;
+}
+@media (min-width: 980px) {
+  .wiki-body.has-toc {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 300px;
+    gap: 2.5rem;
+    align-items: start;
+  }
+  /* Đảo vị trí: nội dung bài viết bên trái, mục lục bên phải (mặc định thứ tự
+     DOM là toc rồi tới article — order lật lại thứ tự hiển thị mà không cần
+     đổi HTML, vẫn giữ toc đọc trước trong DOM cho screen reader/SEO). */
+  .wiki-body.has-toc .wiki-article {
+    order: 1;
+  }
+  .wiki-body.has-toc .wiki-toc {
+    order: 2;
+    display: block;
+    position: sticky;
+    top: 100px;
+  }
+  .wiki-body.has-toc .wiki-toc__inner {
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+    /* Đệm phải để chữ không dính sát vào thanh cuộn (thanh cuộn nằm ở mép
+       phải của chính phần tử scroll, tức .wiki-toc__inner). */
+    padding-right: 0.9rem;
+    scrollbar-width: thin;
+    scrollbar-color: var(--t-line-strong) transparent;
+  }
+  .wiki-body.has-toc .wiki-toc__inner::-webkit-scrollbar {
+    width: 6px;
+  }
+  .wiki-body.has-toc .wiki-toc__inner::-webkit-scrollbar-thumb {
+    background: var(--t-line-strong);
+    border-radius: 3px;
+  }
+  .wiki-body.has-toc .wiki-toc__inner::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
+.wiki-toc__title {
+  margin: 0 0 1rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--t-amber);
+}
+.wiki-toc__nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-left: 1px solid var(--t-line);
+}
+.wiki-toc__nav li a {
+  display: block;
+  padding: 0.45rem 0 0.45rem 1.1rem;
+  margin-left: -1px;
+  border-left: 1px solid transparent;
+  font-size: 0.96rem;
+  line-height: 1.45;
+  color: var(--t-muted);
+  text-decoration: none;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.wiki-toc__nav li a:hover {
+  color: var(--t-text);
+}
+.wiki-toc__nav li a.is-active {
+  color: var(--t-amber);
+  border-left-color: var(--t-amber);
+}
+.wiki-toc__nav li li a {
+  padding-left: 1.9rem;
+  font-size: 0.9rem;
+}
+
+/* ---------------------------------------------------------------------
+   Nội dung bài viết — kiểu chữ mặc định cho Markdown tự do (không phải khối
+   marketing đã dàn sẵn), nên cần phủ đủ các thẻ HTML phổ biến: heading, list,
+   liên kết, trích dẫn, code, ảnh, bảng.
+   --------------------------------------------------------------------- */
+.wiki-article {
+  font-size: 1.02rem;
+  line-height: 1.8;
+  color: var(--t-text);
+}
+.wiki-article > *:first-child {
+  margin-top: 0;
+}
+.wiki-article > *:last-child {
+  margin-bottom: 0;
+}
+.wiki-article p {
+  margin: 0 0 1.25rem;
+  color: var(--t-text);
+}
+.wiki-article h2,
+.wiki-article h3,
+.wiki-article h4 {
+  margin: 2.25rem 0 1rem;
+  text-transform: uppercase;
+  color: var(--t-heading);
+}
+.wiki-article h2 {
+  padding-bottom: 0.6rem;
+  font-size: 1.5rem;
+  border-bottom: 1px solid var(--t-line);
+}
+.wiki-article h3 {
+  font-size: 1.2rem;
+}
+.wiki-article h4 {
+  font-size: 1.02rem;
+  letter-spacing: 0.04em;
+}
+.wiki-article a {
+  color: var(--t-amber);
+  text-decoration-color: rgba(255, 176, 32, 0.4);
+}
+.wiki-article a:hover {
+  color: #ffc44d;
+}
+.wiki-article ul,
+.wiki-article ol {
+  margin: 0 0 1.25rem;
+  padding-left: 1.3rem;
+}
+.wiki-article ul {
+  list-style: none;
+  padding-left: 0;
+}
+.wiki-article ul > li {
+  position: relative;
+  padding-left: 1.4rem;
+  margin-bottom: 0.6rem;
+}
+.wiki-article ul > li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 6px;
+  height: 6px;
+  background: var(--t-amber);
+  transform: rotate(45deg);
+}
+.wiki-article ol > li {
+  margin-bottom: 0.6rem;
+  padding-left: 0.3rem;
+}
+.wiki-article blockquote {
+  margin: 0 0 1.25rem;
+  padding: 0.9rem 1.25rem;
+  border-left: 2px solid var(--t-amber);
+  background: var(--t-panel);
+  color: var(--t-muted);
+}
+.wiki-article blockquote > *:last-child {
+  margin-bottom: 0;
+}
+.wiki-article code {
+  padding: 0.15em 0.4em;
+  font-size: 0.9em;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 3px;
+}
+.wiki-article pre {
+  margin: 0 0 1.25rem;
+  padding: 1.1rem 1.25rem;
+  overflow-x: auto;
+  background: var(--t-bg-2);
+  box-shadow: inset 0 0 0 1px var(--t-line);
+}
+.wiki-article pre code {
+  padding: 0;
+  background: none;
+}
+.wiki-article img {
+  max-width: 100%;
+  height: auto;
+  margin: 0.5rem 0 1.25rem;
+  box-shadow: inset 0 0 0 1px var(--t-line);
+}
+.wiki-article table {
+  width: 100%;
+  margin: 0 0 1.25rem;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+.wiki-article th,
+.wiki-article td {
+  padding: 0.6rem 0.8rem;
+  text-align: left;
+  border-bottom: 1px solid var(--t-line);
+}
+.wiki-article th {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--t-amber);
+  background: var(--t-panel);
+  border-bottom: 1px solid var(--t-line-strong);
+}
+.wiki-article hr {
+  margin: 2rem 0;
+  border: 0;
+  border-top: 1px solid var(--t-line);
+}
+
+/* ---------------------------------------------------------------------
+   Mục lục các trang con — panel vát góc, cùng ngôn ngữ thị giác với
+   .cscd-channel/.cscd-tab ở trang chủ
+   --------------------------------------------------------------------- */
+.wiki-index {
+  margin-top: clamp(3rem, 6vw, 4rem);
+}
+.wiki-article + .wiki-index {
+  padding-top: clamp(2.5rem, 5vw, 3.5rem);
+  border-top: 1px solid var(--t-line);
+}
+.wiki-index__title {
+  margin: 0 0 1.25rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--t-amber);
+}
+.wiki-index__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+.wiki-index__link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.1rem 1.3rem;
+  text-decoration: none;
+  color: var(--t-text);
+  background: var(--t-panel);
+  box-shadow: inset 0 0 0 1px var(--t-line);
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+  transition: transform 0.18s ease, background-color 0.18s ease, box-shadow 0.18s ease;
+}
+.wiki-index__link:hover {
+  transform: translateX(4px);
+  color: #fff;
+  text-decoration: none;
+  background: rgba(24, 29, 35, 0.95);
+  box-shadow: inset 0 0 0 1px rgba(255, 176, 32, 0.5);
+}
+.wiki-index__name {
+  flex: none;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  min-width: 180px;
+}
+.wiki-index__summary {
+  flex: 1;
+  min-width: 0;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--t-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.wiki-index__arrow {
+  flex: none;
+  width: 9px;
+  height: 9px;
+  margin-left: auto;
+  border-top: 2px solid var(--t-steel);
+  border-right: 2px solid var(--t-steel);
+  transform: rotate(45deg);
+  transition: transform 0.18s ease, border-color 0.18s ease;
+}
+.wiki-index__link:hover .wiki-index__arrow {
+  border-color: var(--t-amber);
+  transform: rotate(45deg) translate(3px, -3px);
+}
+
+@media (max-width: 640px) {
+  .wiki-index__link {
+    flex-wrap: wrap;
+  }
+  .wiki-index__name {
+    min-width: 0;
+  }
+  .wiki-index__summary {
+    -webkit-line-clamp: 3;
+  }
+}
+
+/* Trang gốc wiki: 4 chủ đề trên 1 hàng thay vì danh sách xếp dọc */
+.wiki-index__list--grid {
+  grid-template-columns: repeat(2, 1fr);
+}
+.wiki-index__list--grid-4 {
+  grid-template-columns: repeat(3, 1fr);
+}
+.wiki-index__list--grid .wiki-index__link {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.6rem;
+  height: 100%;
+}
+.wiki-index__list--grid .wiki-index__name {
+  min-width: 0;
+}
+.wiki-index__list--grid .wiki-index__summary {
+  -webkit-line-clamp: 3;
+}
+.wiki-index__list--grid .wiki-index__arrow {
+  position: absolute;
+  top: 1.1rem;
+  right: 1.3rem;
+  margin-left: 0;
+}
 @media (max-width: 900px) {
-  .cscd-feature-cards__grid {
+  .wiki-index__list--grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 @media (max-width: 560px) {
-  .cscd-feature-cards__grid {
+  .wiki-index__list--grid {
     grid-template-columns: 1fr;
-  }
-  .cscd-hero__heading {
-    font-size: 2rem;
-  }
-  .cscd-section--dark,
-  .cscd-section--light {
-    padding: 3rem 0;
   }
 }
 
-/*# sourceMappingURL=site.css.map */
+/* =======================================================================
+   BLOG — trang danh sách (blog.html.twig) + trang chi tiết (blog-item.html.twig)
+   Dùng lại đúng khung wiki (hero, wiki-layout, wiki-article) nên không cần
+   định nghĩa lại phần đó; ở đây chỉ có lưới thẻ bài viết và khối liên quan.
+   ===================================================================== */
+
+.blog-post__date {
+  margin: 0.6rem 0 0;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  color: var(--t-muted);
+}
+
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+.wiki-article + .blog-grid {
+  margin-top: 2.5rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--t-line);
+}
+
+.blog-card {
+  --notch: 18px;
+  position: relative;
+  background: var(--t-panel);
+  box-shadow: inset 0 0 0 1px var(--t-line);
+  clip-path: polygon(0 0, calc(100% - var(--notch)) 0, 100% var(--notch), 100% 100%, var(--notch) 100%, 0 calc(100% - var(--notch)));
+  transition: transform 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
+}
+.blog-card:hover {
+  transform: translateY(-6px);
+  background: rgba(24, 29, 35, 0.9);
+  box-shadow: inset 0 0 0 1px rgba(255, 176, 32, 0.5), 0 18px 40px rgba(0, 0, 0, 0.5);
+}
+.blog-card__link {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+}
+.blog-card__link:hover {
+  color: inherit;
+  text-decoration: none;
+}
+.blog-card__image {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  background: #0a0d10;
+}
+.blog-card__image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.blog-card:hover .blog-card__image img {
+  transform: scale(1.05);
+}
+.blog-card__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 1.3rem 1.35rem 1.5rem;
+}
+.blog-card__date {
+  margin-bottom: 0.5rem;
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--t-amber);
+}
+.blog-card__title {
+  margin: 0 0 0.7rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--t-heading);
+}
+.blog-card__excerpt {
+  flex: 1;
+  margin: 0 0 1.2rem;
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: var(--t-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+.blog-card__more {
+  margin-top: auto;
+}
+
+.blog-related {
+  padding: clamp(3rem, 6vw, 4.5rem) 0 clamp(4rem, 8vw, 6rem);
+  border-top: 1px solid var(--t-line);
+}
+
+.cscd-home-blog__more {
+  display: flex;
+  justify-content: center;
+  margin-top: 2.75rem;
+}
+
+@media (max-width: 980px) {
+  .blog-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 620px) {
+  .blog-grid {
+    grid-template-columns: 1fr;
+  }
+}

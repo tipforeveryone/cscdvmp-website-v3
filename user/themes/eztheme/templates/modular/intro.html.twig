@@ -1,7 +1,4 @@
-<section class="cscd-section cscd-section--dark cscd-intro"{% if page.header.background_image %} style="background-image: url('{{ url('theme://images/cscd/' ~ page.header.background_image) }}')"{% endif %}>
-    <div class="cscd-overlay"></div>
-    <div class="container cscd-intro__content">
-        <h2 class="cscd-heading{% if page.header.heading_style == 'gold' %} cscd-heading--gold{% endif %}">{{ page.title }}</h2>
-        {% if page.header.text %}<p class="cscd-text-muted cscd-intro__text">{{ page.header.text }}</p>{% endif %}
-    </div>
-</section>
+{# Nội dung của trang này (tiêu đề + text "Tổng quan về game") được vẽ chung với khối
+   4 thẻ tính năng — xem modular/feature-cards.html.twig, phần lấy qua page.prevSibling().
+   File này cố tình không vẽ gì để tránh lặp lại section, nhưng trang vẫn tồn tại trong
+   cây nội dung 01.home nên vẫn sửa được bình thường trong admin. #}

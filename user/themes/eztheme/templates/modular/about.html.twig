@@ -1,12 +1,44 @@
-<section class="cscd-section cscd-section--dark cscd-about"{% if page.header.anchor_id %} id="{{ page.header.anchor_id }}"{% endif %}{% if page.header.background_image %} style="background-image: url('{{ url('theme://images/cscd/' ~ page.header.background_image) }}')"{% endif %}>
-    <div class="cscd-overlay"></div>
-    <div class="container">
-        <h2 class="cscd-heading">{{ page.title }}</h2>
+{# "Bản tóm tắt nhiệm vụ": cột trái là tiêu đề dính (sticky), cột phải là các mục hồ sơ.
+
+   Khối này giờ là khối tiêu đề đầu tiên sau hero (khối "Dive into the Action" phía
+   trên đã bỏ nội dung), nên mượn luôn ảnh nền của trang intro đó cho liền mạch —
+   tìm theo template thay vì đường dẫn cứng, để không phụ thuộc tên thư mục/thứ tự. #}
+{% set intro_page = null %}
+{% for sibling in page.parent.collection() %}
+    {% if sibling.header.template == 'modular/intro' %}
+        {% set intro_page = sibling %}
+    {% endif %}
+{% endfor %}
+{% set bg_image = (intro_page and intro_page.header.background_image) ? intro_page.header.background_image : page.header.background_image %}
+<section class="cscd-section cscd-about"{% if page.header.anchor_id %} id="{{ page.header.anchor_id }}"{% endif %}{% if bg_image %} style="--cscd-bg: url('{{ url('theme://images/cscd/' ~ bg_image) }}')"{% endif %}>
+    <div class="cscd-bg cscd-bg--deep" aria-hidden="true"></div>
+    <div class="cscd-grid-overlay" aria-hidden="true"></div>
+
+    <div class="container cscd-about__layout">
+        <div class="cscd-about__aside">
+            {% set current_lang = smls_current_language(page) %}
+            <h2 class="cscd-heading cscd-heading--left">{{ page.title }}</h2>
+            <div class="cscd-rule" aria-hidden="true"></div>
+
+            {# Link nhỏ tới bài wiki "Cốt truyện" — tìm theo route thật (page.find) thay
+               vì hard-code URL, để tự đúng nếu bài viết được di chuyển/đổi slug sau này. #}
+            {% set lore_route = current_lang == 'vi' ? '/wiki/the-gioi-trong-game/cot-truyen' : '/wiki/game-world/story' %}
+            {% set lore_page = page.find(smls_root_path(current_lang) ~ lore_route) %}
+            {% if lore_page %}
+            <a href="{{ lore_page.url }}" class="cscd-link-arrow cscd-about__lore-link">{{ current_lang == 'vi' ? 'Tìm hiểu cốt truyện game' : "Explore the game's story" }}</a>
+            {% endif %}
+        </div>
+
         <div class="cscd-about__content">
-            {% if page.header.intro %}<p class="cscd-text-muted">{{ page.header.intro }}</p>{% endif %}
+            {% if page.header.intro %}
+            <p class="cscd-about__lede">{{ page.header.intro }}</p>
+            {% endif %}
             {% for sec in page.header.sections %}
-            <h3>{{ sec.heading }}</h3>
-            <p class="cscd-text-muted">{{ sec.text }}</p>
+            <div class="cscd-panel">
+                <span class="cscd-panel__tag" aria-hidden="true">{{ '%02d'|format(loop.index) }}</span>
+                <h3 class="cscd-panel__title">{{ sec.heading }}</h3>
+                <p class="cscd-text-muted">{{ sec.text }}</p>
+            </div>
             {% endfor %}
         </div>
     </div>

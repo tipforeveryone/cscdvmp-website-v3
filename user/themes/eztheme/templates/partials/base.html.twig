@@ -13,6 +13,11 @@
     {% endif %}
 
     {% block stylesheets %}
+        {# Oswald = tiêu đề quân sự (condensed, in hoa), Barlow = nội dung.
+           Cả hai đều có subset "vietnamese" nên dấu tiếng Việt hiển thị đúng. #}
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@500;600;700&display=swap">
         <link rel="stylesheet" href="{{ url('theme://css/site.css') }}">
     {% endblock %}
     

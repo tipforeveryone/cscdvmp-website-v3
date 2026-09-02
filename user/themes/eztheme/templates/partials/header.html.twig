@@ -76,8 +76,16 @@
                     <ul class="menu">
                         {% for item in nav.header.items %}
                             {% set is_external = item.url starts with 'http' %}
+                            {# Mục cha chỉ để mở submenu (url: '#', không có trang đích riêng) thì
+                               không nên là link thật — bấm vào <a href="#"> sẽ nhảy lên đầu trang,
+                               không mong muốn với các nút như "Download". #}
+                            {% set no_link = item.url == '#' and item.children is defined %}
                             <li class="menu-item{% if item.children is defined %} has-submenu{% endif %}">
-                                <a href="{{ is_external ? item.url : base_url ~ item.url }}" class="menu-link"{% if is_external %} target="_blank" rel="noopener"{% endif %}>{{ item.label }}</a>
+                                {% if no_link %}
+                                <span class="menu-link{% if item.highlight %} menu-link--cta{% endif %}">{{ item.label }}</span>
+                                {% else %}
+                                <a href="{{ is_external ? item.url : base_url ~ item.url }}" class="menu-link{% if item.highlight %} menu-link--cta{% endif %}"{% if is_external %} target="_blank" rel="noopener"{% endif %}>{{ item.label }}</a>
+                                {% endif %}
                                 {% if item.children is defined %}
                                     <ul class="submenu">
                                         {% for child in item.children %}
@@ -135,8 +143,13 @@
         <ul class="menu">
             {% for item in nav.header.items %}
                 {% set is_external = item.url starts with 'http' %}
+                {% set no_link = item.url == '#' and item.children is defined %}
                 <li class="menu-item{% if item.children is defined %} has-submenu{% endif %}">
-                    <a href="{{ is_external ? item.url : base_url ~ item.url }}" class="menu-link"{% if is_external %} target="_blank" rel="noopener"{% endif %}>{{ item.label }}</a>
+                    {% if no_link %}
+                    <span class="menu-link{% if item.highlight %} menu-link--cta{% endif %}">{{ item.label }}</span>
+                    {% else %}
+                    <a href="{{ is_external ? item.url : base_url ~ item.url }}" class="menu-link{% if item.highlight %} menu-link--cta{% endif %}"{% if is_external %} target="_blank" rel="noopener"{% endif %}>{{ item.label }}</a>
+                    {% endif %}
                     {% if item.children is defined %}
                         <ul class="submenu">
                             {% for child in item.children %}

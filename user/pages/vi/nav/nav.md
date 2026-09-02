@@ -7,16 +7,30 @@ logo_mobile: '/user/themes/eztheme/images/cscd/logo.png'
 items:
   - label: Trang chủ
     url: /vi
-  - label: Tổng quan
-    url: /vi#about-cscd
-  - label: Điểm nổi bật
-    url: /vi#game-features
-  - label: Câu hỏi thường gặp
-    url: /vi#faq
+  - label: Giới thiệu
+    url: '#'
+    children:
+      - label: CSCD là gì?
+        url: /vi#about-cscd
+      - label: Điểm nổi bật
+        url: /vi#game-features
+      - label: Câu hỏi thường gặp
+        url: /vi#faq
   - label: Wiki
-    url: 'https://cscdvmp.notion.site/1c7fbcc975c3800092d5fe7c19f8226b?v=1c7fbcc975c3816593b0000cc6603677&pvs=4'
-  - label: Steam page
-    url: 'https://store.steampowered.com/app/1886820/CSCD_Vietnam_Mobile_Police/'
-  - label: Patreon
-    url: 'https://www.patreon.com/c/LegionTeam'
+    url: /vi/wiki
+  - label: Blog
+    url: /vi/blog
+  - label: Download
+    url: '#'
+    children:
+      - label: Snapshots
+        url: '#'
+  - label: Ủng hộ Dev
+    url: '#'
+    highlight: true
+    children:
+      - label: Patreon
+        url: 'https://www.patreon.com/c/LegionTeam'
+      - label: Donate
+        url: '#'
 ---

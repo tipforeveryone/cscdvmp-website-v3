@@ -1,0 +1,61 @@
+{% extends 'partials/base.html.twig' %}
+{# Trang chi tiết 1 bài blog: bố cục giống hệt wiki (hero + khối nội dung nền
+   intro-bg.jpeg fixed), riêng có thêm breadcrumb về trang danh sách và, ở cuối
+   bài, khối "bài viết khác" lấy từ các trang anh em (page.parent.children),
+   loại trừ chính bài đang xem, tối đa 3 bài mới nhất. #}
+
+{% block title %}{{ page.title }}{% endblock %}
+
+{% block content %}
+{% set current_lang = smls_current_language(page) %}
+{% set blog_root = page.parent %}
+
+<section class="wiki-hero"{% if page.header.background_image %} style="--cscd-bg: url('{{ url('theme://images/cscd/' ~ page.header.background_image) }}')"{% endif %}>
+    {% if page.header.background_image %}
+    <div class="cscd-bg cscd-bg--deep" aria-hidden="true"></div>
+    {% endif %}
+    <div class="cscd-grid-overlay" aria-hidden="true"></div>
+    <div class="container">
+        <p class="cscd-eyebrow"><span class="cscd-eyebrow__dot"></span>Blog</p>
+        <nav class="wiki-breadcrumb" aria-label="Breadcrumb">
+            <a href="{{ blog_root.url }}">{{ blog_root.title }}</a>
+            <span class="wiki-breadcrumb__sep" aria-hidden="true">/</span>
+            <span class="wiki-breadcrumb__current" aria-current="page">{{ page.title }}</span>
+        </nav>
+        <h1 class="wiki-hero__title">{{ page.title }}</h1>
+        {% if page.date %}
+        <p class="blog-post__date">{{ page.date|date('d.m.Y') }}</p>
+        {% endif %}
+    </div>
+</section>
+
+<div class="wiki-layout-wrap" style="--cscd-bg: url('{{ url('theme://images/cscd/intro-bg.jpeg') }}')">
+    <div class="cscd-bg cscd-bg--deep" aria-hidden="true"></div>
+    <main class="container wiki-layout">
+        <article class="wiki-article ipeb-editable">
+            {{ pml_edit_button(page) }}
+            {{ page.content|raw }}
+        </article>
+    </main>
+</div>
+
+{% set other_posts = [] %}
+{% for post in blog_root.children.published.order('date', 'desc') %}
+    {% if post.route != page.route and other_posts|length < 3 %}
+        {% set other_posts = other_posts|merge([post]) %}
+    {% endif %}
+{% endfor %}
+
+{% if other_posts|length %}
+<section class="blog-related">
+    <div class="container">
+        <h2 class="wiki-index__title">{{ current_lang == 'vi' ? 'Bài viết khác' : 'More posts' }}</h2>
+        <div class="blog-grid">
+            {% for post in other_posts %}
+                {% include 'partials/blog-card.html.twig' with { post: post } only %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}

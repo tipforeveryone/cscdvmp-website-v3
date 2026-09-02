@@ -1,17 +1,26 @@
 {% set current_lang = smls_current_language(page) %}
 {# Nội dung các câu hỏi lấy từ các page 'block-content' có custom_position == 'faq' #}
 {% set bc_root = page.find(smls_root_path(current_lang) ~ '/block-content') %}
-<section class="cscd-section cscd-section--dark cscd-faq"{% if page.header.anchor_id %} id="{{ page.header.anchor_id }}"{% endif %}{% if page.header.background_image %} style="background-image: url('{{ url('theme://images/cscd/' ~ page.header.background_image) }}')"{% endif %}>
-    <div class="cscd-overlay"></div>
+<section class="cscd-section cscd-faq"{% if page.header.anchor_id %} id="{{ page.header.anchor_id }}"{% endif %}{% if page.header.background_image %} style="--cscd-bg: url('{{ url('theme://images/cscd/' ~ page.header.background_image) }}')"{% endif %}>
+    <div class="cscd-bg cscd-bg--deep" aria-hidden="true"></div>
+    <div class="cscd-scanlines" aria-hidden="true"></div>
+
     <div class="container">
-        <h2 class="cscd-heading">{{ page.title }}</h2>
+        <div class="cscd-section-head">
+            <h2 class="cscd-heading">{{ page.title }}</h2>
+            <div class="cscd-rule cscd-rule--center" aria-hidden="true"></div>
+        </div>
+
         {% if bc_root %}
         <div class="cscd-faq__list">
             {% for item in bc_root.children.published.order('folder') %}
                 {% if item.header.custom_position == 'faq' %}
                 <details class="cscd-faq__item ipeb-editable">
                     {{ pml_edit_button(item) }}
-                    <summary class="cscd-faq__question">{{ item.title }}</summary>
+                    <summary class="cscd-faq__question">
+                        <span class="cscd-faq__marker" aria-hidden="true"></span>
+                        <span class="cscd-faq__label">{{ item.title }}</span>
+                    </summary>
                     <div class="cscd-text-muted cscd-faq__answer">{{ item.content|raw }}</div>
                 </details>
                 {% endif %}

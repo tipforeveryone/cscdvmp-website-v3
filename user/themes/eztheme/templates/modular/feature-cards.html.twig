@@ -1,27 +1,47 @@
 {% set current_lang = smls_current_language(page) %}
-{# Nội dung 4 thẻ lấy từ các page 'block-content' có custom_position == 'feature-cards' #}
+{# Nội dung 4 thẻ lấy từ các page 'block-content' có custom_position == 'feature-cards'.
+   Trình bày như "hồ sơ tác chiến": số hiệu, ảnh khử màu, viền vát góc kiểu HUD.
+
+   Trang "Dive into the Action" (modular/intro) không còn hiển thị tiêu đề/mô tả riêng
+   nữa — nội dung bị cắt theo yêu cầu, chỉ còn giữ lại ảnh nền của nó, được modular/about.html.twig
+   lấy qua page.find() để mở đầu ngay bằng khối "What is CSCD?". Trang intro vẫn tồn tại
+   trong cây nội dung 01.home (sửa được trong admin) nhưng intro.html.twig không vẽ gì. #}
 {% set bc_root = page.find(smls_root_path(current_lang) ~ '/block-content') %}
-<section class="cscd-section cscd-section--dark cscd-feature-cards"{% if page.header.background_image %} style="background-image: url('{{ url('theme://images/cscd/' ~ page.header.background_image) }}')"{% endif %}>
-    <div class="cscd-overlay"></div>
+<section class="cscd-section cscd-feature-cards"{% if page.header.background_image %} style="--cscd-bg: url('{{ url('theme://images/cscd/' ~ page.header.background_image) }}')"{% endif %}>
+    <div class="cscd-bg cscd-bg--dim" aria-hidden="true"></div>
+    <div class="cscd-grid-overlay" aria-hidden="true"></div>
+
     <div class="container cscd-feature-cards__inner">
-        {% if page.header.title %}<h2 class="cscd-heading">{{ page.header.title }}</h2>{% endif %}
+        {% if page.header.title %}
+        <div class="cscd-section-head">
+            <h2 class="cscd-heading">{{ page.header.title }}</h2>
+            <div class="cscd-rule cscd-rule--center" aria-hidden="true"></div>
+        </div>
+        {% endif %}
+
         {% if bc_root %}
         <div class="cscd-feature-cards__grid">
+            {% set card_num = 0 %}
             {% for card in bc_root.children.published.order('folder') %}
                 {% if card.header.custom_position == 'feature-cards' %}
-                <div class="cscd-feature-card ipeb-editable">
+                {% set card_num = card_num + 1 %}
+                <article class="cscd-feature-card ipeb-editable">
                     {{ pml_edit_button(card) }}
+                    <span class="cscd-feature-card__index" aria-hidden="true">{{ '%02d'|format(card_num) }}</span>
                     {% if card.header.image %}
                     <div class="cscd-feature-card__image">
                         <img src="{{ url('theme://images/cscd/' ~ card.header.image) }}" alt="{{ card.title }}" loading="lazy">
+                        <span class="cscd-feature-card__shine" aria-hidden="true"></span>
                     </div>
                     {% endif %}
-                    <h3 class="cscd-feature-card__title">{{ card.title }}</h3>
-                    <p class="cscd-text-muted cscd-feature-card__desc">{{ card.content|striptags|trim }}</p>
-                    {% if card.header.link_label %}
-                    <a href="{{ card.header.link_url ?: '#' }}" class="cscd-btn cscd-btn--outline-light">{{ card.header.link_label }}</a>
-                    {% endif %}
-                </div>
+                    <div class="cscd-feature-card__body">
+                        <h3 class="cscd-feature-card__title">{{ card.title }}</h3>
+                        <p class="cscd-text-muted cscd-feature-card__desc">{{ card.content|striptags|trim }}</p>
+                        {% if card.header.link_label %}
+                        <a href="{{ card.header.link_url ?: '#' }}" class="cscd-link-arrow">{{ card.header.link_label }}</a>
+                        {% endif %}
+                    </div>
+                </article>
                 {% endif %}
             {% endfor %}
         </div>

@@ -1,5 +1,5 @@
 ---
-title: 'CSCD là game gì ?'
+title: 'CSCD là gì ?'
 template: modular/about
 anchor_id: about-cscd
 background_image: hero-banner.jpg

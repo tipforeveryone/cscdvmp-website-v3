@@ -1,14 +1,43 @@
-<section class="cscd-section cscd-section--dark cscd-hero"{% if page.header.background_image %} style="background-image: url('{{ url('theme://images/cscd/' ~ page.header.background_image) }}')"{% endif %}>
-    <div class="cscd-overlay cscd-overlay--strong"></div>
+{# Hero = "màn hình nhiệm vụ": ảnh nền full-bleed + lớp quét HUD + khung góc ngắm.
+   Mọi chữ đều lấy từ page header nên EN/VI dùng chung template này. #}
+<section class="cscd-section cscd-hero"{% if page.header.background_image %} style="--cscd-bg: url('{{ url('theme://images/cscd/' ~ page.header.background_image) }}')"{% endif %}>
+    <div class="cscd-bg" aria-hidden="true"></div>
+    <div class="cscd-scanlines" aria-hidden="true"></div>
+    <div class="cscd-vignette" aria-hidden="true"></div>
+
     <div class="container cscd-hero__content">
+        <div class="cscd-brackets" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+
+        {% if page.header.eyebrow %}
+        <p class="cscd-eyebrow cscd-hero__eyebrow"><span class="cscd-eyebrow__dot"></span>{{ page.header.eyebrow }}</p>
+        {% endif %}
+
         <h1 class="cscd-hero__heading">{{ page.title }}</h1>
+        <div class="cscd-rule" aria-hidden="true"></div>
+
         {% if page.header.text %}<p class="cscd-text-muted cscd-hero__text">{{ page.header.text }}</p>{% endif %}
+
         {% if page.header.buttons %}
         <div class="cscd-hero__buttons">
             {% for btn in page.header.buttons %}
-            <a href="{{ btn.url }}" class="cscd-btn{% if loop.index == 1 %} cscd-btn--teal{% else %} cscd-btn--red{% endif %}" target="_blank" rel="noopener">{{ btn.label }}</a>
+            <a href="{{ btn.url }}" class="cscd-btn{{ loop.index == 1 ? ' cscd-btn--primary' : ' cscd-btn--ghost' }}" target="_blank" rel="noopener">
+                <span>{{ btn.label }}</span>
+            </a>
             {% endfor %}
         </div>
         {% endif %}
+
+        {% if page.header.stats %}
+        <ul class="cscd-hero__stats">
+            {% for stat in page.header.stats %}
+            <li class="cscd-stat">
+                <span class="cscd-stat__value">{{ stat.value }}</span>
+                <span class="cscd-stat__label">{{ stat.label }}</span>
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
     </div>
+
+    <span class="cscd-hero__scroll" aria-hidden="true"></span>
 </section>

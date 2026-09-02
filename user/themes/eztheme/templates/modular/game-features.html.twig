@@ -1,42 +1,130 @@
 {% set current_lang = smls_current_language(page) %}
-{# Nội dung các mục lấy từ các page 'block-content' có custom_position == 'game-features' #}
+{# Nội dung các mục lấy từ các page 'block-content' có custom_position == 'game-features'.
+   Trình bày dạng tab dọc: cột trái là danh sách đề mục, bấm vào thì nội dung tương ứng
+   hiện ở cột phải (xử lý trong js/site.js — initGameFeatureTabs).
+   Khi không có JS, toàn bộ panel vẫn hiển thị xếp dọc nên nội dung không bao giờ mất. #}
 {% set bc_root = page.find(smls_root_path(current_lang) ~ '/block-content') %}
-<section class="cscd-section cscd-section--light cscd-game-features"{% if page.header.anchor_id %} id="{{ page.header.anchor_id }}"{% endif %}>
+
+{# Nhãn trợ năng cho slideshow — chỉ người dùng trình đọc màn hình nghe thấy, không
+   hiện trên giao diện, nên để gọn ở đây thay vì thêm trường vào từng trang nội dung.
+   Ngôn ngữ lạ sẽ rơi về bản tiếng Anh. #}
+{% set ui_labels = {
+    en: { prev: 'Previous images', next: 'More images', image: 'Image' },
+    vi: { prev: 'Ảnh trước', next: 'Xem thêm ảnh', image: 'Ảnh' }
+} %}
+{% set ui = ui_labels[current_lang]|default(ui_labels.en) %}
+
+{% set items = [] %}
+{% if bc_root %}
+    {% for item in bc_root.children.published.order('folder') %}
+        {% if item.header.custom_position == 'game-features' %}
+            {% set items = items|merge([item]) %}
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+<section class="cscd-section cscd-game-features"{% if page.header.anchor_id %} id="{{ page.header.anchor_id }}"{% endif %}>
+    <div class="cscd-grid-overlay" aria-hidden="true"></div>
+
     <div class="container">
-        <h2 class="cscd-heading">{{ page.title }}</h2>
-        {% if bc_root %}
-        {% set item_num = 0 %}
-        <div class="cscd-game-features__list">
-            {% for item in bc_root.children.published.order('folder') %}
-                {% if item.header.custom_position == 'game-features' %}
-                {% set item_num = item_num + 1 %}
-                <div class="cscd-game-feature ipeb-editable">
+        <div class="cscd-section-head">
+            <h2 class="cscd-heading">{{ page.title }}</h2>
+            <div class="cscd-rule cscd-rule--center" aria-hidden="true"></div>
+        </div>
+
+        {% if items %}
+        {# Dải 4 đề mục nằm ngang phía trên, bấm vào thì nội dung hiện ở khối bên dưới #}
+        <div class="cscd-tabs" data-cscd-tabs>
+            <div class="cscd-tabs__nav" role="tablist" aria-label="{{ page.title }}">
+                {% for item in items %}
+                <button type="button"
+                        class="cscd-tab{{ loop.first ? ' is-active' : '' }}"
+                        role="tab"
+                        id="gf-tab-{{ loop.index }}"
+                        aria-controls="gf-panel-{{ loop.index }}"
+                        aria-selected="{{ loop.first ? 'true' : 'false' }}"
+                        tabindex="{{ loop.first ? '0' : '-1' }}">
+                    <span class="cscd-tab__num" aria-hidden="true">{{ '%02d'|format(loop.index) }}</span>
+                    <span class="cscd-tab__label">{{ item.title }}</span>
+                </button>
+                {% endfor %}
+            </div>
+
+            <div class="cscd-tabs__panels">
+                {% for item in items %}
+                <div class="cscd-tabpanel{{ loop.first ? ' is-active' : '' }} ipeb-editable"
+                     role="tabpanel"
+                     id="gf-panel-{{ loop.index }}"
+                     aria-labelledby="gf-tab-{{ loop.index }}">
                     {{ pml_edit_button(item) }}
-                    <h3 class="cscd-game-feature__title">{{ item_num }}. {{ item.title }}</h3>
-                    {% if item.content|trim %}
-                    <p class="cscd-game-feature__desc">{{ item.content|striptags|trim }}</p>
-                    {% endif %}
 
-                    {% if item.header.gallery %}
-                    <div class="cscd-game-feature__gallery">
-                        {% for pic in item.header.gallery %}
-                        <div class="cscd-game-feature__gallery-item">
-                            <img src="{{ url('theme://images/cscd/' ~ pic.image) }}" alt="{{ item.title }}" loading="lazy">
-                        </div>
-                        {% endfor %}
+                    <div class="cscd-tabpanel__head">
+                        <span class="cscd-tabpanel__num" aria-hidden="true">{{ '%02d'|format(loop.index) }}</span>
+                        <h3 class="cscd-tabpanel__title">{{ item.title }}</h3>
                     </div>
-                    {% endif %}
 
-                    {% if item.header.bullets %}
-                    <ul class="cscd-game-feature__bullets">
-                        {% for bullet in item.header.bullets %}
-                        <li><strong>{{ bullet.title }}:</strong> {{ bullet.text }}</li>
-                        {% endfor %}
-                    </ul>
-                    {% endif %}
+                    {# Mục nào có thư viện ảnh thì chia đôi: chữ bên trái, slideshow bên phải.
+                       Mục không có ảnh vẫn chiếm trọn chiều ngang như cũ. #}
+                    <div class="cscd-tabpanel__body{{ item.header.gallery ? ' cscd-tabpanel__body--split' : '' }}">
+                        <div class="cscd-tabpanel__text">
+                            {% if item.content|trim %}
+                            {# raw thay vì striptags: nội dung có thể gồm nhiều đoạn văn (nhiều thẻ <p>
+                               sau khi Markdown xử lý) — striptags sẽ dính liền các đoạn lại làm một,
+                               mất khoảng trắng giữa câu cuối đoạn này và đầu đoạn sau. #}
+                            <div class="cscd-text-muted cscd-tabpanel__desc">{{ item.content|raw }}</div>
+                            {% endif %}
+
+                            {% if item.header.bullets %}
+                            <ul class="cscd-game-feature__bullets">
+                                {% for bullet in item.header.bullets %}
+                                <li>
+                                    <span class="cscd-game-feature__bullet-title">{{ bullet.title }}</span>
+                                    <span class="cscd-game-feature__bullet-text cscd-text-muted">{{ bullet.text }}</span>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                        </div>
+
+                        {% if item.header.gallery %}
+                        {# Ảnh lớn ở trên + dải thumbnail ngang có mũi tên cuộn (js/site.js — initGalleries).
+                           Khi chưa có JS: ảnh lớn hiện ảnh đầu, các thumbnail vẫn hiển thị đầy đủ nên
+                           không mất ảnh nào, chỉ là chưa bấm đổi được. #}
+                        <div class="cscd-gallery" data-cscd-gallery>
+                            <figure class="cscd-gallery__stage">
+                                <img src="{{ url('theme://images/cscd/' ~ item.header.gallery|first.image) }}"
+                                     alt="{{ item.title }}"
+                                     data-cscd-gallery-stage>
+                                <span class="cscd-shot__corner" aria-hidden="true"></span>
+                            </figure>
+
+                            <div class="cscd-gallery__strip">
+                                <button type="button" class="cscd-gallery__arrow" data-cscd-gallery-arrow="-1" aria-label="{{ ui.prev }}">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+                                </button>
+
+                                <div class="cscd-gallery__thumbs" data-cscd-gallery-thumbs>
+                                    {% for pic in item.header.gallery %}
+                                    <button type="button"
+                                            class="cscd-gallery__thumb{{ loop.first ? ' is-active' : '' }}"
+                                            data-cscd-gallery-src="{{ url('theme://images/cscd/' ~ pic.image) }}"
+                                            aria-label="{{ ui.image }} {{ loop.index }}"
+                                            aria-current="{{ loop.first ? 'true' : 'false' }}">
+                                        <img src="{{ url('theme://images/cscd/' ~ pic.image) }}" alt="" loading="lazy">
+                                    </button>
+                                    {% endfor %}
+                                </div>
+
+                                <button type="button" class="cscd-gallery__arrow" data-cscd-gallery-arrow="1" aria-label="{{ ui.next }}">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+                                </button>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
                 </div>
-                {% endif %}
-            {% endfor %}
+                {% endfor %}
+            </div>
         </div>
         {% endif %}
     </div>

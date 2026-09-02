@@ -1,0 +1,23 @@
+{# Thẻ blog dùng chung cho cả trang danh sách (blog.html.twig) và khối "bài viết
+   khác" ở cuối trang chi tiết (blog-item.html.twig). Nhận biến `post` từ include. #}
+<article class="blog-card ipeb-editable">
+    {{ pml_edit_button(post) }}
+    <a href="{{ post.url }}" class="blog-card__link">
+        {% if post.header.image %}
+        <div class="blog-card__image">
+            <img src="{{ url('theme://images/cscd/' ~ post.header.image) }}" alt="{{ post.title }}" loading="lazy">
+            <span class="cscd-feature-card__shine" aria-hidden="true"></span>
+        </div>
+        {% endif %}
+        <div class="blog-card__body">
+            {% if post.date %}
+            <span class="blog-card__date">{{ post.date|date('d.m.Y') }}</span>
+            {% endif %}
+            <h3 class="blog-card__title">{{ post.title }}</h3>
+            {% if post.summary|trim %}
+            <p class="blog-card__excerpt">{{ post.summary|striptags|trim }}</p>
+            {% endif %}
+            <span class="cscd-link-arrow blog-card__more" aria-hidden="true">{{ smls_current_language(post) == 'vi' ? 'Đọc thêm' : 'Read more' }}</span>
+        </div>
+    </a>
+</article>

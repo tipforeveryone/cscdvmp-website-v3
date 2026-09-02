@@ -1,0 +1,43 @@
+{% extends 'partials/base.html.twig' %}
+{# Trang danh sách blog: liệt kê các trang con trực tiếp (mỗi bài viết là 1 trang
+   template=blog-item), 3 thẻ / hàng, mới nhất lên trước theo trường `date`. #}
+
+{% block title %}{{ page.title }}{% endblock %}
+
+{% block content %}
+{% set current_lang = smls_current_language(page) %}
+
+<section class="wiki-hero"{% if page.header.background_image %} style="--cscd-bg: url('{{ url('theme://images/cscd/' ~ page.header.background_image) }}')"{% endif %}>
+    {% if page.header.background_image %}
+    <div class="cscd-bg cscd-bg--deep" aria-hidden="true"></div>
+    {% endif %}
+    <div class="cscd-grid-overlay" aria-hidden="true"></div>
+    <div class="container wiki-hero__container--wide">
+        <p class="cscd-eyebrow"><span class="cscd-eyebrow__dot"></span>Blog</p>
+        <h1 class="wiki-hero__title">{{ page.title }}</h1>
+    </div>
+</section>
+
+<div class="wiki-layout-wrap" style="--cscd-bg: url('{{ url('theme://images/cscd/intro-bg.jpeg') }}')">
+    <div class="cscd-bg cscd-bg--deep" aria-hidden="true"></div>
+    <main class="container wiki-layout wiki-layout--wide">
+        {% if page.content|trim %}
+        <article class="wiki-article ipeb-editable">
+            {{ pml_edit_button(page) }}
+            {{ page.content|raw }}
+        </article>
+        {% endif %}
+
+        {% set posts = page.children.published.order('date', 'desc') %}
+        {% if posts|length %}
+        <div class="blog-grid">
+            {% for post in posts %}
+                {% include 'partials/blog-card.html.twig' with { post: post } only %}
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="cscd-text-muted">{{ current_lang == 'vi' ? 'Chưa có bài viết nào.' : 'No posts yet.' }}</p>
+        {% endif %}
+    </main>
+</div>
+{% endblock %}

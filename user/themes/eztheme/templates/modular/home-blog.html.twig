@@ -1,0 +1,31 @@
+{% set current_lang = smls_current_language(page) %}
+{# Khối "Blog" trên trang chủ, đặt sau FAQ: lấy 3 bài mới nhất từ trang danh sách
+   blog thật (user/pages/<lang>/03.blog), tái dùng đúng blog-card đã dùng cho
+   trang /blog để đồng bộ giao diện, kèm nút "Xem thêm" trỏ về đó. #}
+{% set blog_root = page.find(smls_root_path(current_lang) ~ '/blog') %}
+{% set posts = blog_root ? blog_root.children.published.order('date', 'desc')|slice(0, 3) : [] %}
+
+{% if blog_root and posts|length %}
+<section class="cscd-section cscd-home-blog"{% if page.header.anchor_id %} id="{{ page.header.anchor_id }}"{% endif %}{% if page.header.background_image %} style="--cscd-bg: url('{{ url('theme://images/cscd/' ~ page.header.background_image) }}')"{% endif %}>
+    <div class="cscd-grid-overlay" aria-hidden="true"></div>
+
+    <div class="container">
+        <div class="cscd-section-head">
+            <h2 class="cscd-heading">{{ page.title }}</h2>
+            <div class="cscd-rule cscd-rule--center" aria-hidden="true"></div>
+        </div>
+
+        <div class="blog-grid">
+            {% for post in posts %}
+                {% include 'partials/blog-card.html.twig' with { post: post } only %}
+            {% endfor %}
+        </div>
+
+        <div class="cscd-home-blog__more">
+            <a href="{{ blog_root.url }}" class="cscd-btn cscd-btn--ghost">
+                <span>{{ current_lang == 'vi' ? 'Xem thêm' : 'View more' }}</span>
+            </a>
+        </div>
+    </div>
+</section>
+{% endif %}

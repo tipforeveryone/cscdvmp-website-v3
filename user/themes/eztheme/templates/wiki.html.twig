@@ -1,0 +1,108 @@
+{% extends 'partials/base.html.twig' %}
+{# Dùng chung 1 template cho MỌI cấp của wiki (trang gốc /wiki lẫn các trang con lồng
+   nhau tuỳ ý cấp) — mỗi trang tự liệt kê các trang con trực tiếp của nó (page.children),
+   nên thêm/bớt/đổi thứ tự trang trong admin là mục lục tự cập nhật, không cần sửa gì
+   thêm. Trang nào không có con thì phần mục lục tự ẩn. #}
+
+{# Đường dẫn phân cấp: leo lên page.parent cho tới khi gặp trang không phải wiki (ví dụ
+   trang chủ) thì dừng — không cần đánh dấu "đây là gốc" thủ công, tự dừng đúng chỗ nhờ
+   so sánh header.template. Twig không có "break" nên vòng lặp cứ chạy hết nhưng vô hại:
+   một khi p là null, điều kiện luôn false, các lượt sau không làm gì.
+   Đặt ở ngoài block content vì block title cũng cần dùng (biết trang có phải gốc wiki
+   hay không, để không hiện tiêu đề trùng "Wiki — Wiki"). #}
+{% set crumbs = [page] %}
+{% set p = page.parent %}
+{% for i in 1..8 %}
+    {% if p and p.header.template == 'wiki' %}
+        {% set crumbs = crumbs|merge([p]) %}
+        {% set p = p.parent %}
+    {% else %}
+        {% set p = null %}
+    {% endif %}
+{% endfor %}
+{% set crumbs = crumbs|reverse %}
+{% set is_wiki_root = crumbs|length == 1 %}
+{# Mọi trang wiki (gốc lẫn con cháu ở bất kỳ cấp nào) dùng chung 1 ảnh nền hero —
+   lấy từ background_image của trang gốc wiki, không phải của từng trang riêng —
+   để toàn bộ khu vực wiki nhất quán về mặt hình ảnh. #}
+{% set wiki_hero_bg = (crumbs|first).header.background_image ?: 'hero-banner.jpg' %}
+
+{% block title %}{{ page.title }}{{ crumbs|length > 1 ? ' — Wiki' : '' }}{% endblock %}
+
+{% block content %}
+{# Nhãn "Mục lục" đổi theo ngôn ngữ — không có trường nội dung nào phù hợp để đặt cái
+   này (nó thuộc về khung giao diện, không phải nội dung một trang cụ thể). #}
+{% set current_lang = smls_current_language(page) %}
+{% set ui_labels = {
+    en: { contents: 'In this section', toc: 'Contents' },
+    vi: { contents: 'Trong mục này', toc: 'Mục lục' }
+} %}
+{% set ui = ui_labels[current_lang]|default(ui_labels.en) %}
+
+<section class="wiki-hero" style="--cscd-bg: url('{{ url('theme://images/cscd/' ~ wiki_hero_bg) }}')">
+    <div class="cscd-bg cscd-bg--deep" aria-hidden="true"></div>
+    <div class="cscd-grid-overlay" aria-hidden="true"></div>
+    <div class="container">
+        <p class="cscd-eyebrow"><span class="cscd-eyebrow__dot"></span>Wiki</p>
+
+        {% if crumbs|length > 1 %}
+        <nav class="wiki-breadcrumb" aria-label="Breadcrumb">
+            {% for crumb in crumbs %}
+                {% if not loop.last %}
+                <a href="{{ crumb.url }}">{{ crumb.title }}</a>
+                <span class="wiki-breadcrumb__sep" aria-hidden="true">/</span>
+                {% else %}
+                <span class="wiki-breadcrumb__current" aria-current="page">{{ crumb.title }}</span>
+                {% endif %}
+            {% endfor %}
+        </nav>
+        {% endif %}
+
+        <h1 class="wiki-hero__title">{{ page.title }}</h1>
+    </div>
+</section>
+
+<div class="wiki-layout-wrap" style="--cscd-bg: url('{{ url('theme://images/cscd/intro-bg.jpeg') }}')">
+    <div class="cscd-bg cscd-bg--deep" aria-hidden="true"></div>
+    <main class="container wiki-layout{{ is_wiki_root ? ' wiki-layout--wide' : '' }}">
+        {% if page.content|trim %}
+        <div class="wiki-body">
+            {# TOC được JS (initWikiToc trong site.js) dựng từ các thẻ h2/h3 thật
+               có trong nội dung — không dựng sẵn ở đây vì Twig không biết trước
+               bài viết có bao nhiêu đề mục. JS cũng tự ẩn khối này nếu bài viết
+               có ít hơn 2 đề mục (không cần mục lục cho bài ngắn). #}
+            <aside class="wiki-toc" aria-label="{{ ui.toc }}" hidden>
+                <div class="wiki-toc__inner">
+                    <p class="wiki-toc__title">{{ ui.toc }}</p>
+                    <nav class="wiki-toc__nav"></nav>
+                </div>
+            </aside>
+            <article class="wiki-article ipeb-editable">
+                {{ pml_edit_button(page) }}
+                {{ page.content|raw }}
+            </article>
+        </div>
+        {% endif %}
+
+        {% set children = page.children.published.order('folder') %}
+        {% if children|length %}
+        <section class="wiki-index">
+            <h2 class="wiki-index__title">{{ page.content|trim ? ui.contents : ui.toc }}</h2>
+            <ul class="wiki-index__list wiki-index__list--grid{{ is_wiki_root ? ' wiki-index__list--grid-4' : '' }}">
+                {% for child in children %}
+                <li>
+                    <a href="{{ child.url }}" class="wiki-index__link">
+                        <span class="wiki-index__name">{{ child.title }}</span>
+                        {% if child.summary|trim %}
+                        <span class="wiki-index__summary">{{ child.summary|striptags|trim }}</span>
+                        {% endif %}
+                        <span class="wiki-index__arrow" aria-hidden="true"></span>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </section>
+        {% endif %}
+    </main>
+</div>
+{% endblock %}
