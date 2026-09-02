@@ -27,6 +27,10 @@ items:
         url: 'https://store.steampowered.com/app/1886820/CSCD_Vietnam_Mobile_Police/'
       - label: Snapshots
         url: '#'
-  - label: Patreon
-    url: 'https://www.patreon.com/c/LegionTeam'
+  - label: Support us
+    url: '#'
+    highlight: true
+    children:
+      - label: Patreon
+        url: 'https://www.patreon.com/c/LegionTeam'
 ---

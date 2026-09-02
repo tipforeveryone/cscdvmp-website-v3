@@ -6,7 +6,7 @@
 {% set posts = blog_root ? blog_root.children.published.order('date', 'desc')|slice(0, 3) : [] %}
 
 {% if blog_root and posts|length %}
-<section class="cscd-section cscd-home-blog"{% if page.header.anchor_id %} id="{{ page.header.anchor_id }}"{% endif %}{% if page.header.background_image %} style="--cscd-bg: url('{{ url('theme://images/cscd/' ~ page.header.background_image) }}')"{% endif %}>
+<section class="cscd-section cscd-home-blog"{% if page.header.anchor_id %} id="{{ page.header.anchor_id }}"{% endif %}>
     <div class="cscd-grid-overlay" aria-hidden="true"></div>
 
     <div class="container">
