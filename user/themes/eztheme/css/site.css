@@ -1853,7 +1853,6 @@ footer p {
 .footer-bottom {
   margin-top: 2rem;
   padding-top: 1.5rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
   color: rgba(255, 255, 255, 0.5);
   font-size: 0.8rem;
 }
@@ -3951,7 +3950,6 @@ body.template-home footer strong, body.template-wiki footer strong , body.templa
   text-transform: uppercase;
 }
 body.template-home .footer-bottom, body.template-wiki .footer-bottom , body.template-blog .footer-bottom , body.template-blog-item .footer-bottom {
-  border-top: 1px solid var(--t-line);
   color: var(--t-muted);
   font-family: 'Barlow Condensed', sans-serif;
   letter-spacing: 0.1em;

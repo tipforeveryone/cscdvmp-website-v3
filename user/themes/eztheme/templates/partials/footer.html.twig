@@ -5,24 +5,6 @@
 
 <footer>
     <div class="container">
-        <div class="footer-content">
-
-            {# Cột: Địa chỉ văn phòng + liên hệ (cột logo "LEGION TEAM" đã bỏ theo yêu cầu —
-               disclaimer/"Điều khoản dịch vụ" chuyển xuống footer-bottom, cùng dòng với
-               dòng bản quyền). #}
-            {% if bc_root %}
-            {% for block in bc_root.children.published.order('folder') %}
-                {% if block.header.custom_position == 'footer-contact' %}
-                <div class="footer-col footer-office ipeb-editable">
-                    {{ pml_edit_button(block) }}
-                    {{ block.content|raw }}
-                </div>
-                {% endif %}
-            {% endfor %}
-            {% endif %}
-
-        </div>
-
         <div class="footer-bottom">
             <div class="footer-bottom__row">
                 {% if bc_root %}
