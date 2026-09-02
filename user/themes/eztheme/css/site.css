@@ -4546,6 +4546,11 @@ body.template-home .footer-col--logo img, body.template-wiki .footer-col--logo i
   border-top: 1px solid var(--t-line);
 }
 
+.cscd-home-blog {
+  background: var(--t-bg-2);
+  border-top: 1px solid var(--t-line);
+}
+
 .cscd-home-blog__more {
   display: flex;
   justify-content: center;
