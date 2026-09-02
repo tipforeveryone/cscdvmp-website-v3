@@ -2,7 +2,7 @@
 title: 'CSCD là gì ?'
 template: modular/about
 anchor_id: about-cscd
-background_image: hero-banner.jpg
+background_image: intro-bg.jpeg
 intro: "CSCD là game thuộc thể loại bắn súng chiến thuật góc nhìn thứ nhất (Tactical First Person Shooter). Trong game, người chơi điều khiển một đội hình bao gồm nhiều thành viên thuộc lực lượng CSCD, viết tắt của Counter. Secure. Control Division. Vận dụng khả năng tư duy chiến thuật, người chơi khai các kế hoạch tác chiến, ứng phó với các tình huống trong quá trình thực hiện nhiệm vụ."
 sections:
     -

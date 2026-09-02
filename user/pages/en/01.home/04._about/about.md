@@ -2,7 +2,7 @@
 title: 'What is CSCD ?'
 template: modular/about
 anchor_id: about-cscd
-background_image: hero-banner.jpg
+background_image: intro-bg.jpeg
 intro: "CSCD is a Tactical First-Person Shooter (FPS) game. Players control a multi-member squad from the CSCD unit, which stands for Counter. Secure. Control Division. Leveraging their tactical thinking, players devise operational plans and adapt to various situations as they carry out their missions."
 sections:
     -

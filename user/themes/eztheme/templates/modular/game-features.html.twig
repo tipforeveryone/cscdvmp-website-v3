@@ -23,7 +23,10 @@
     {% endfor %}
 {% endif %}
 
-<section class="cscd-section cscd-game-features"{% if page.header.anchor_id %} id="{{ page.header.anchor_id }}"{% endif %}>
+<section class="cscd-section cscd-game-features"{% if page.header.anchor_id %} id="{{ page.header.anchor_id }}"{% endif %}{% if page.header.background_image %} style="--cscd-bg: url('{{ url('theme://images/cscd/' ~ page.header.background_image) }}')"{% endif %}>
+    {% if page.header.background_image %}
+    <div class="cscd-bg cscd-bg--dim" aria-hidden="true"></div>
+    {% endif %}
     <div class="cscd-grid-overlay" aria-hidden="true"></div>
 
     <div class="container">

@@ -2691,7 +2691,11 @@ body.template-home [id], body.template-wiki [id] , body.template-blog [id] , bod
 /* Nền đứng yên khi cuộn (không cuộn theo section) — áp dụng cho các khối nội dung
    tĩnh (không có animation drift như hero), để tạo cảm giác lớp sâu khi cuộn qua. */
 .cscd-about .cscd-bg,
+.cscd-feature-cards .cscd-bg,
+.cscd-game-features .cscd-bg,
 .cscd-faq .cscd-bg,
+.cscd-social .cscd-bg,
+.cscd-home-blog .cscd-bg,
 .wiki-hero .cscd-bg,
 .wiki-layout-wrap .cscd-bg {
   background-attachment: fixed;
@@ -3121,6 +3125,9 @@ body.template-home [id], body.template-wiki [id] , body.template-blog [id] , bod
 /* ---------------------------------------------------------------------
    About — tóm tắt nhiệm vụ, 2 cột
    --------------------------------------------------------------------- */
+.cscd-about {
+  border-top: 1px solid var(--t-line);
+}
 .cscd-about__layout {
   display: grid;
   grid-template-columns: minmax(220px, 340px) 1fr;
