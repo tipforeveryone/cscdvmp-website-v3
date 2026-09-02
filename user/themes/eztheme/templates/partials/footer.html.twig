@@ -7,31 +7,13 @@
     <div class="container">
         <div class="footer-content">
 
-            {# Cột 0: Logo công ty #}
+            {# Cột: Địa chỉ văn phòng + liên hệ (cột logo "LEGION TEAM" đã bỏ theo yêu cầu —
+               disclaimer/"Điều khoản dịch vụ" chuyển xuống footer-bottom, cùng dòng với
+               dòng bản quyền). #}
             {% if bc_root %}
-            {% for block in bc_root.children.published.order('folder') %}
-                {% if block.header.custom_position == 'footer-logo' %}
-                <div class="footer-col footer-col--logo ipeb-editable">
-                    {{ pml_edit_button(block) }}
-                    {{ block.content|raw }}
-                </div>
-                {% endif %}
-            {% endfor %}
-
-            {# Cột 1: Địa chỉ văn phòng + liên hệ #}
             {% for block in bc_root.children.published.order('folder') %}
                 {% if block.header.custom_position == 'footer-contact' %}
                 <div class="footer-col footer-office ipeb-editable">
-                    {{ pml_edit_button(block) }}
-                    {{ block.content|raw }}
-                </div>
-                {% endif %}
-            {% endfor %}
-
-            {# Cột 2: Disclaimer #}
-            {% for block in bc_root.children.published.order('folder') %}
-                {% if block.header.custom_position == 'footer-disclaimer' %}
-                <div class="footer-col footer-disclaimer ipeb-editable">
                     {{ pml_edit_button(block) }}
                     {{ block.content|raw }}
                 </div>
@@ -42,16 +24,26 @@
         </div>
 
         <div class="footer-bottom">
-            {% if bc_root %}
-            {% for block in bc_root.children.published.order('folder') %}
-                {% if block.header.custom_position == 'footer-copyright' %}
-                <p class="ipeb-editable">
-                    {{ pml_edit_button(block) }}
-                    &copy; {{ now|date('Y') }} {{ block.content|raw|striptags }}
-                </p>
+            <div class="footer-bottom__row">
+                {% if bc_root %}
+                {% for block in bc_root.children.published.order('folder') %}
+                    {% if block.header.custom_position == 'footer-copyright' %}
+                    <p class="ipeb-editable">
+                        {{ pml_edit_button(block) }}
+                        &copy; {{ now|date('Y') }} {{ block.content|raw|striptags }}
+                    </p>
+                    {% endif %}
+                {% endfor %}
+                {% for block in bc_root.children.published.order('folder') %}
+                    {% if block.header.custom_position == 'footer-disclaimer' %}
+                    <div class="footer-bottom__links ipeb-editable">
+                        {{ pml_edit_button(block) }}
+                        {{ block.content|raw }}
+                    </div>
+                    {% endif %}
+                {% endfor %}
                 {% endif %}
-            {% endfor %}
-            {% endif %}
+            </div>
             {% if tip_visitor_gadget_available and footer.header.pageviews_label and footer.header.visitors_label %}
             {{ tip_visitor_gadget(footer.header.pageviews_label, footer.header.visitors_label) }}
             {% endif %}

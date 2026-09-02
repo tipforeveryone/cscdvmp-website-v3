@@ -1806,7 +1806,7 @@ footer p {
 
 .footer-content {
   display: grid;
-  grid-template-columns: 180px 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 3rem;
   align-items: start;
 }
@@ -1851,12 +1851,26 @@ footer p {
 }
 
 .footer-bottom {
-  text-align: center;
   margin-top: 2rem;
   padding-top: 1.5rem;
   border-top: 1px solid rgba(255, 255, 255, 0.2);
   color: rgba(255, 255, 255, 0.5);
   font-size: 0.8rem;
+}
+/* Dòng bản quyền bên trái, "Điều khoản dịch vụ" trôi (float) sang phải, cùng
+   một dòng — dùng flex thay vì float thật để căn giữa theo chiều dọc dễ hơn. */
+.footer-bottom__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+}
+.footer-bottom__row p {
+  margin: 0;
+}
+.footer-bottom__links p {
+  margin: 0;
 }
 
 .btn, button, input[type=submit], input[type=button] {
