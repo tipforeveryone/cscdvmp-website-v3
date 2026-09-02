@@ -1,2 +1,22 @@
 popularity:
   salt: 2307fee46e098e9436dda2c3c477a1d7367c010c57d1bb91d53a9ea68eeed920
+
+rate_limit:
+  # Full default list (see RateLimitMiddleware.php) plus /ftp-sync/ — this
+  # plugin's job-step polling (full-deploy compress, check-diff, push) fires
+  # dozens/hundreds of rapid POST requests per operation on a large site,
+  # tripping the shared 120 req/60s anti-abuse bucket ("Request failed
+  # (429)" on Compress full site). Setting this key REPLACES the whole
+  # default list rather than merging with it, so every existing default
+  # fragment must stay listed here too.
+  excluded_paths:
+    - /sync/
+    - /field/
+    - /fields
+    - /widget-script
+    - /panel-script
+    - /page-script
+    - /report-script/
+    - /modal-script/
+    - /custom-fields
+    - /ftp-sync/
