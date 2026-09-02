@@ -1,34 +1,27 @@
+timezone: Asia/Ho_Chi_Minh
+custom_base_url: null
 home:
-  alias: '/en/home'
-
+  alias: /en/home
 pages:
   theme: eztheme
-
+  dateformat:
+    short: 'Y-m-d G:i'
+  append_url_extension: null
+  redirect_default_code: '302'
+cache:
+  redis:
+    socket: ''
+errors:
+  display: 1
+debugger:
+  token: null
+images:
+  cls:
+    retina_scale: '1'
 session:
   split: false
-
-cache:
-  enabled: true
-  check:
-    method: file
-
-assets:
-  css_pipeline: false
-  js_pipeline: false
-  enable_asset_timestamp: false
-
-errors:
-  display: true
-  log: true
-
-debugger:
-  enabled: false
-  provider: clockwork
-
 gpm:
-  releases: stable
   verify_peer: true
-
 updates:
   safe_upgrade: true
   safe_upgrade_snapshot_limit: 5

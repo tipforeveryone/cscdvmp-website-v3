@@ -1,9 +1,9 @@
 enabled: true
 templates:
   article: true
-  block-content: true
   article-list: false
   baotri: false
+  block-content: false
   content-page: false
   dangxaydung: false
   default: false

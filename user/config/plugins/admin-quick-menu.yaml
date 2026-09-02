@@ -12,3 +12,6 @@ custom_links:
   -
     label: 'Quản lý nội dung'
     url: /admin/easy-content-manager
+  -
+    label: Tutorial
+    url: /admin/tutorial
