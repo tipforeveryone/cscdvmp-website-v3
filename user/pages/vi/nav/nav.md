@@ -24,7 +24,7 @@ items:
     url: '#'
     children:
       - label: Snapshots
-        url: '#'
+        url: /vi/wiki/download-snapshots
   - label: Ủng hộ Dev
     url: '#'
     highlight: true

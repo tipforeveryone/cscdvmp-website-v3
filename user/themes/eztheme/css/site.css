@@ -3033,6 +3033,9 @@ body.template-home [id], body.template-wiki [id] , body.template-blog [id] , bod
 /* ---------------------------------------------------------------------
    Thẻ tính năng — "hồ sơ tác chiến"
    --------------------------------------------------------------------- */
+.cscd-feature-cards {
+  border-top: 1px solid var(--t-line);
+}
 .cscd-feature-cards__grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -3556,6 +3559,9 @@ body.template-home [id], body.template-wiki [id] , body.template-blog [id] , bod
 /* ---------------------------------------------------------------------
    FAQ — đóng/mở kiểu bảng điều khiển
    --------------------------------------------------------------------- */
+.cscd-faq {
+  border-top: 1px solid var(--t-line);
+}
 .cscd-faq__list {
   max-width: 880px;
   margin: 0 auto;
@@ -3639,6 +3645,9 @@ body.template-home [id], body.template-wiki [id] , body.template-blog [id] , bod
 /* ---------------------------------------------------------------------
    CTA kết trang
    --------------------------------------------------------------------- */
+.cscd-cta {
+  border-top: 1px solid var(--t-line);
+}
 .cscd-cta__content {
   position: relative;
   max-width: 760px;
@@ -3671,6 +3680,9 @@ body.template-home [id], body.template-wiki [id] , body.template-blog [id] , bod
 /* ---------------------------------------------------------------------
    Kênh cộng đồng
    --------------------------------------------------------------------- */
+.cscd-social {
+  border-top: 1px solid var(--t-line);
+}
 .cscd-social__content {
   text-align: center;
 }

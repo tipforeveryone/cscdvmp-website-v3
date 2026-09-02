@@ -26,7 +26,7 @@ items:
       - label: Game
         url: 'https://store.steampowered.com/app/1886820/CSCD_Vietnam_Mobile_Police/'
       - label: Snapshots
-        url: '#'
+        url: /en/wiki/download-snapshots
   - label: Support us
     url: '#'
     highlight: true
