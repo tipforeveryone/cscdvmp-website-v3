@@ -1,0 +1,18 @@
+{% set current_lang = smls_current_language(page) %}
+{# Danh sách kênh cộng đồng lấy từ các page 'block-content' có custom_position == 'social-links' #}
+{% set bc_root = page.find(smls_root_path(current_lang) ~ '/block-content') %}
+<section class="cscd-section cscd-section--dark cscd-social"{% if page.header.background_image %} style="background-image: url('{{ url('theme://images/cscd/' ~ page.header.background_image) }}')"{% endif %}>
+    <div class="cscd-overlay"></div>
+    <div class="container cscd-social__content">
+        <h2 class="cscd-heading">{{ page.title }}</h2>
+        {% if bc_root %}
+        <div class="cscd-social__links">
+            {% for link in bc_root.children.published.order('folder') %}
+                {% if link.header.custom_position == 'social-links' %}
+                <a href="{{ link.header.link_url }}" class="cscd-btn cscd-btn--red" target="_blank" rel="noopener">{{ link.title }}</a>
+                {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</section>

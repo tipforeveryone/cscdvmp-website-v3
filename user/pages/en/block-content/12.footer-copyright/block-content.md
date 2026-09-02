@@ -5,4 +5,4 @@ routable: false
 visible: false
 ---
 
-EzNotary. All rights reserved.
+A product of Legion Team.

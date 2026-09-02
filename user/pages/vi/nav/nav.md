@@ -2,33 +2,21 @@
 title: Navigation
 visible: false
 routable: false
-logo: '/user/themes/eztheme/images/logo.png'
-logo_mobile: '/user/themes/eztheme/images/logo.png'
-topbar:
-  hours: 'Thứ Hai - Chủ Nhật, 8:00 - 21:30'
-  hours_label: 'Giờ làm việc chính thức'
-  support_label: 'Đặt lịch hẹn'
-  phones:
-    - '(613) 608 4046'
-  email: 'services@eznotary.ca'
-social:
-  - name: facebook
-    url: 'https://www.facebook.com/eznotary.ca'
-  - name: linkedin
-    url: 'https://www.linkedin.com/company/giang-le-notary/'
-  - name: google
-    url: 'https://g.page/r/CXI_WjneeAMyEAI/review'
-  - name: x
-    url: 'https://x.com/ImmigrationExp4'
+logo: '/user/themes/eztheme/images/cscd/logo.png'
+logo_mobile: '/user/themes/eztheme/images/cscd/logo.png'
 items:
-  - label: Giới thiệu
-    url: /vi/about-me/giang-le
-  - label: Dịch vụ
-    url: /vi/services
-  - label: Chứng thực online
-    url: /vi/chung-thuc-chu-ky-online
-  - label: Phí dịch vụ
-    url: /vi/chi-phi
-  - label: Liên hệ
-    url: /vi/lienhe
+  - label: Trang chủ
+    url: /vi
+  - label: Tổng quan
+    url: /vi#about-cscd
+  - label: Điểm nổi bật
+    url: /vi#game-features
+  - label: Câu hỏi thường gặp
+    url: /vi#faq
+  - label: Wiki
+    url: 'https://cscdvmp.notion.site/1c7fbcc975c3800092d5fe7c19f8226b?v=1c7fbcc975c3816593b0000cc6603677&pvs=4'
+  - label: Steam page
+    url: 'https://store.steampowered.com/app/1886820/CSCD_Vietnam_Mobile_Police/'
+  - label: Patreon
+    url: 'https://www.patreon.com/c/LegionTeam'
 ---

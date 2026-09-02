@@ -5,4 +5,4 @@ routable: false
 visible: false
 ---
 
-![EzNotary](/user/themes/eztheme/images/logo-footer.png)
+[**Legion Team**](https://legionteamdev.com/en)

@@ -9,13 +9,12 @@ languages:
     code: en
     label: English
     root_path: /en
-    flag: CA
+    flag: US
 default_language: en
 multilang_templates:
   article: true
   article-list: true
   home: true
-  lienhe: true
   baotri: false
   block-content: false
   content-page: false

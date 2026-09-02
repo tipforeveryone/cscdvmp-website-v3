@@ -5,4 +5,4 @@ routable: false
 visible: false
 ---
 
-EzNotary. Tất cả quyền được bảo lưu.
+Một sản phẩm của Legion Team.

@@ -1,0 +1,22 @@
+{% set current_lang = smls_current_language(page) %}
+{# Nội dung các câu hỏi lấy từ các page 'block-content' có custom_position == 'faq' #}
+{% set bc_root = page.find(smls_root_path(current_lang) ~ '/block-content') %}
+<section class="cscd-section cscd-section--dark cscd-faq"{% if page.header.anchor_id %} id="{{ page.header.anchor_id }}"{% endif %}{% if page.header.background_image %} style="background-image: url('{{ url('theme://images/cscd/' ~ page.header.background_image) }}')"{% endif %}>
+    <div class="cscd-overlay"></div>
+    <div class="container">
+        <h2 class="cscd-heading">{{ page.title }}</h2>
+        {% if bc_root %}
+        <div class="cscd-faq__list">
+            {% for item in bc_root.children.published.order('folder') %}
+                {% if item.header.custom_position == 'faq' %}
+                <details class="cscd-faq__item ipeb-editable">
+                    {{ pml_edit_button(item) }}
+                    <summary class="cscd-faq__question">{{ item.title }}</summary>
+                    <div class="cscd-text-muted cscd-faq__answer">{{ item.content|raw }}</div>
+                </details>
+                {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</section>

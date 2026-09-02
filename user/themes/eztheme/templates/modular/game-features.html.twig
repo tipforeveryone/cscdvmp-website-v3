@@ -1,0 +1,43 @@
+{% set current_lang = smls_current_language(page) %}
+{# Nội dung các mục lấy từ các page 'block-content' có custom_position == 'game-features' #}
+{% set bc_root = page.find(smls_root_path(current_lang) ~ '/block-content') %}
+<section class="cscd-section cscd-section--light cscd-game-features"{% if page.header.anchor_id %} id="{{ page.header.anchor_id }}"{% endif %}>
+    <div class="container">
+        <h2 class="cscd-heading">{{ page.title }}</h2>
+        {% if bc_root %}
+        {% set item_num = 0 %}
+        <div class="cscd-game-features__list">
+            {% for item in bc_root.children.published.order('folder') %}
+                {% if item.header.custom_position == 'game-features' %}
+                {% set item_num = item_num + 1 %}
+                <div class="cscd-game-feature ipeb-editable">
+                    {{ pml_edit_button(item) }}
+                    <h3 class="cscd-game-feature__title">{{ item_num }}. {{ item.title }}</h3>
+                    {% if item.content|trim %}
+                    <p class="cscd-game-feature__desc">{{ item.content|striptags|trim }}</p>
+                    {% endif %}
+
+                    {% if item.header.gallery %}
+                    <div class="cscd-game-feature__gallery">
+                        {% for pic in item.header.gallery %}
+                        <div class="cscd-game-feature__gallery-item">
+                            <img src="{{ url('theme://images/cscd/' ~ pic.image) }}" alt="{{ item.title }}" loading="lazy">
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    {% if item.header.bullets %}
+                    <ul class="cscd-game-feature__bullets">
+                        {% for bullet in item.header.bullets %}
+                        <li><strong>{{ bullet.title }}:</strong> {{ bullet.text }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</section>

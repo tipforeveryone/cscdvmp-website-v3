@@ -1,0 +1,7 @@
+<section class="cscd-section cscd-section--dark cscd-intro"{% if page.header.background_image %} style="background-image: url('{{ url('theme://images/cscd/' ~ page.header.background_image) }}')"{% endif %}>
+    <div class="cscd-overlay"></div>
+    <div class="container cscd-intro__content">
+        <h2 class="cscd-heading{% if page.header.heading_style == 'gold' %} cscd-heading--gold{% endif %}">{{ page.title }}</h2>
+        {% if page.header.text %}<p class="cscd-text-muted cscd-intro__text">{{ page.header.text }}</p>{% endif %}
+    </div>
+</section>

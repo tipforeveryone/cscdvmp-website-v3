@@ -2599,4 +2599,309 @@ th {
   }
 }
 
+/* ===================== CSCD: Vietnam Mobile Police — homepage blocks =====================
+   Palette/typography reverse-engineered from the live reference site's own SSR markup
+   (rgb(17,17,17)/rgb(28,28,28) dark overlays, rgb(255,197,0) gold heading, rgb(187,187,187)
+   muted body text on dark, rgb(19,112,158)/rgb(255,77,77) pill-button colors, Roboto font,
+   h1 2.5rem / h2 2rem @ font-weight 600). Whole homepage is a dark "cinematic" theme except
+   the Game Features section, which is the one light (#f8f8f8) block on the page. */
+
+body.template-home {
+  background-image: none;
+}
+
+.cscd-hero,
+.cscd-intro,
+.cscd-feature-cards,
+.cscd-about,
+.cscd-faq,
+.cscd-cta,
+.cscd-social,
+.cscd-game-features {
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.cscd-heading,
+.cscd-hero__heading {
+  font-weight: 600;
+  text-align: center;
+}
+
+.cscd-heading {
+  font-size: 2rem;
+  margin: 0 0 2rem;
+}
+.cscd-heading--gold {
+  color: #ffc500;
+}
+
+.cscd-text-muted {
+  color: #bbbbbb;
+}
+.cscd-section--light .cscd-text-muted {
+  color: #555;
+}
+
+/* Section shell: full-bleed background image + dark tint, content sits above it */
+.cscd-section {
+  position: relative;
+}
+.cscd-section .container {
+  position: relative;
+  z-index: 1;
+}
+.cscd-section--dark {
+  background: #111 center/cover no-repeat;
+  background-attachment: fixed;
+  color: rgba(255, 255, 255, 0.93);
+  padding: 5rem 0;
+}
+.cscd-section--light {
+  background: #f8f8f8;
+  color: #1c1c1c;
+  padding: 5rem 0;
+}
+.cscd-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: rgba(17, 17, 17, 0.72);
+}
+.cscd-overlay--strong {
+  background: rgba(0, 0, 0, 0.6);
+}
+@media (max-width: 768px) {
+  .cscd-section--dark {
+    background-attachment: scroll;
+  }
+}
+
+/* Buttons: solid brand-color pills (from real hero/CTA/social markup) + an outline-white pill */
+.cscd-btn {
+  display: inline-block;
+  padding: 0.85rem 2rem;
+  border-radius: 999px;
+  font-weight: 600;
+  text-decoration: none;
+  color: #fff;
+  border: 2px solid transparent;
+  transition: opacity 0.2s ease, background-color 0.2s ease;
+}
+.cscd-btn--teal {
+  background: #13709e;
+}
+.cscd-btn--red {
+  background: #ff4d4d;
+}
+.cscd-btn--teal:hover,
+.cscd-btn--red:hover {
+  opacity: 0.85;
+}
+.cscd-btn--outline-light {
+  background: transparent;
+  border-color: currentColor;
+  color: #fff;
+}
+.cscd-btn--outline-light:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Hero */
+.cscd-hero__content {
+  padding: 4rem var(--spacing-unit);
+  text-align: center;
+}
+.cscd-hero__heading {
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  color: #fff;
+}
+.cscd-hero__text {
+  max-width: 720px;
+  margin: 0 auto 2rem;
+  font-size: 1.2rem;
+  line-height: 1.5;
+}
+.cscd-hero__buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Intro / Dive into the Action */
+.cscd-intro__content {
+  text-align: center;
+}
+.cscd-intro__text {
+  max-width: 720px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+
+/* Feature cards grid — dark, images keep the site's thin translucent border */
+.cscd-feature-cards__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+.cscd-feature-card {
+  text-align: center;
+}
+.cscd-feature-card__image img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  border: 3px solid rgba(150, 150, 150, 0.3);
+  margin-bottom: 1rem;
+}
+.cscd-feature-card__title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #fff;
+}
+.cscd-feature-card__desc {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 1.25rem;
+}
+
+/* About CSCD */
+.cscd-about__content {
+  max-width: 860px;
+  margin: 0 auto;
+}
+.cscd-about__content h3 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 2rem 0 0.75rem;
+  color: #fff;
+}
+.cscd-about__content p {
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+/* Game features — the one light section on the page */
+.cscd-section--light .cscd-heading {
+  color: #1c1c1c;
+}
+.cscd-game-feature {
+  max-width: 860px;
+  margin: 0 auto 2.5rem;
+}
+.cscd-game-feature__title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #1c1c1c;
+  margin-bottom: 0.5rem;
+}
+.cscd-game-feature__desc {
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  color: #333;
+}
+.cscd-game-feature__gallery {
+  column-count: 4;
+  column-gap: 10px;
+}
+.cscd-game-feature__gallery-item {
+  break-inside: avoid;
+  margin-bottom: 10px;
+}
+.cscd-game-feature__gallery-item img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+.cscd-game-feature__bullets {
+  list-style: disc;
+  padding-left: 1.25rem;
+  color: #333;
+}
+.cscd-game-feature__bullets li {
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+}
+@media (max-width: 800px) {
+  .cscd-game-feature__gallery {
+    column-count: 2;
+  }
+}
+
+/* FAQ — dark, accordion */
+.cscd-faq__list {
+  max-width: 860px;
+  margin: 0 auto;
+}
+.cscd-faq__item {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 1.1rem 0;
+}
+.cscd-faq__item:last-child {
+  border-bottom: none;
+}
+.cscd-faq__question {
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: #fff;
+}
+.cscd-faq__answer {
+  margin-top: 0.75rem;
+  line-height: 1.6;
+}
+.cscd-faq__answer ul {
+  padding-left: 1.25rem;
+}
+
+/* Closing CTA */
+.cscd-cta__content {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+}
+.cscd-cta__text {
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+.cscd-cta__buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Community / Social */
+.cscd-social__content {
+  text-align: center;
+}
+.cscd-social__links {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 900px) {
+  .cscd-feature-cards__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 560px) {
+  .cscd-feature-cards__grid {
+    grid-template-columns: 1fr;
+  }
+  .cscd-hero__heading {
+    font-size: 2rem;
+  }
+  .cscd-section--dark,
+  .cscd-section--light {
+    padding: 3rem 0;
+  }
+}
+
 /*# sourceMappingURL=site.css.map */

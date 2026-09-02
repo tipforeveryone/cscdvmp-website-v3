@@ -1,0 +1,14 @@
+<section class="cscd-section cscd-section--dark cscd-hero"{% if page.header.background_image %} style="background-image: url('{{ url('theme://images/cscd/' ~ page.header.background_image) }}')"{% endif %}>
+    <div class="cscd-overlay cscd-overlay--strong"></div>
+    <div class="container cscd-hero__content">
+        <h1 class="cscd-hero__heading">{{ page.title }}</h1>
+        {% if page.header.text %}<p class="cscd-text-muted cscd-hero__text">{{ page.header.text }}</p>{% endif %}
+        {% if page.header.buttons %}
+        <div class="cscd-hero__buttons">
+            {% for btn in page.header.buttons %}
+            <a href="{{ btn.url }}" class="cscd-btn{% if loop.index == 1 %} cscd-btn--teal{% else %} cscd-btn--red{% endif %}" target="_blank" rel="noopener">{{ btn.label }}</a>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</section>

@@ -1,0 +1,30 @@
+{% set current_lang = smls_current_language(page) %}
+{# Nội dung 4 thẻ lấy từ các page 'block-content' có custom_position == 'feature-cards' #}
+{% set bc_root = page.find(smls_root_path(current_lang) ~ '/block-content') %}
+<section class="cscd-section cscd-section--dark cscd-feature-cards"{% if page.header.background_image %} style="background-image: url('{{ url('theme://images/cscd/' ~ page.header.background_image) }}')"{% endif %}>
+    <div class="cscd-overlay"></div>
+    <div class="container cscd-feature-cards__inner">
+        {% if page.header.title %}<h2 class="cscd-heading">{{ page.header.title }}</h2>{% endif %}
+        {% if bc_root %}
+        <div class="cscd-feature-cards__grid">
+            {% for card in bc_root.children.published.order('folder') %}
+                {% if card.header.custom_position == 'feature-cards' %}
+                <div class="cscd-feature-card ipeb-editable">
+                    {{ pml_edit_button(card) }}
+                    {% if card.header.image %}
+                    <div class="cscd-feature-card__image">
+                        <img src="{{ url('theme://images/cscd/' ~ card.header.image) }}" alt="{{ card.title }}" loading="lazy">
+                    </div>
+                    {% endif %}
+                    <h3 class="cscd-feature-card__title">{{ card.title }}</h3>
+                    <p class="cscd-text-muted cscd-feature-card__desc">{{ card.content|striptags|trim }}</p>
+                    {% if card.header.link_label %}
+                    <a href="{{ card.header.link_url ?: '#' }}" class="cscd-btn cscd-btn--outline-light">{{ card.header.link_label }}</a>
+                    {% endif %}
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</section>

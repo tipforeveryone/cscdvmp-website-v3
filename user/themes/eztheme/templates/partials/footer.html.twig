@@ -1,7 +1,7 @@
-{% set is_english = uri.path starts with '/en' %}
-{% set footer = page.find(is_english ? '/en/footer' : '/vi/footer') %}
+{% set current_lang = smls_current_language(page) %}
+{% set footer = page.find(smls_root_path(current_lang) ~ '/footer') %}
 {# Nội dung 4 cột lấy từ page 'block-content' có custom_position == 'footer-*' #}
-{% set bc_root = pages.find(is_english ? '/en/block-content' : '/vi/block-content') %}
+{% set bc_root = page.find(smls_root_path(current_lang) ~ '/block-content') %}
 
 <footer>
     <div class="container">
