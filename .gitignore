@@ -32,8 +32,10 @@ user/themes/*
 # the per-site secret moved to security-private.php in 2.0.0-beta.2
 # (GHSA-3f29-pqwf-v4j4), so the policy file is safe (and useful) to commit.
 # The *-private.php glob also covers per-plugin secret files written into
-# user/config (e.g. api-private.php from the API plugin's JWT secret).
-user/**/config/*-private.php
+# user/config (e.g. api-private.php from the API plugin's JWT secret) — that
+# one actually lands in user/config/plugins/, not directly in user/config/,
+# so the pattern can't require "config" to be the immediate parent dir.
+user/**/*-private.php
 user/**/config/*-private.php.tmp
 
 # Environments

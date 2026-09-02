@@ -47,6 +47,10 @@ git:
         url: https://github.com/tipforeveryone/grav-plugin-tutorial-viewer
         path: user/plugins/tutorial-viewer
         branch: master
+    admin2:
+        url: https://github.com/getgrav/grav-plugin-admin2
+        path: user/plugins/admin2
+        branch: develop
 links:
     problems:
         src: grav-plugin-problems
