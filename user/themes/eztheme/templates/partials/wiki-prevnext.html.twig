@@ -1,0 +1,27 @@
+{# Hàng "Bài trước / Bài sau" — dùng chung cho cả 2 vị trí (đầu và cuối bài viết),
+   gọi qua include từ wiki.html.twig nên chia sẻ luôn context (prev_page, next_page,
+   ui) của template cha, không cần truyền tham số. #}
+{% if prev_page or next_page %}
+<nav class="wiki-prevnext wiki-prevnext--{{ prevnext_position }}" aria-label="{{ ui.prev }} / {{ ui.next }}">
+    {% if prev_page %}
+    <a class="wiki-prevnext__link wiki-prevnext__link--prev" href="{{ prev_page.url }}">
+        <span class="wiki-prevnext__arrow" aria-hidden="true">&larr;</span>
+        <span class="wiki-prevnext__text">
+            <span class="wiki-prevnext__label">{{ ui.prev }}</span>
+            <span class="wiki-prevnext__title">{{ prev_page.title }}</span>
+        </span>
+    </a>
+    {% else %}
+    <span></span>
+    {% endif %}
+    {% if next_page %}
+    <a class="wiki-prevnext__link wiki-prevnext__link--next" href="{{ next_page.url }}">
+        <span class="wiki-prevnext__text">
+            <span class="wiki-prevnext__label">{{ ui.next }}</span>
+            <span class="wiki-prevnext__title">{{ next_page.title }}</span>
+        </span>
+        <span class="wiki-prevnext__arrow" aria-hidden="true">&rarr;</span>
+    </a>
+    {% endif %}
+</nav>
+{% endif %}

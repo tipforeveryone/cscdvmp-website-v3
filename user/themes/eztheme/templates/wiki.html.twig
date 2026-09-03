@@ -66,6 +66,10 @@
     <div class="cscd-bg cscd-bg--deep" aria-hidden="true"></div>
     <main class="container wiki-layout{{ is_wiki_root ? ' wiki-layout--wide' : '' }}">
         {% if page.content|trim %}
+        {# Bài trước/Bài sau: tính 1 lần, dùng chung cho 2 lần include partial
+           bên dưới (đầu và cuối bài) — xem ghi chú trong partial. #}
+        {% set prev_page = page.header.previous ? prevnext_previous(page) : null %}
+        {% set next_page = page.header.next ? prevnext_next(page) : null %}
         <div class="wiki-body">
             {# TOC được JS (initWikiToc trong site.js) dựng từ các thẻ h2/h3 thật
                có trong nội dung — không dựng sẵn ở đây vì Twig không biết trước
@@ -79,36 +83,11 @@
             </aside>
             <article class="wiki-article ipeb-editable">
                 {{ pml_edit_button(page) }}
+                {% include 'partials/wiki-prevnext.html.twig' with {prevnext_position: 'top'} %}
                 {{ page.content|raw }}
+                {% include 'partials/wiki-prevnext.html.twig' with {prevnext_position: 'bottom'} %}
             </article>
         </div>
-
-        {% set prev_page = page.header.previous ? prevnext_previous(page) : null %}
-        {% set next_page = page.header.next ? prevnext_next(page) : null %}
-        {% if prev_page or next_page %}
-        <nav class="wiki-prevnext" aria-label="{{ ui.prev }} / {{ ui.next }}">
-            {% if prev_page %}
-            <a class="wiki-prevnext__link wiki-prevnext__link--prev" href="{{ prev_page.url }}">
-                <span class="wiki-prevnext__arrow" aria-hidden="true">&larr;</span>
-                <span class="wiki-prevnext__text">
-                    <span class="wiki-prevnext__label">{{ ui.prev }}</span>
-                    <span class="wiki-prevnext__title">{{ prev_page.title }}</span>
-                </span>
-            </a>
-            {% else %}
-            <span></span>
-            {% endif %}
-            {% if next_page %}
-            <a class="wiki-prevnext__link wiki-prevnext__link--next" href="{{ next_page.url }}">
-                <span class="wiki-prevnext__text">
-                    <span class="wiki-prevnext__label">{{ ui.next }}</span>
-                    <span class="wiki-prevnext__title">{{ next_page.title }}</span>
-                </span>
-                <span class="wiki-prevnext__arrow" aria-hidden="true">&rarr;</span>
-            </a>
-            {% endif %}
-        </nav>
-        {% endif %}
         {% endif %}
 
         {% set children = page.children.published.order('folder') %}
