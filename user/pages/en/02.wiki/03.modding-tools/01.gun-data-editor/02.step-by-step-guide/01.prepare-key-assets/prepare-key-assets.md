@@ -1,9 +1,10 @@
 ---
-title: "CB Flow Part 1: Preparing the Key Assets"
+title: 'CB Flow Part 1: Preparing the Key Assets'
 template: wiki
 smls_language: en
 smls_translations:
     vi: /vi/wiki/cong-cu-modding/gun-data-editor/huong-dan-tung-buoc/chuan-bi-asset-code-based
+next: /en/wiki/modding-tools/gun-data-editor/step-by-step-guide/export-import-basic-data-setup
 ---
 
 ## 1. Overview
@@ -25,6 +26,7 @@ There are 3 objects you need to prepare:
 
 The author assumes you **already have experience** using 3D software, specifically **Blender**, though you can absolutely apply this article's content to other 3D software (C4D, 3DMax, Maya, etc.).
 
+> [!NOTE]
 > The gun model used in this article is the AKM. Feel free to pick a different gun model to practice with, though.
 
 ---

@@ -4,6 +4,7 @@ template: wiki
 smls_language: vi
 smls_translations:
     en: /en/wiki/modding-tools/gun-data-editor/step-by-step-guide/prepare-key-assets
+next: /vi/wiki/cong-cu-modding/gun-data-editor/huong-dan-tung-buoc/export-import-data-code-based
 ---
 
 ## 1. Tổng quan
