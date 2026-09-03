@@ -25,3 +25,7 @@
 	path = user/plugins/in-place-edit-button
 	url = git@github.com:tipforeveryone/grav-plugin-in-place-edit-button.git
 	branch = master
+[submodule "user/plugins/prev-next-nav"]
+	path = user/plugins/prev-next-nav
+	url = git@github.com:tipforeveryone/grav-plugin-next-prev-navigation.git
+	branch = main

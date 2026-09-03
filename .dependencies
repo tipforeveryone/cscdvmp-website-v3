@@ -51,6 +51,10 @@ git:
         url: https://github.com/getgrav/grav-plugin-admin2
         path: user/plugins/admin2
         branch: develop
+    prev-next-nav:
+        url: https://github.com/tipforeveryone/grav-plugin-next-prev-navigation
+        path: user/plugins/prev-next-nav
+        branch: main
 links:
     problems:
         src: grav-plugin-problems
