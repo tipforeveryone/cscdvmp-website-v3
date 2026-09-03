@@ -1,4 +1,3 @@
-enabled: true
 languages:
   -
     code: vi
@@ -28,4 +27,4 @@ multilang_templates:
   members: false
   modular: false
   root: false
-switcher_display: flag
+switcher_display: text

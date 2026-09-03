@@ -4501,11 +4501,14 @@ body.template-home .footer-col--logo img, body.template-wiki .footer-col--logo i
   text-transform: uppercase;
   color: var(--t-amber);
 }
-.wiki-prevnext__title {
+/* Selector lồng thêm ".wiki-prevnext" để thắng độ ưu tiên của ".wiki-article a"
+   (nav này giờ nằm trong .wiki-article — xem wiki.html.twig) — nếu không, link
+   màu amber của quy tắc đó sẽ đè lên, khiến title trông giống link thường. */
+.wiki-prevnext .wiki-prevnext__title {
   font-family: 'Barlow Condensed', sans-serif;
   font-size: 1.05rem;
-  font-weight: 700;
   letter-spacing: 0.03em;
+  color: var(--t-text);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
