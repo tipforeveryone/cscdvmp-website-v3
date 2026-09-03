@@ -1,13 +1,21 @@
 enabled: true
 menu_shortcuts:
   -
-    label: 'Bài viết dịch vụ (VI)'
-    parent_path: /vi/services
-    template: article
+    label: 'Bài blog (VI)'
+    parent_path: /vi/blog
+    template: blog-item
   -
-    label: 'Bài viết dịch vụ (EN)'
-    parent_path: /en/services
-    template: article
+    label: 'Bài blog (EN)'
+    parent_path: /en/blog
+    template: blog-item
+  -
+    label: 'Trang wiki (VI)'
+    parent_path: /vi/wiki
+    template: wiki
+  -
+    label: 'Trang wiki (EN)'
+    parent_path: /en/wiki
+    template: wiki
 custom_links:
   -
     label: 'Quản lý nội dung'

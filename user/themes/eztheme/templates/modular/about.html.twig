@@ -14,7 +14,8 @@
     <div class="cscd-bg cscd-bg--deep" aria-hidden="true"></div>
     <div class="cscd-grid-overlay" aria-hidden="true"></div>
 
-    <div class="container cscd-about__layout">
+    <div class="container cscd-about__layout ipeb-editable">
+        {{ pml_edit_button(page) }}
         <div class="cscd-about__aside">
             {% set current_lang = smls_current_language(page) %}
             <h2 class="cscd-heading cscd-heading--left">{{ page.title }}</h2>

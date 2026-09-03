@@ -34,8 +34,8 @@
    này (nó thuộc về khung giao diện, không phải nội dung một trang cụ thể). #}
 {% set current_lang = smls_current_language(page) %}
 {% set ui_labels = {
-    en: { contents: 'In this section', toc: 'Contents' },
-    vi: { contents: 'Trong mục này', toc: 'Mục lục' }
+    en: { contents: 'In this section', toc: 'Contents', prev: 'Previous', next: 'Next' },
+    vi: { contents: 'Trong mục này', toc: 'Mục lục', prev: 'Bài trước', next: 'Bài sau' }
 } %}
 {% set ui = ui_labels[current_lang]|default(ui_labels.en) %}
 
@@ -82,6 +82,33 @@
                 {{ page.content|raw }}
             </article>
         </div>
+
+        {% set prev_page = page.header.previous ? prevnext_previous(page) : null %}
+        {% set next_page = page.header.next ? prevnext_next(page) : null %}
+        {% if prev_page or next_page %}
+        <nav class="wiki-prevnext" aria-label="{{ ui.prev }} / {{ ui.next }}">
+            {% if prev_page %}
+            <a class="wiki-prevnext__link wiki-prevnext__link--prev" href="{{ prev_page.url }}">
+                <span class="wiki-prevnext__arrow" aria-hidden="true">&larr;</span>
+                <span class="wiki-prevnext__text">
+                    <span class="wiki-prevnext__label">{{ ui.prev }}</span>
+                    <span class="wiki-prevnext__title">{{ prev_page.title }}</span>
+                </span>
+            </a>
+            {% else %}
+            <span></span>
+            {% endif %}
+            {% if next_page %}
+            <a class="wiki-prevnext__link wiki-prevnext__link--next" href="{{ next_page.url }}">
+                <span class="wiki-prevnext__text">
+                    <span class="wiki-prevnext__label">{{ ui.next }}</span>
+                    <span class="wiki-prevnext__title">{{ next_page.title }}</span>
+                </span>
+                <span class="wiki-prevnext__arrow" aria-hidden="true">&rarr;</span>
+            </a>
+            {% endif %}
+        </nav>
+        {% endif %}
         {% endif %}
 
         {% set children = page.children.published.order('folder') %}

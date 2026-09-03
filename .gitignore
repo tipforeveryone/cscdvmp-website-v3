@@ -70,3 +70,7 @@ tmp/*
 tools/phpdoc/vendor/
 tools/phpdoc/output/
 /.phpactor.json
+
+# personal editor/sync tooling, not project content
+/user/pages/.obsidian/
+/user/pages/sync.ffs_db

@@ -3,7 +3,8 @@
     <div class="cscd-bg" aria-hidden="true"></div>
     <div class="cscd-vignette" aria-hidden="true"></div>
 
-    <div class="container cscd-cta__content">
+    <div class="container cscd-cta__content ipeb-editable">
+        {{ pml_edit_button(page) }}
         <div class="cscd-brackets" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
         {% if page.header.title %}
         <h2 class="cscd-heading">{{ page.header.title }}</h2>
