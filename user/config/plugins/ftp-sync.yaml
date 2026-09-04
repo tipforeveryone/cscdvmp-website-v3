@@ -1,12 +1,6 @@
-enabled: true
-force_allow_remote: false
-backup_enabled: true
-remote_base_path: /domains/eznotary.ca/public_html
-sync_plugins: ''
+remote_base_path: /domains/cscdvmp.com/public_html
+sync_plugins: 'in-place-edit-button,admin-quick-menu,easy-content-manager,ftp-sync,simple-multi-language-site,tutorial-viewer,visitor-gadget,prev-next-nav'
 ftp:
   host: 123.30.187.200
-  port: 21
   username: cacaqitm
   password: '15975321'
-  ssl: false
-  passive: true
