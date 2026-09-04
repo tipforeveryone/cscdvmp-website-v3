@@ -4199,7 +4199,8 @@ body.template-home .footer-col--logo img, body.template-wiki .footer-col--logo i
 .wiki-article h2 {
   padding-bottom: 0.6rem;
   font-size: 1.5rem;
-  border-bottom: 1px solid var(--t-line);
+  color: var(--t-amber);
+  border-bottom: 1px solid var(--t-amber);
 }
 .wiki-article h3 {
   font-size: 1.2rem;
@@ -4214,6 +4215,10 @@ body.template-home .footer-col--logo img, body.template-wiki .footer-col--logo i
 }
 .wiki-article a:hover {
   color: #ffc44d;
+}
+.wiki-article em,
+.wiki-article i {
+  color: var(--t-amber);
 }
 .wiki-article ul,
 .wiki-article ol {
@@ -4242,6 +4247,10 @@ body.template-home .footer-col--logo img, body.template-wiki .footer-col--logo i
 .wiki-article ol > li {
   margin-bottom: 0.6rem;
   padding-left: 0.3rem;
+}
+.wiki-article li > ul,
+.wiki-article li > ol {
+  margin-top: 0.6rem;
 }
 .wiki-article blockquote {
   margin: 0 0 1.25rem;

@@ -11,8 +11,8 @@ languages:
     flag: US
 default_language: en
 multilang_templates:
-  article: true
-  article-list: true
+  article: false
+  article-list: false
   home: true
   baotri: false
   block-content: false
@@ -27,4 +27,6 @@ multilang_templates:
   members: false
   modular: false
   root: false
+  wiki: true
+  blog-item: true
 switcher_display: text

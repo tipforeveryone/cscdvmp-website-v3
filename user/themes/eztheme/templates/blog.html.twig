@@ -28,7 +28,8 @@
         </article>
         {% endif %}
 
-        {% set posts = page.children.published.order('date', 'desc') %}
+        {# Bỏ qua bài viết có front matter `private: true` — không hiện trong danh sách blog. #}
+        {% set posts = page.children.published.order('date', 'desc')|filter(post => not post.header.private) %}
         {% if posts|length %}
         <div class="blog-grid">
             {% for post in posts %}

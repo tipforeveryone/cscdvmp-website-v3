@@ -9,6 +9,7 @@
 {% block content %}
 {% set current_lang = smls_current_language(page) %}
 {% set blog_root = page.parent %}
+{% set toc_label = current_lang == 'vi' ? 'Mục lục' : 'Contents' %}
 
 <section class="wiki-hero"{% if page.header.background_image %} style="--cscd-bg: url('{{ url('theme://images/cscd/' ~ page.header.background_image) }}')"{% endif %}>
     {% if page.header.background_image %}
@@ -32,10 +33,24 @@
 <div class="wiki-layout-wrap" style="--cscd-bg: url('{{ url('theme://images/cscd/intro-bg.jpeg') }}')">
     <div class="cscd-bg cscd-bg--deep" aria-hidden="true"></div>
     <main class="container wiki-layout">
-        <article class="wiki-article ipeb-editable">
-            {{ pml_edit_button(page) }}
-            {{ page.content|raw }}
-        </article>
+        {# .wiki-body bọc ngoài để dùng chung khổ đọc 860px mặc định của bài wiki
+           (xem .wiki-body trong site.css) — độ rộng cột khớp với trang wiki.
+           .wiki-toc: initWikiToc() trong site.js (đã tổng quát theo class, không
+           theo template) tự dựng mục lục từ h2/h3 thật có trong .wiki-article và
+           tự hiện/ẩn khối này + gắn .has-toc — y hệt cơ chế trang wiki, không cần
+           thêm JS riêng cho blog. #}
+        <div class="wiki-body">
+            <aside class="wiki-toc" aria-label="{{ toc_label }}" hidden>
+                <div class="wiki-toc__inner">
+                    <p class="wiki-toc__title">{{ toc_label }}</p>
+                    <nav class="wiki-toc__nav"></nav>
+                </div>
+            </aside>
+            <article class="wiki-article ipeb-editable">
+                {{ pml_edit_button(page) }}
+                {{ page.content|raw }}
+            </article>
+        </div>
     </main>
 </div>
 
