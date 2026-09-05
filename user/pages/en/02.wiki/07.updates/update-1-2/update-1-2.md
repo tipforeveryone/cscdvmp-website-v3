@@ -9,38 +9,23 @@ smls_translations:
 
 **Date:** April 5, 2026
 
-## Overview
+This update primarily focuses on enhancing the AI's combat capabilities. Future updates will introduce further improvements to CSCD AI behavior and tactics.
 
-This update emphasizes strengthening AI combat performance, with additional refinements to artificial intelligence behavior planned for future releases.
+## New features:
 
-## New Features
+- **ANTI NPC Defensive Tactics:** The ANTI NPC unit now effectively evades threats, establishes a strategic defensive position, and performs intelligent peek-and-retreat actions. This sophisticated behavior grants the player valuable time to assess the situation and determine an effective counter-tactic, promoting more dynamic engagements.
+- **Body-mounted camera filter and screen shake effect**: Inspired by games such as Bodycam and Unrecord, players can now choose from new options in the Gameplay settings: 'Disable', 'Filter only', 'Movement only', or 'Both'. This new setting replaces the former "Camera movement fx" option.
+- **Dynamic muffled sound effect**: Various in-game sounds (gunshots and voices), will experience a dynamic muffling effect, based on the relative position between the sound source and the listener.
 
-**Enhanced AI Defense System**
+## Improvement
 
-The ANTI NPC unit now employs evasion tactics, positions itself strategically, and executes intelligent peek-and-retreat maneuvers. These improvements create more engaging player encounters by offering time to formulate responses.
+- **AI Target Detection Mechanic Upgrade:** The AI now possesses a significantly improved and more consistent target detection ability. This upgrade addresses previous illogical behaviors, such as AI inexplicably hesitating to engage despite a clear line of sight, or conversely, detecting players through unrealistically small and inconsistent gaps. The AI's perception is now more aligned with player expectations for realism and fairness.
+- **Sound Control System Upgrade:** An improved sound management and control system that effectively handles multiple sound elements. This system has been virtually rebuilt from the ground up, featuring a clear hierarchy in terms of module roles and processing capabilities. The primary objective of this system overhaul was to enable adaptation to more complex future audio requirements for the sound system. This new infrastructure has also been meticulously documented, sound editor can easily read and understand it, thereby facilitating the creation of appropriate sound assets for the CSCD game.
+- **Better object culling system:** The game now runs smoother due to optimized object culling system that features low CPU consumption than before.
 
-**Camera Effects Expansion**
+## Public Snapshots are now available!
 
-Players can configure body-mounted camera filtering through gameplay settings with options including: "Disable," "Filter only," "Movement only," or "Both." This replaces the previous camera movement effects setting.
-
-**Audio Muffling Mechanics**
-
-In-game audio elements experience dynamic muffling dependent on spatial relationships between sound sources and listeners.
-
-## Improvements
-
-**AI Perception Refinement**
-
-Target detection has been substantially improved to behave more predictably. Previously inconsistent behaviors—such as delayed engagement despite clear visibility or unrealistic detection through minimal gaps—have been addressed, aligning gameplay with player expectations.
-
-**Sound System Overhaul**
-
-The audio management infrastructure was reconstructed with improved hierarchy and processing capabilities. Enhanced documentation now supports sound designers in creating appropriate assets.
-
-**Performance Optimization**
-
-Object culling received optimization improvements, reducing CPU demand while maintaining visual quality.
-
-## Public Snapshot Access
-
-Development milestones are now publicly available, enabling community review and feedback on recent changes and improvements.
+- Snapshots represent key developmental milestones for the game, released after significant updates and improvements.
+- These provide players an early look at the latest changes, allowing them to compare with previous versions and provide valuable feedback to our development team.
+- The Steam demo will also be updated in sync with these snapshot releases.
+- All snapshot versions are now accessible to the public on the project's official website.
