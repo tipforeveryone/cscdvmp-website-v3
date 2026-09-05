@@ -1,5 +1,5 @@
 ---
-title: Changelog
+title: Updates
 template: blog
 background_image: hero-banner.jpg
 smls_language: vi

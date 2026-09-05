@@ -20,7 +20,7 @@ items:
     url: /en/wiki
   - label: Blog
     url: /en/blog
-  - label: Changelog
+  - label: Updates
     url: /en/changelog
   - label: Download
     url: '#'

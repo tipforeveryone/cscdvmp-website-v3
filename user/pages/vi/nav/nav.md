@@ -20,7 +20,7 @@ items:
     url: /vi/wiki
   - label: Blog
     url: /vi/blog
-  - label: Changelog
+  - label: Updates
     url: /vi/changelog
   - label: Download
     url: '#'
