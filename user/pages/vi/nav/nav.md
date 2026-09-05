@@ -21,7 +21,7 @@ items:
   - label: Blog
     url: /vi/blog
   - label: Updates
-    url: /vi/changelog
+    url: /vi/updates
   - label: Download
     url: '#'
     children:

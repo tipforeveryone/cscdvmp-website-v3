@@ -4,7 +4,7 @@ date: "2026-04-05"
 smls_language: vi
 published: true
 smls_translations:
-    en: /en/changelog/update-1-2
+    en: /en/updates/update-1-2
 ---
 
 **Ngày phát hành:** 5 tháng 4, 2026

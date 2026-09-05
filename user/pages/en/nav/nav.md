@@ -21,7 +21,7 @@ items:
   - label: Blog
     url: /en/blog
   - label: Updates
-    url: /en/changelog
+    url: /en/updates
   - label: Download
     url: '#'
     children:
