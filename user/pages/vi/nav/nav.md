@@ -20,6 +20,8 @@ items:
     url: /vi/wiki
   - label: Blog
     url: /vi/blog
+  - label: Changelog
+    url: /vi/changelog
   - label: Download
     url: '#'
     children:

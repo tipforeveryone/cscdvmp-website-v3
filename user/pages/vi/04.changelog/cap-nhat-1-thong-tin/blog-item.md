@@ -4,7 +4,7 @@ date: '2026-02-17 07:00'
 smls_language: vi
 published: true
 smls_translations:
-    en: /en/blog/steam-demo-update1
+    en: /en/changelog/steam-demo-update1
 ---
 
 Tháng 6 năm 2025, phiên bản demo CSCD ra mắt. Việc tham gia Steam Next Fest đã mang đến những trải nghiệm đầu tiên cho game thủ trong và ngoài nước. Nhóm phát triển đã nhận được phản hồi từ người chơi trên toàn thế giới, có những comment đã thẳng thắn chỉ ra những mặt yếu của demo và bày tỏ sự tin tưởng vào dự án.

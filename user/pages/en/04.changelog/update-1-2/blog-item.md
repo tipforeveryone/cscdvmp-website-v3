@@ -4,7 +4,7 @@ date: "2026-04-05"
 smls_language: en
 published: true
 smls_translations:
-    vi: /vi/blog/cap-nhat-1-2
+    vi: /vi/changelog/cap-nhat-1-2
 ---
 
 **Date:** April 5, 2026

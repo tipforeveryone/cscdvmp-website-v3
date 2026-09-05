@@ -20,6 +20,8 @@ items:
     url: /en/wiki
   - label: Blog
     url: /en/blog
+  - label: Changelog
+    url: /en/changelog
   - label: Download
     url: '#'
     children:
