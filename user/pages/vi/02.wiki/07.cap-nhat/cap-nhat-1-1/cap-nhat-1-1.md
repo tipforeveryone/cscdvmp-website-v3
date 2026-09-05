@@ -11,15 +11,24 @@ smls_translations:
 
 ## Tính năng mới
 
-- Bản cập nhật giới thiệu các nâng cao về điều phối chiến thuật, bao gồm hệ thống lệnh cho phép người chơi phát hành nhiều lệnh di chuyển cho các chiến sĩ riêng lẻ hoặc nhóm để cải thiện hiệu quả đội ngũ.
-- Một công cụ xác minh card đồ họa hiện chạy khi khởi động ban đầu, giúp người dùng tránh các vấn đề rendering bằng cách đảm bảo game sử dụng phần cứng đồ họa dành riêng thay vì các lựa chọn tích hợp.
-- Thành phần đội đã được hợp lý hóa trên các màn hình briefing và roster. Thay vì lựa chọn các chiến sĩ và vũ khí cụ thể riêng lẻ, "Người chơi bây giờ chỉ cần chọn một vai trò cho mỗi vị trí, và game sẽ tự động chọn một chiến sĩ phù hợp" và trang bị tương ứng.
-- Chức năng chụp ảnh màn hình đã được thêm qua F11 (bao gồm HUD) và F12 (chỉ cảnh được render), với các tệp được lưu vào Documents/cscdvmp/screenshots.
+- **Chế độ ra lệnh chiến thuật:** Người chơi có thể phát nhiều lệnh di chuyển cho từng chiến sĩ riêng lẻ hoặc theo nhóm, giúp phối hợp đội hình nhanh hơn.
+- **Kiểm tra card đồ họa khi khởi động lần đầu:** Tính năng này giúp người chơi xác minh và chọn đúng card đồ họa, tránh các lỗi rendering có thể xảy ra nếu game sử dụng card tích hợp thay vì card rời.
+- **Tinh gọn việc chọn thành viên đội** ở cả màn hình briefing bản đồ và roster đội: Người chơi giờ chỉ cần chọn vai trò cho mỗi vị trí, game sẽ tự động chọn chiến sĩ và vũ khí phù hợp từ kho vũ khí.
+- **Tính năng chụp ảnh màn hình**: Dùng F11 để chụp ảnh bao gồm cả HUD, và F12 để chụp riêng cảnh được render. Tất cả ảnh chụp được lưu trong thư mục `Documents/cscdvmp/screenshots`.
 
 ## Cải tiến
 
-Hiệu suất và chất lượng hình ảnh nhận được sự chú ý đáng kể. Các bản cập nhật bao gồm nâng cấp engine, kỹ thuật anti-aliasing được cải tiến, rendering phản chiếu nâng cao, và hiệu ứng nước được cải thiện. Hệ thống lighting nhận được công việc tối ưu hóa đáng kể, trong khi các cài đặt chi tiết môi trường và phạm vi bóng đổ bây giờ cung cấp kiểm soát nâng cao cho người chơi cân bằng giữa chất lượng hình ảnh và hiệu suất.
+- Nâng cấp lên phiên bản engine mới nhất.
+- Cải thiện kết hợp giữa High Anti-aliasing và Temporal Anti-aliasing (TAA) để tránh hiện tượng mờ khi nhân vật di chuyển.
+- Cải thiện hiệu suất rendering phản chiếu.
+- Cải thiện hiệu suất rendering phản chiếu trên mặt nước.
+- Cải tiến tùy chọn Environment Detail: giờ cho phép kiểm soát tốt hơn việc ẩn các vật thể phụ để tăng hiệu suất.
+- Cải thiện tùy chọn Shadow Range: kiểm soát chi tiết hơn.
+- Nâng cao đáng kể hiệu suất hệ thống ánh sáng.
+- Tùy chọn Render Quality giờ có thêm các thông số bổ sung.
 
-## Sửa chữa
+## Sửa lỗi
 
-Bản vá đã giải quyết nhiều vấn đề ổn định, bao gồm sự cố tại khởi động trận đấu và trong gameplay, các lỗi rendering mờ, và hiện tượng giật khi di chuyển nhân vật.
+- Nhiều lỗi crash khi bắt đầu trận đấu và trong một số thời điểm trong game.
+- Hiện tượng rendering bị mờ khi bật High Anti-aliasing và TAA.
+- Hiện tượng giật khi di chuyển nhân vật.
