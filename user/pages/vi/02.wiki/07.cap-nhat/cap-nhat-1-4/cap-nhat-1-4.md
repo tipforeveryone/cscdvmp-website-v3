@@ -9,28 +9,33 @@ smls_translations:
 
 **Ngày phát hành:** 1 tháng 5, 2026
 
-## Tổng quan
+## 1. Tính năng mới
 
-Bản cập nhật này giới thiệu các nâng cao gameplay đáng kể và cải tiến hệ thống cho CSCD: Vietnam Mobile Police.
+**Màn hình quản lý chiến sĩ**
 
-## Tính năng mới
+- Đây là màn hình hiển thị thông tin của từng chiến sĩ có mặt trong hồ sơ của người chơi, bao gồm thông tin cá nhân, cấp bậc, điểm kinh nghiệm, trạng thái hiện tại, tiến độ kỹ năng và đặc biệt là bảng thành tích cá nhân với rất nhiều chỉ số thú vị.
+- Màn hình này có tên là "Hồ sơ chiến sĩ" thay cho danh sách chiến sĩ được thể hiện khá sơ sài trước đây trong màn hình Team Roster
+- Việc ghi nhận chiến tích của các chiến sĩ trong màn chơi cũng được mở rộng tương xứng.
+- Người chơi có thể truy cập màn hình này ngay từ danh sách đội mà không cần rời khỏi luồng chuẩn bị trận.
+- Mỗi chiến sĩ sẽ có ảnh đại diện riêng, được chọn ngẫu nhiên từ thư viện 32 hình đại diện khi tạo mới.
+- Nhân vật CSCD tại màn hình Team Roster đã cầm vũ khí đại diện cho nhân vật được chọn hoặc đang được xem chi tiết. Các hoạt họa liên quan còn thô và xấu, nhưng sẽ được cải thiện trong các phiên bản tiếp theo.
 
-**Màn hình Quản lý Chiến sĩ**
+**Hệ thống cấp bậc và điểm kinh nghiệm**
 
-Một giao diện toàn diện hiện hiển thị thông tin chiến sĩ chi tiết bao gồm dữ liệu cá nhân, cấp bậc, điểm kinh nghiệm, trạng thái, tiến trình kỹ năng và thống kê thành tích. Hệ thống bao gồm 32 tùy chọn chân dung duy nhất được gán ngẫu nhiên khi tạo nhân vật. Người chơi có thể truy cập trực tiếp từ màn hình chuẩn bị đội mà không làm gián đoạn quy trình làm việc.
+- Hệ thống cấp bậc của các chiến sĩ đã được thêm vào! (Tìm hiểu danh sách các cấp bậc tại đây). Cấp bậc của chiến sĩ có quan hệ mật thiết với hệ thống điểm kinh nghiệm (EXP). Thông qua các thành tích có được trong chiến đấu sau mỗi màn chơi, các chiến sĩ sẽ tích lũy EXP và dần thăng cấp.
+- Trong bản snapshot lần này, yếu tố cấp bậc chưa có tác động lên gameplay, tuy nhiên vai trò của nó sẽ được thể hiện trong bản snapshot tiếp theo. Cụ thể: Khi được thăng cấp, mỗi chiến sĩ sẽ được trao một lượng **điểm kỹ năng** nhất định. Người chơi có thể phân bổ tùy ý các điểm kỹ năng này, tạo ra sự tác động trực tiếp đến sức chiến đấu của từng chiến sĩ.
 
-**Hệ thống Cấp bậc & Kinh nghiệm**
+**Sắp xếp đội hình tự động**
 
-Một khuôn khổ xếp hạng chiến sĩ đã được triển khai gắn với các điểm kinh nghiệm kiếm được thông qua hiệu suất nhiệm vụ. Mặc dù cấp bậc hiện không ảnh hưởng đến cơ chế gameplay, bản cập nhật tiếp theo sẽ giới thiệu phân bổ điểm kỹ năng gắn với tiến trình cấp bậc, trực tiếp ảnh hưởng đến hiệu quả chiến đấu.
+- Trong màn hình quản lý đội, người chơi có thể sắp xếp lại thứ tự các thành viên trong nhóm theo vai trò chỉ với một nút bấm, thứ tự ưu tiên mặc định là Trinh sát dẫn đầu, tiếp theo là Tấn công, Bắn tỉa, Kỹ thuật, và cuối cùng là Cứu thương.
 
-**Sắp xếp đội tự động**
+**Tư thế ngắm bắn tác động đến độ ổn định của đường ngắm**
 
-Tính năng một nút cho phép tổ chức lại đội ngũ tức thì theo vai trò, ưu tiên: "Trinh sát → Tấn công → Xạ thủ → Kỹ sư → Y tá chiến đấu."
+- Độ mỏi của tay (arm fatigue) được giảm thiểu đáng kể khi người chơi ngắm bắn ở tư thế ngồi, kết hợp với các thao tác ngắm bắn sâu và nín thở sẽ mang đến một phát bắn có độ chuẩn xác cao.
 
-**Cơ chế nhắm bắn dựa trên tư thế**
+## 2. Tối ưu hóa và sửa lỗi
 
-Cúi xuống làm giảm đáng kể mỏi tay khi nhắm, cho phép độ chính xác được cải thiện khi kết hợp với các kỹ thuật kiểm soát hơi thở.
-
-## Tối ưu hóa & Sửa chữa lỗi
-
-Bản cập nhật nâng cao hiệu quả kết xuất bằng cách chỉ xử lý các vật thể nhìn thấy được, giảm áp lực trên cả CPU và GPU. Những tối ưu hóa tương tự áp dụng cho các hệ thống AI và hoạt ảnh. Quan trọng nhất, game hiện tự động xử lý các không tương thích tệp lưu giữ giữa các phiên bản, loại bỏ nhu cầu xóa hồ sơ thủ công bắt buộc. Các vấn đề liên quan đến sự cố bổ sung cũng đã được giải quyết.
+- Nhờ cải thiện các thuật toán xử lý cốt lõi, hiệu năng đồ họa của game đã được nâng cao đáng kể. Game linh động hơn trong việc **chỉ render những gì người chơi thực sự nhìn thấy,** những vật thể nằm ngoài tầm mắt hoặc bị che khuất sẽ được bỏ qua để giảm tài nguyên xử lý, mang lại sự cân bằng hợp lý giữa CPU và GPU, giúp game chạy mượt mà hơn.
+- Điều tương tự cũng được áp dụng với hệ thống AI và animation của nhân vật, nhờ đó lượng tài nguyên tính toán dành cho các nhân vật trong game được phân bổ hợp lý hơn, giúp giảm tải cho CPU.
+- Trước đây, khi game được cập nhật hoặc người chơi dùng bản snapshot mới, hệ thống hồ sơ của phiên bản cũ (được lưu trên máy) có thể sẽ không tương thích với phiên bản mới, dẫn đến game bị crash. Người chơi buộc phải xóa hồ sơ cũ một cách thủ công. Bản snapshot này đã xử lý vấn đề này một cách tự động bằng cách bổ sung tính năng phát hiện ra sự không tương và yêu cầu tạo hồ sơ mới, giúp quá trình trải nghiệm phiên bản mới của game được diễn ra thuận lợi (Điều này sẽ thường xuyên xảy ra vì game đang trên con đường phát triển.
+- Một số lỗi liên quan đến crash game cũng đã được phát hiện và xử lý.
