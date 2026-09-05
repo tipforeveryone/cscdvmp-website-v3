@@ -11,22 +11,28 @@ smls_translations:
 
 ## Tính năng mới
 
-Bản cập nhật giới thiệu một số nâng cao gameplay:
+- **Hiệu ứng hình ảnh nâng cao** cho các va chạm đạn trên bê tông, kim loại, các vật thể/thiết bị điện, và hiệu ứng khói đầu nòng động khi bắn.
 
-- **Nâng cao hiệu ứng hình ảnh**: Các nhà phát triển đã thêm các hoạt ảnh tác động tinh vi cho nhiều vật liệu khác nhau bao gồm bê tông, kim loại và các vật thể điện. Hiệu ứng khói nòng súng giờ đây được render động khi bắn.
+![Hiệu ứng va chạm đạn](https://i.gyazo.com/da42c3c07264b8ad4c1762392844ad5b.gif) ![Khói đầu nòng súng](https://i.gyazo.com/e88d62bdac1c0442ea9d6293c0b6f406.gif)
 
-- **Cơ chế hỗ trợ từ phía sau**: Một hệ thống mới cho phép người chơi định vị lại các NPC hỗ trợ về phía bên trái hoặc bên phải của họ trong quá trình di chuyển, duy trì tính gắn kết của đội hình.
+- **Cơ chế hỗ trợ từ phía sau mới** cho phép người chơi chủ động chuyển đổi vị trí của NPC hỗ trợ sang bên trái hoặc phải khi di chuyển. Điều này đảm bảo sự di chuyển cùng nhau mượt mà và ổn định.
 
-- **Hành vi đội hình**: Hệ thống đội hình CSCD hiện có tính năng "rút lui của lãnh đạo" trong đó các đơn vị rút lui cùng nhau, ngăn chặn sự cản trở di chuyển của người chơi.
+![Cơ chế hỗ trợ từ phía sau](https://i.gyazo.com/27b3fa5d2a1670607f16d584cb7db293.gif)
 
-## Cải tiến và sửa chữa
+- **Hành vi đội hình CSCD mới:** Khi chỉ huy rút lui, toàn bộ đội hình sẽ rút lui theo, tránh gây cản trở di chuyển cho người chơi.
 
-Bản vá giải quyết nhiều phần tử kỹ thuật và gameplay:
+![Hành vi đội hình](https://i.gyazo.com/079c06115e5ae148f9ed5f4c7a4d4a8c.gif)
 
-- Âm thanh nhân vật dừng khi các NPC bị loại bỏ
-- Các giá trị thiệt hại đạn điều chỉnh cho chế độ gameplay hardcore và hiện thực
-- Độ chính xác bắn súng của NPC được cải thiện thông qua tinh chỉnh cơ chế chiến đấu
-- Hiệu quả bộ nhớ được tăng cường thông qua tải trước tài sản được tối ưu hóa
-- Hệ thống quản lý thư viện hoạt ảnh được cải tổ cho các quy trình hoạt ảnh nhân vật
-- Khả năng hiển thị của tia laser được cải thiện bằng cách kết xuất bề mặt sáng hơn
-- Sửa chữa lỗi cho các bản đồ thiếu nhạc nền
+## Cải tiến và Sửa lỗi
+
+- Giọng nói nhân vật dừng lại khi bị tiêu diệt.
+- Cân bằng lại sát thương trúng đạn để phù hợp với yếu tố hardcore, đặc biệt cho lối chơi thiên về thực tế.
+- Nâng cao cơ chế chiến đấu của NPC với độ chính xác bắn súng tốt hơn.
+- Tối ưu hóa kỹ thuật preload tài nguyên để quản lý bộ nhớ tốt hơn.
+- Cải tổ Hệ thống Quản lý Thư viện Hoạt ảnh cho nhân vật, giúp tăng đáng kể hiệu quả quy trình làm hoạt ảnh cho các cơ chế và tính năng trong tương lai.
+- Bề mặt tia laser rõ và sáng hơn khi chạm vào.
+- Lỗi crash trên bản đồ không có nhạc nền.
+
+## Snapshot cho Cập nhật 1.3:
+
+Tải các bản snapshot mới nhất và cũ hơn qua [bài viết này](/vi/wiki/download-snapshots).
