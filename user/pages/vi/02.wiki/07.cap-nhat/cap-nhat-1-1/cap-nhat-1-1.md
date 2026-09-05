@@ -1,7 +1,7 @@
 ---
-title: "Cập nhật 1.1"
+title: 'Cập nhật 1.1'
 template: wiki
-date: "2026-03-14"
+date: '2026-03-14'
 smls_language: vi
 smls_translations:
     en: /en/wiki/updates/update-1-1
@@ -11,13 +11,10 @@ smls_translations:
 
 ## Tính năng mới
 
-Bản cập nhật giới thiệu các nâng cao về điều phối chiến thuật, bao gồm hệ thống lệnh cho phép người chơi phát hành nhiều lệnh di chuyển cho các chiến sĩ riêng lẻ hoặc nhóm để cải thiện hiệu quả đội ngũ.
-
-Một công cụ xác minh card đồ họa hiện chạy khi khởi động ban đầu, giúp người dùng tránh các vấn đề rendering bằng cách đảm bảo game sử dụng phần cứng đồ họa dành riêng thay vì các lựa chọn tích hợp.
-
-Thành phần đội đã được hợp lý hóa trên các màn hình briefing và roster. Thay vì lựa chọn các chiến sĩ và vũ khí cụ thể riêng lẻ, "Người chơi bây giờ chỉ cần chọn một vai trò cho mỗi vị trí, và game sẽ tự động chọn một chiến sĩ phù hợp" và trang bị tương ứng.
-
-Chức năng chụp ảnh màn hình đã được thêm qua F11 (bao gồm HUD) và F12 (chỉ cảnh được render), với các tệp được lưu vào Documents/cscdvmp/screenshots.
+- Bản cập nhật giới thiệu các nâng cao về điều phối chiến thuật, bao gồm hệ thống lệnh cho phép người chơi phát hành nhiều lệnh di chuyển cho các chiến sĩ riêng lẻ hoặc nhóm để cải thiện hiệu quả đội ngũ.
+- Một công cụ xác minh card đồ họa hiện chạy khi khởi động ban đầu, giúp người dùng tránh các vấn đề rendering bằng cách đảm bảo game sử dụng phần cứng đồ họa dành riêng thay vì các lựa chọn tích hợp.
+- Thành phần đội đã được hợp lý hóa trên các màn hình briefing và roster. Thay vì lựa chọn các chiến sĩ và vũ khí cụ thể riêng lẻ, "Người chơi bây giờ chỉ cần chọn một vai trò cho mỗi vị trí, và game sẽ tự động chọn một chiến sĩ phù hợp" và trang bị tương ứng.
+- Chức năng chụp ảnh màn hình đã được thêm qua F11 (bao gồm HUD) và F12 (chỉ cảnh được render), với các tệp được lưu vào Documents/cscdvmp/screenshots.
 
 ## Cải tiến
 

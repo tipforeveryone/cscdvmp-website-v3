@@ -15,32 +15,32 @@ Bản cập nhật này nhấn mạnh vào việc tăng cường hiệu suất c
 
 ## Tính năng mới
 
-**Hệ thống phòng thủ AI nâng cao**
+**Hệ Thống Phòng Thủ AI Nâng Cao**
 
-Đơn vị NPC ANTI bây giờ sử dụng các chiến thuật tránh né, định vị chiến lược, và thực hiện các cơ động nhìn trộm-rút lui thông minh. Những cải tiến này tạo ra các cuộc gặp gỡ người chơi hấp dẫn hơn bằng cách cung cấp thời gian để hình thành phản ứng.
+Đơn vị NPC ANTI bây giờ sử dụng các chiến thuật tránh né, định vị chiến lược, và thực hiện các cơ động nhìn-rút lui thông minh. Những cải tiến này tạo ra những cuộc đối đầu hấp dẫn hơn bằng cách cung cấp cho người chơi thời gian để phản ứng.
 
-**Mở rộng hiệu ứng camera**
+**Mở rộng Hiệu ứng Camera**
 
-Người chơi có thể định cấu hình lọc camera gắn trên cơ thể thông qua cài đặt gameplay với các tùy chọn bao gồm: "Vô hiệu hóa," "Chỉ lọc," "Chỉ di chuyển," hoặc "Cả hai." Điều này thay thế cài đặt hiệu ứng di chuyển camera trước đó.
+Người chơi giờ có thể cấu hình bộ lọc camera tại người nhân vật thông qua cài đặt gameplay với các tùy chọn: "Tắt," "Chỉ lọc," "Chỉ khi di chuyển," hoặc "Cả hai." Điều này thay thế cài đặt hiệu ứng di chuyển camera trước đó.
 
-**Cơ chế tắt tiếng âm thanh**
+**Cơ chế Làm Mờ Âm Thanh**
 
-Các phần tử âm thanh trong game trải nghiệm tắt tiếng động dựa trên mối quan hệ không gian giữa các nguồn âm thanh và người nghe.
+Các yếu tố âm thanh trong game sẽ bị giảm âm động dựa trên vị trí không gian giữa nguồn âm thanh và người nghe.
 
 ## Cải tiến
 
-**Tinh chỉnh nhận thức AI**
+**Tinh chỉnh Nhận Thức AI**
 
-Phát hiện mục tiêu đã được cải thiện đáng kể để hoạt động dự đoán hơn. Các hành vi không nhất quán trước đây—chẳng hạn như tham gia chậm trễ mặc dù rõ ràng là nhìn thấy hoặc phát hiện không thực tế qua những khe hẹp—đã được giải quyết, phù hợp với kỳ vọng của người chơi.
+Hệ thống phát hiện mục tiêu đã được cải thiện đáng kể để hoạt động dự đoán hơn. Các hành vi không nhất quán trước đây—chẳng hạn như phản ứng chậm dù rõ ràng thấy mục tiêu hoặc phát hiện không hợp lý qua những khe hẹp—đã được khắc phục, phù hợp với kỳ vọng của người chơi.
 
-**Sửa đổi toàn bộ hệ thống âm thanh**
+**Cải Tiến Toàn Hệ Thống Âm Thanh**
 
-Cơ sở hạ tầng quản lý âm thanh đã được xây dựng lại với cấp bậc cải tiến và khả năng xử lý. Tài liệu nâng cao bây giờ hỗ trợ các nhà thiết kế âm thanh trong việc tạo các tài sản thích hợp.
+Cơ sở hạ tầng quản lý âm thanh đã được thiết kế lại với cấu trúc phân cấp tốt hơn và khả năng xử lý nâng cao. Tài liệu cập nhật bây giờ giúp các nhà thiết kế âm thanh tạo ra các tài sản phù hợp hơn.
 
-**Tối ưu hóa hiệu suất**
+**Tối Ưu Hóa Hiệu Suất**
 
-Culling đối tượng nhận được những cải tiến tối ưu hóa, giảm nhu cầu CPU trong khi vẫn duy trì chất lượng hình ảnh.
+Lọc đối tượng (culling) đã được tối ưu hóa, giảm bớt nhu cầu CPU trong khi vẫn duy trì chất lượng hình ảnh.
 
-## Truy cập Snapshot công khai
+## Truy Cập Snapshot Công Khai
 
-Các cột mốc phát triển hiện đã có sẵn công khai, cho phép cộng đồng xem xét và cung cấp phản hồi về các thay đổi và cải tiến gần đây.
+Các mốc phát triển giờ đã công khai, cho phép cộng đồng xem xét và phản hồi về các thay đổi và cải tiến gần đây.
