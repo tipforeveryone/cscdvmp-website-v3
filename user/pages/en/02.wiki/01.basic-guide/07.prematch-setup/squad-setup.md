@@ -3,7 +3,7 @@ title: Prematch Setup
 template: wiki
 smls_language: en
 smls_translations:
-    vi: /vi/wiki/huong-dan-co-ban/to-chuc-to-doi
+    vi: /vi/wiki/huong-dan-co-ban/chuan-bi-truoc-tran
 ---
 
 > **Note:** Some features and UI elements mentioned in this guide may not be functional yet.

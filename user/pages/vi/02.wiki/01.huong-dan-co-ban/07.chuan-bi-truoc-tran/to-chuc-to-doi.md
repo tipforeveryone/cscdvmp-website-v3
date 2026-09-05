@@ -3,7 +3,7 @@ title: Chuẩn bị trước trận
 template: wiki
 smls_language: vi
 smls_translations:
-    en: /en/wiki/basic-guide/squad-setup
+    en: /en/wiki/basic-guide/prematch-setup
 ---
 
 > **Lưu ý:** Một số tính năng và thành phần giao diện được đề cập trong hướng dẫn có thể chưa hoạt động.
