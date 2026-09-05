@@ -32,5 +32,5 @@ items:
       - label: Patreon
         url: 'https://www.patreon.com/c/LegionTeam'
       - label: Donate
-        url: '#'
+        url: /vi/wiki/huong-dan-co-ban/ung-ho-legion-team
 ---

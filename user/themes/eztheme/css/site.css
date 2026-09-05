@@ -4004,6 +4004,12 @@ body.template-home .footer-col--logo img, body.template-wiki .footer-col--logo i
   border-bottom: 1px solid var(--t-line);
   overflow: hidden;
 }
+/* Overlay mặc định của .cscd-bg--deep quá tối, gần như che hết ảnh nền — giảm
+   bớt riêng cho hero và khối nội dung wiki/blog để ảnh nền còn thấy rõ. */
+.wiki-hero .cscd-bg--deep::after,
+.wiki-layout-wrap .cscd-bg--deep::after {
+  background: linear-gradient(180deg, rgba(7, 9, 11, 0.90) 0%, rgba(7, 9, 11, 0.80) 50%, rgba(7, 9, 11, 0.94) 100%);
+}
 .wiki-hero .container {
   position: relative;
   z-index: 1;

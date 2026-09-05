@@ -6,11 +6,12 @@
 
 {% block content %}
 {% set current_lang = smls_current_language(page) %}
+{# Không có ảnh riêng thì dùng chung ảnh mặc định của wiki hero, để không bao giờ
+   để trống nền. #}
+{% set hero_bg = page.header.background_image ?: 'hero-banner.jpg' %}
 
-<section class="wiki-hero"{% if page.header.background_image %} style="--cscd-bg: url('{{ url('theme://images/cscd/' ~ page.header.background_image) }}')"{% endif %}>
-    {% if page.header.background_image %}
+<section class="wiki-hero" style="--cscd-bg: url('{{ url('theme://images/cscd/' ~ hero_bg) }}')">
     <div class="cscd-bg cscd-bg--deep" aria-hidden="true"></div>
-    {% endif %}
     <div class="cscd-grid-overlay" aria-hidden="true"></div>
     <div class="container wiki-hero__container--wide">
         <p class="cscd-eyebrow"><span class="cscd-eyebrow__dot"></span>Blog</p>
