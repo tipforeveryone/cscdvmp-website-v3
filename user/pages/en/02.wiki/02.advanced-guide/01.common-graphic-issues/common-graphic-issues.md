@@ -3,7 +3,7 @@ title: Common graphic issues
 template: wiki
 smls_language: en
 smls_translations:
-    vi: /vi/wiki/huong-dan-co-ban/van-de-do-hoa
+    vi: /vi/wiki/co-che-gameplay/van-de-do-hoa
 ---
 
 ## Problem

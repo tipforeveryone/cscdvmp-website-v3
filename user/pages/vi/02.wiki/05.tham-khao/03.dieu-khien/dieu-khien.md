@@ -3,7 +3,7 @@ title: Điều khiển
 template: wiki
 smls_language: vi
 smls_translations:
-    en: /en/wiki/basic-guide/controls
+    en: /en/wiki/references/controls
 ---
 
 CSCD sử dụng bộ điều khiển bắn súng chiến thuật quen thuộc với người chơi từng trải nghiệm các tựa game cùng thể loại, nhưng có thêm vài cơ chế ngắm bắn riêng.

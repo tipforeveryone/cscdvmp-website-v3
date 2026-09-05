@@ -12,7 +12,7 @@ Snapshot là các phiên bản được tạo ra sau mỗi chu kỳ phát triể
 
 Các snapshot mới hơn sẽ bao gồm toàn bộ tính năng và cải tiến từ những phiên bản cũ hơn.
 
-Giải nén file đã tải về vào bất kỳ vị trí nào trên máy tính và chạy **cscdvmp.exe** để bắt đầu chơi.
+Để biết chi tiết cách cài đặt và chạy snapshot, xem hướng dẫn tại [Cài đặt Snapshots](/vi/wiki/huong-dan-co-ban/cai-dat-snapshots).
 
 Vui lòng báo lỗi cho chúng mình tại Discord Server - [Dành cho người chơi Việt Nam](https://discord.com/channels/535296218113245206/1379144960476975134) - [Dành cho người chơi quốc tế](https://discord.com/channels/535296218113245206/1379137044370030793) hoặc gửi email tới: [support@legionteamdev.com](mailto:support@legionteamdev.com)
 

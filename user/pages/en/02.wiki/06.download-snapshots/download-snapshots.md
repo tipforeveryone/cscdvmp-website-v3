@@ -12,7 +12,7 @@ It's important to understand that snapshots are early development versions of th
 
 Newer snapshots inherently include all features and improvements from older ones.
 
-Extract the downloaded file anywhere on your computer and run **cscdvmp.exe** to start the game.
+For detailed setup and launch instructions, see the guide at [Snapshots Settings](/en/wiki/basic-guide/snapshots-settings).
 
 Please report any bug at our Discord Server - [For Vietnamese players](https://discord.com/channels/535296218113245206/1379144960476975134) - [For international players](https://discord.com/channels/535296218113245206/1379137044370030793) or send us an email: [support@legionteamdev.com](mailto:support@legionteamdev.com)
 

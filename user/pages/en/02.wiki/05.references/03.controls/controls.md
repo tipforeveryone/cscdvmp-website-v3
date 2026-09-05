@@ -3,7 +3,7 @@ title: Controls
 template: wiki
 smls_language: en
 smls_translations:
-    vi: /vi/wiki/huong-dan-co-ban/dieu-khien
+    vi: /vi/wiki/tham-khao/dieu-khien
 ---
 
 CSCD uses a control scheme that should feel familiar if you've played tactical shooters before, with a few aiming mechanics of its own.

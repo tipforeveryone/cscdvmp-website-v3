@@ -90,7 +90,14 @@
         </div>
         {% endif %}
 
-        {% set children = page.children.published.order('folder') %}
+        {# Trang con dùng tiền tố số thứ tự (01., 02., ...) trong tên folder thì giữ
+           nguyên thứ tự đó (ý đồ sắp xếp thủ công của người biên tập) — page.children
+           mặc định đã sort theo tiền tố này. Chỉ khi KHÔNG dùng tiền tố số mới sắp xếp
+           theo ngày tạo (mới nhất trước), vì lúc đó không có thứ tự thủ công nào để giữ. #}
+        {% set children_raw = page.children.published %}
+        {% set first_child = children_raw|first %}
+        {% set uses_folder_order = first_child and first_child.order %}
+        {% set children = uses_folder_order ? children_raw : children_raw.order('date')|reverse %}
         {% if children|length %}
         <section class="wiki-index">
             <h2 class="wiki-index__title">{{ page.content|trim ? ui.contents : ui.toc }}</h2>
@@ -98,7 +105,12 @@
                 {% for child in children %}
                 <li>
                     <a href="{{ child.url }}" class="wiki-index__link">
-                        <span class="wiki-index__name">{{ child.title }}</span>
+                        <span class="wiki-index__title-group">
+                            <span class="wiki-index__name">{{ child.title }}</span>
+                            {% if not uses_folder_order %}
+                            <span class="wiki-index__date">{{ child.date|date('d.m.Y') }}</span>
+                            {% endif %}
+                        </span>
                         {% if child.summary|trim %}
                         <span class="wiki-index__summary">{{ child.summary|striptags|trim }}</span>
                         {% endif %}

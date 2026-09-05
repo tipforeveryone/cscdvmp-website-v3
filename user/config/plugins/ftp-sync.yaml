@@ -1,6 +1,13 @@
 remote_base_path: /domains/cscdvmp.com/public_html
-sync_plugins: 'in-place-edit-button,admin-quick-menu,easy-content-manager,ftp-sync,simple-multi-language-site,tutorial-viewer,visitor-gadget,prev-next-nav'
+sync_plugins:
+  in-place-edit-button: true
+  ftp-sync: true
+  easy-content-manager: true
+  admin-quick-menu: true
+  prev-next-nav: true
+  simple-multi-language-site: true
+  visitor-gadget: true
+  tutorial-viewer: true
 ftp:
   host: 123.30.187.200
   username: cacaqitm
-  password: '15975321'

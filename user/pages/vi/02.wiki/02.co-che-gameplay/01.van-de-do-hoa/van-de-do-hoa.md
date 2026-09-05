@@ -3,7 +3,7 @@ title: Vấn đề thường gặp về đồ họa
 template: wiki
 smls_language: vi
 smls_translations:
-    en: /en/wiki/basic-guide/common-graphic-issues
+    en: /en/wiki/advanced-guide/common-graphic-issues
 ---
 
 ## Vấn đề

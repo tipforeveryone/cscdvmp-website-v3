@@ -4280,9 +4280,10 @@ body.template-home .footer-col--logo img, body.template-wiki .footer-col--logo i
   background: none;
 }
 .wiki-article img {
+  display: block;
   max-width: 100%;
   height: auto;
-  margin: 0.5rem 0 1.25rem;
+  margin: 0.5rem auto 1.25rem;
   box-shadow: inset 0 0 0 1px var(--t-line);
 }
 .wiki-article table {
@@ -4359,14 +4360,26 @@ body.template-home .footer-col--logo img, body.template-wiki .footer-col--logo i
   background: rgba(24, 29, 35, 0.95);
   box-shadow: inset 0 0 0 1px rgba(255, 176, 32, 0.5);
 }
-.wiki-index__name {
+.wiki-index__title-group {
   flex: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  min-width: 180px;
+}
+.wiki-index__name {
   font-family: 'Barlow Condensed', sans-serif;
   font-size: 1.05rem;
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  min-width: 180px;
+}
+.wiki-index__date {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: var(--t-steel);
 }
 .wiki-index__summary {
   flex: 1;
@@ -4399,7 +4412,7 @@ body.template-home .footer-col--logo img, body.template-wiki .footer-col--logo i
   .wiki-index__link {
     flex-wrap: wrap;
   }
-  .wiki-index__name {
+  .wiki-index__title-group {
     min-width: 0;
   }
   .wiki-index__summary {
@@ -4420,7 +4433,7 @@ body.template-home .footer-col--logo img, body.template-wiki .footer-col--logo i
   gap: 0.6rem;
   height: 100%;
 }
-.wiki-index__list--grid .wiki-index__name {
+.wiki-index__list--grid .wiki-index__title-group {
   min-width: 0;
 }
 .wiki-index__list--grid .wiki-index__summary {
