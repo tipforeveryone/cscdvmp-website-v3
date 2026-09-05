@@ -4381,18 +4381,6 @@ body.template-home .footer-col--logo img, body.template-wiki .footer-col--logo i
   letter-spacing: 0.05em;
   color: var(--t-steel);
 }
-.wiki-index__summary {
-  flex: 1;
-  min-width: 0;
-  font-size: 0.92rem;
-  line-height: 1.6;
-  color: var(--t-muted);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-}
 .wiki-index__arrow {
   flex: none;
   width: 9px;
@@ -4415,9 +4403,6 @@ body.template-home .footer-col--logo img, body.template-wiki .footer-col--logo i
   .wiki-index__title-group {
     min-width: 0;
   }
-  .wiki-index__summary {
-    -webkit-line-clamp: 3;
-  }
 }
 
 /* Trang gốc wiki: 4 chủ đề trên 1 hàng thay vì danh sách xếp dọc */
@@ -4435,9 +4420,6 @@ body.template-home .footer-col--logo img, body.template-wiki .footer-col--logo i
 }
 .wiki-index__list--grid .wiki-index__title-group {
   min-width: 0;
-}
-.wiki-index__list--grid .wiki-index__summary {
-  -webkit-line-clamp: 3;
 }
 .wiki-index__list--grid .wiki-index__arrow {
   position: absolute;

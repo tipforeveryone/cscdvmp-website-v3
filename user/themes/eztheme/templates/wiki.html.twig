@@ -111,9 +111,6 @@
                             <span class="wiki-index__date">{{ child.date|date('d.m.Y') }}</span>
                             {% endif %}
                         </span>
-                        {% if child.summary|trim %}
-                        <span class="wiki-index__summary">{{ child.summary|striptags|trim }}</span>
-                        {% endif %}
                         <span class="wiki-index__arrow" aria-hidden="true"></span>
                     </a>
                 </li>
