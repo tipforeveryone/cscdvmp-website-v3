@@ -1,10 +1,10 @@
 ---
 title: "Update 1.2"
-template: wiki
 date: "2026-04-05"
 smls_language: en
+published: true
 smls_translations:
-    vi: /vi/wiki/cap-nhat/cap-nhat-1-2
+    vi: /vi/blog/cap-nhat-1-2
 ---
 
 **Date:** April 5, 2026

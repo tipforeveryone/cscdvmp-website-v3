@@ -1,10 +1,10 @@
 ---
 title: 'Steam Demo Update 1'
-template: wiki
 date: '2026-02-17 07:00'
 smls_language: en
+published: true
 smls_translations:
-    vi: /vi/wiki/cap-nhat/cap-nhat-1-thong-tin
+    vi: /vi/blog/cap-nhat-1-thong-tin
 ---
 
 In June 2025, the CSCD demo version was released. Its participation in Steam Next Fest brought the game's first experiences to gamers worldwide. We've gathered extensive feedback from players globally. Some comments frankly pointed out the demo's weaknesses, yet they also expressed strong confidence in the project's future.

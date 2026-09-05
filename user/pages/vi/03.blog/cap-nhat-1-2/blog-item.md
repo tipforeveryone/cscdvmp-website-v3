@@ -1,10 +1,10 @@
 ---
 title: "Cập nhật 1.2"
-template: wiki
 date: "2026-04-05"
 smls_language: vi
+published: true
 smls_translations:
-    en: /en/wiki/updates/update-1-2
+    en: /en/blog/update-1-2
 ---
 
 **Ngày phát hành:** 5 tháng 4, 2026

@@ -1,10 +1,10 @@
 ---
 title: "Update 1.3"
-template: wiki
 date: "2026-04-17"
 smls_language: en
+published: true
 smls_translations:
-    vi: /vi/wiki/cap-nhat/cap-nhat-1-3
+    vi: /vi/blog/cap-nhat-1-3
 ---
 
 **Date:** April 17, 2026
