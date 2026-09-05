@@ -63,6 +63,9 @@ system/templates/testing/*
 /user/config/versions.yaml
 /user/data/recovery.window
 tmp/*
+
+# ftp-sync plugin config holds hosting FTP host/username/password in plaintext
+/user/config/plugins/ftp-sync.yaml
 /AGENTS.md
 /.claude
 
