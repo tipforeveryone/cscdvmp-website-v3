@@ -17,47 +17,39 @@
 
             <div class="cscd-eyebrow">
                 <span class="cscd-eyebrow__dot" aria-hidden="true"></span>
-                {{ is_english ? 'Signal Lost' : 'Tín hiệu đã mất' }}
+                Error {{ code }}
             </div>
 
             <h1 class="cscd-error__code">{{ code }}</h1>
 
             <h2 class="cscd-heading cscd-heading--accent">
                 {% if code == 404 %}
-                    {{ is_english ? 'Position Not Found' : 'Không tìm thấy vị trí này' }}
+                    Page Not Found
                 {% elseif code == 403 %}
-                    {{ is_english ? 'Access Denied' : 'Truy cập bị từ chối' }}
+                    Access Denied
                 {% elseif code == 500 %}
-                    {{ is_english ? 'System Malfunction' : 'Lỗi hệ thống' }}
+                    Internal Server Error
                 {% else %}
-                    {{ is_english ? 'Unexpected Error' : 'Đã xảy ra lỗi' }}
+                    Something Went Wrong
                 {% endif %}
             </h2>
             <div class="cscd-rule cscd-rule--center" aria-hidden="true"></div>
 
             <p class="cscd-text-muted cscd-error__text">
                 {% if code == 404 %}
-                    {{ is_english
-                        ? 'The coordinates you requested do not exist on this map. The page may have been moved, renamed, or never deployed.'
-                        : 'Toạ độ bạn yêu cầu không tồn tại trên bản đồ này. Trang có thể đã bị di chuyển, đổi tên, hoặc chưa từng được triển khai.' }}
+                    The page you're looking for doesn't exist. It may have been moved, renamed, or the link you followed is outdated.
                 {% elseif code == 403 %}
-                    {{ is_english
-                        ? "You don't have clearance to view this area."
-                        : 'Bạn không có quyền truy cập vào khu vực này.' }}
+                    You don't have permission to access this page.
                 {% elseif code == 500 %}
-                    {{ is_english
-                        ? 'Something broke on our end. Please try again shortly.'
-                        : 'Có lỗi xảy ra phía máy chủ. Vui lòng thử lại sau ít phút.' }}
+                    Something went wrong on our end. Please try again in a moment.
                 {% else %}
-                    {{ is_english
-                        ? 'Please try again, or head back to base.'
-                        : 'Vui lòng thử lại, hoặc quay về trang chủ.' }}
+                    An unexpected error occurred. Please try again.
                 {% endif %}
             </p>
 
             <div class="cscd-error__buttons">
-                <a href="{{ lang_prefix }}" class="cscd-btn cscd-btn--primary"><span>{{ is_english ? 'Back to Base' : 'Về trang chủ' }}</span></a>
-                <a href="{{ lang_prefix }}/wiki" class="cscd-btn cscd-btn--ghost"><span>{{ is_english ? 'Open Wiki' : 'Xem Wiki' }}</span></a>
+                <a href="{{ lang_prefix }}" class="cscd-btn cscd-btn--primary"><span>Back to Home</span></a>
+                <a href="{{ lang_prefix }}/wiki" class="cscd-btn cscd-btn--ghost"><span>Visit Wiki</span></a>
             </div>
         </div>
     </section>
