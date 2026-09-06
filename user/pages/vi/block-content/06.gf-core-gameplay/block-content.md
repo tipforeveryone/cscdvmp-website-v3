@@ -11,6 +11,9 @@ bullets:
     -
         title: 'Yếu tố quản lý tài nguyên'
         text: 'Thông qua khái niệm "Hồ sơ", game mang đến một cách tiếp cận mới cho việc quản lý tài nguyên. Mỗi Hồ sơ cho phép bạn quản lý ba loại tài nguyên: nhân sự, vũ khí và trang bị. Hồ sơ mới bắt đầu với lượng tín dụng hạn chế, tăng dần khi hoàn thành nhiệm vụ — giúp bạn từng bước trang bị đầy đủ cho đội đặc nhiệm của mình.'
+    -
+        title: 'Hệ thống ra lệnh chiến thuật'
+        text: 'Bên cạnh việc điều khiển trực tiếp, người chơi có thể ra lệnh di chuyển, quan sát hoặc yểm trợ cho đồng đội thông qua hệ thống ra lệnh riêng. Điều này giúp bạn điều phối vị trí và phản ứng của cả đội mà không cần tự tay điều khiển từng chiến sĩ, giữ nhịp độ nhiệm vụ luôn linh hoạt kể cả trong không gian chật hẹp.'
 routable: false
 visible: false
 ---

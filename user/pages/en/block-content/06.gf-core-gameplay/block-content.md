@@ -11,6 +11,9 @@ bullets:
     -
         title: 'Resource Management'
         text: 'Through the concept of a "Profile," the game offers a fresh take on resource management. Each Profile lets you manage three resource types: personnel, weapons, and equipment. New Profiles start with a limited amount of credits, which grow as you complete missions — letting you gradually equip your strike team with everything it needs.'
+    -
+        title: 'Tactical Command System'
+        text: 'Beyond direct control, players can issue move, observe, and support orders to squad members through a dedicated command system. This lets you coordinate positioning and reactions across the whole squad without having to control every operator by hand, keeping the pace of a mission fluid even in tight spaces.'
 routable: false
 visible: false
 ---
