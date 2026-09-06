@@ -7,4 +7,4 @@ link_url: '#game-features'
 routable: false
 visible: false
 ---
-Game sở hữu nhiều cơ chế gameplay mà nhóm phát triển tin rằng chưa xuất hiện trong các game bắn súng chiến thuật trước đây.
+Gameplay kết hợp cơ chế ngắm bắn chính xác, di chuyển và núp bắn riêng biệt, các yếu tố bản đồ động, cùng hệ thống quản lý tài nguyên được thiết kế riêng cho game.

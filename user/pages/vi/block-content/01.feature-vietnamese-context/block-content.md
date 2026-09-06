@@ -7,4 +7,4 @@ link_url: '#about-cscd'
 routable: false
 visible: false
 ---
-Game lấy bối cảnh Việt Nam thời kỳ hiện đại. Những con phố, dãy nhà, khu xóm mà người Việt sinh sống mang lại cảm giác thân quen.
+Nhiệm vụ diễn ra tại các bối cảnh Việt Nam hiện đại — đường phố, khu dân cư và vùng nông thôn được tái hiện chi tiết. Mỗi địa điểm hỗ trợ một cách tiếp cận chiến thuật khác nhau.

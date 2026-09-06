@@ -7,4 +7,4 @@ link_url: '#game-features'
 routable: false
 visible: false
 ---
-Được đầu tư phát triển kỹ lưỡng, hệ thống AI trong game hứa hẹn sẽ mang đến nhiều tình huống bất ngờ cho người chơi.
+Đơn vị địch có khả năng theo dõi mục tiêu, phối hợp với đồng đội, sử dụng vật cản và thực hiện các đợt đánh vu hồi, tạo ra tình huống chiến đấu đa dạng cho người chơi.

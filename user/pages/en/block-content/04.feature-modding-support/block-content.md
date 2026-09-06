@@ -7,4 +7,4 @@ link_url: '#game-features'
 routable: false
 visible: false
 ---
-Intuitive modding tools, complete with comprehensive documentation, enable creators to swiftly implement their custom content into the game.
+The game includes modding tools with accompanying documentation, allowing creators to build and add custom content without requiring extensive technical setup or prior experience.

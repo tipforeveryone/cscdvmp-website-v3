@@ -7,4 +7,4 @@ link_url: '#about-cscd'
 routable: false
 visible: false
 ---
-Our maps are crafted to reflect the contemporary Vietnamese environment. Explore various environments that challenge your tactical strategies in new and unique ways.
+Missions take place in modern Vietnamese settings — city streets, residential blocks, and rural roads. Each location supports a different tactical approach for the player.

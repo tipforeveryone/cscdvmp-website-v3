@@ -7,4 +7,4 @@ link_url: '#game-features'
 routable: false
 visible: false
 ---
-Experience unique, immersive gameplay with precise aiming, distinct controls, dynamic environments, and fresh resource management.
+Gameplay combines precision aiming, distinct movement and cover mechanics, dynamic map elements, and a resource management system built specifically for this game.

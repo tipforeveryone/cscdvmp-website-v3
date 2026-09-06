@@ -7,4 +7,4 @@ link_url: '#game-features'
 routable: false
 visible: false
 ---
-Hệ thống các công cụ hỗ trợ dễ sử dụng kèm theo hướng dẫn chi tiết, hỗ trợ modder nhanh đưa vào game những nội dung của mình.
+Game đi kèm công cụ modding và tài liệu hướng dẫn, cho phép người tạo nội dung xây dựng và thêm nội dung tùy chỉnh mà không cần thiết lập kỹ thuật phức tạp.
