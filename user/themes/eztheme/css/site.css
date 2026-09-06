@@ -4304,6 +4304,20 @@ body.template-blog-item .wiki-body:not(.has-toc) {
 .wiki-article a:hover {
   color: #ffc44d;
 }
+/* .wiki-article a ở trên thắng .cscd-btn--primary/--ghost nhờ độ đặc thù cao hơn
+   (có thêm element selector "a"), khiến chữ trong nút trùng màu amber với nền
+   nút --primary — cần ghi đè lại màu chữ đúng của từng biến thể nút khi đặt
+   trong nội dung bài viết. */
+.wiki-article a.cscd-btn--primary,
+.wiki-article a.cscd-btn--primary:hover {
+  color: #10130f;
+}
+.wiki-article a.cscd-btn--ghost {
+  color: var(--t-text);
+}
+.wiki-article a.cscd-btn--ghost:hover {
+  color: #fff;
+}
 .wiki-article em,
 .wiki-article i {
   color: var(--t-amber);
