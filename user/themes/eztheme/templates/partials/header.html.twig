@@ -23,7 +23,12 @@
 {% macro lang_switcher_link_class(lang, display) %}lang-switcher__link{% if display == 'flag' and lang.flag %} lang-switcher__link--flag-only{% endif %}{% endmacro %}
 {% import _self as icons %}
 
-{% set current_lang = smls_current_language(page) %}
+{# Trang lỗi (404...) là page tổng hợp không mang smls_language riêng, nên
+   smls_current_language(page) luôn rơi về ngôn ngữ mặc định bất kể URL thật
+   đang là /vi hay /en — ưu tiên đọc thẳng từ uri.path để header vẫn đúng
+   ngôn ngữ trên trang lỗi, các trang nội dung bình thường không đổi hành vi
+   vì URL của chúng vốn đã khớp với smls_current_language. #}
+{% set current_lang = (uri.path starts with '/en') ? 'en' : ((uri.path starts with '/vi') ? 'vi' : smls_current_language(page)) %}
 {% set nav = page.find(smls_root_path(current_lang) ~ '/nav') %}
 {% set switcher_display = smls_switcher_display() %}
 

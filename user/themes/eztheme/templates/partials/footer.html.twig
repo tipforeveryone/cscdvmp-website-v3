@@ -1,4 +1,6 @@
-{% set current_lang = smls_current_language(page) %}
+{# Xem giải thích tương tự trong partials/header.html.twig: trang lỗi không
+   có smls_language riêng nên phải đọc ngôn ngữ từ uri.path. #}
+{% set current_lang = (uri.path starts with '/en') ? 'en' : ((uri.path starts with '/vi') ? 'vi' : smls_current_language(page)) %}
 {% set footer = page.find(smls_root_path(current_lang) ~ '/footer') %}
 {# Nội dung 4 cột lấy từ page 'block-content' có custom_position == 'footer-*' #}
 {% set bc_root = page.find(smls_root_path(current_lang) ~ '/block-content') %}

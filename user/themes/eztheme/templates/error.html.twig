@@ -1,22 +1,65 @@
 {% extends 'partials/base.html.twig' %}
 
-{% block content %}
-    <main class="container">
-    <div class="error-page">
-        <h1>{{ status_code }}</h1>
-        <h2>{{ status_text }}</h2>
-        
-        {% if status_code == 404 %}
-            <p>Trang bạn tìm kiếm không được tìm thấy.</p>
-        {% elseif status_code == 403 %}
-            <p>Bạn không có quyền truy cập trang này.</p>
-        {% elseif status_code == 500 %}
-            <p>Có lỗi máy chủ nội bộ. Vui lòng thử lại sau.</p>
-        {% else %}
-            <p>Có lỗi xảy ra. Vui lòng thử lại sau.</p>
-        {% endif %}
+{% set is_english = uri.path starts with '/en' %}
+{% set lang_prefix = is_english ? '/en' : '/vi' %}
+{% set code = page.header.http_response_code ?: 404 %}
 
-        <a href="{{ base_url ?: '/' }}" class="btn">Quay về trang chủ</a>
-    </div>
-    </main>
+{% block title %}{{ code }} | {{ config.site.title }}{% endblock %}
+
+{% block content %}
+<main>
+    <section class="cscd-section cscd-error">
+        <div class="cscd-grid-overlay" aria-hidden="true"></div>
+        <div class="cscd-vignette" aria-hidden="true"></div>
+
+        <div class="container cscd-error__content">
+            <div class="cscd-brackets" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+
+            <div class="cscd-eyebrow">
+                <span class="cscd-eyebrow__dot" aria-hidden="true"></span>
+                {{ is_english ? 'Signal Lost' : 'Tín hiệu đã mất' }}
+            </div>
+
+            <h1 class="cscd-error__code">{{ code }}</h1>
+
+            <h2 class="cscd-heading cscd-heading--accent">
+                {% if code == 404 %}
+                    {{ is_english ? 'Position Not Found' : 'Không tìm thấy vị trí này' }}
+                {% elseif code == 403 %}
+                    {{ is_english ? 'Access Denied' : 'Truy cập bị từ chối' }}
+                {% elseif code == 500 %}
+                    {{ is_english ? 'System Malfunction' : 'Lỗi hệ thống' }}
+                {% else %}
+                    {{ is_english ? 'Unexpected Error' : 'Đã xảy ra lỗi' }}
+                {% endif %}
+            </h2>
+            <div class="cscd-rule cscd-rule--center" aria-hidden="true"></div>
+
+            <p class="cscd-text-muted cscd-error__text">
+                {% if code == 404 %}
+                    {{ is_english
+                        ? 'The coordinates you requested do not exist on this map. The page may have been moved, renamed, or never deployed.'
+                        : 'Toạ độ bạn yêu cầu không tồn tại trên bản đồ này. Trang có thể đã bị di chuyển, đổi tên, hoặc chưa từng được triển khai.' }}
+                {% elseif code == 403 %}
+                    {{ is_english
+                        ? "You don't have clearance to view this area."
+                        : 'Bạn không có quyền truy cập vào khu vực này.' }}
+                {% elseif code == 500 %}
+                    {{ is_english
+                        ? 'Something broke on our end. Please try again shortly.'
+                        : 'Có lỗi xảy ra phía máy chủ. Vui lòng thử lại sau ít phút.' }}
+                {% else %}
+                    {{ is_english
+                        ? 'Please try again, or head back to base.'
+                        : 'Vui lòng thử lại, hoặc quay về trang chủ.' }}
+                {% endif %}
+            </p>
+
+            <div class="cscd-error__buttons">
+                <a href="{{ lang_prefix }}" class="cscd-btn cscd-btn--primary"><span>{{ is_english ? 'Back to Base' : 'Về trang chủ' }}</span></a>
+                <a href="{{ lang_prefix }}/wiki" class="cscd-btn cscd-btn--ghost"><span>{{ is_english ? 'Open Wiki' : 'Xem Wiki' }}</span></a>
+            </div>
+        </div>
+    </section>
+</main>
 {% endblock %}

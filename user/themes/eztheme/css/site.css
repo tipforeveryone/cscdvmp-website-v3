@@ -2639,6 +2639,67 @@ body.template-home [id], body.template-wiki [id] , body.template-blog [id] , bod
   }
 }
 
+/* Trang lỗi (404/403/500) đứng riêng, không nằm trong danh sách template
+   dùng chung ở trên, nên tự khai báo lại đúng bộ biến màu tối để tái dùng
+   các class .cscd-* (button, heading, brackets...) mà không phải sửa danh
+   sách selector dùng chung (đang lặp lại ở rất nhiều nơi trong file này). */
+body.template-error {
+  --t-bg: #07090b;
+  --t-bg-2: #0b0e12;
+  --t-panel: rgba(18, 22, 27, 0.72);
+  --t-line: rgba(255, 255, 255, 0.1);
+  --t-line-strong: rgba(255, 255, 255, 0.22);
+  --t-amber: #ffb020;
+  --t-amber-dim: rgba(255, 176, 32, 0.16);
+  --t-text: #d5dade;
+  --t-muted: #8c98a1;
+  --t-heading: #e6e9eb;
+  --t-notch: 14px;
+
+  background: var(--t-bg);
+  color: var(--t-text);
+  font-family: 'Barlow', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  min-height: 100vh;
+}
+body.template-error h1, body.template-error h2 {
+  font-family: 'Oswald', 'Barlow Condensed', sans-serif;
+  letter-spacing: 0.02em;
+}
+
+.cscd-error {
+  display: flex;
+  align-items: center;
+  min-height: calc(100vh - 260px);
+  text-align: center;
+}
+.cscd-error__content {
+  position: relative;
+  max-width: 620px;
+  margin: 0 auto;
+}
+.cscd-error__code {
+  margin: 0;
+  font-family: 'Oswald', 'Barlow Condensed', sans-serif;
+  font-size: clamp(5rem, 16vw, 9rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  color: var(--t-heading);
+  text-shadow: 0 0 40px rgba(255, 176, 32, 0.18);
+}
+.cscd-error__text {
+  max-width: 480px;
+  margin: 0 auto;
+}
+.cscd-error__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2.25rem;
+}
+
 /* ---------------------------------------------------------------------
    Vỏ section + các lớp phủ khí quyển
    --------------------------------------------------------------------- */
@@ -3738,7 +3799,7 @@ body.template-home [id], body.template-wiki [id] , body.template-blog [id] , bod
 /* ---------------------------------------------------------------------
    Thanh điều hướng — dính trên đầu, nền kính mờ
    --------------------------------------------------------------------- */
-body.template-home header, body.template-wiki header , body.template-blog header , body.template-blog-item header {
+body.template-home header, body.template-wiki header , body.template-blog header , body.template-blog-item header , body.template-error header {
   position: sticky;
   top: 0;
   z-index: 100;
@@ -3749,33 +3810,33 @@ body.template-home header, body.template-wiki header , body.template-blog header
   box-shadow: none;
   padding: 0.5rem 0;
 }
-body.template-home .header-layout, body.template-wiki .header-layout , body.template-blog .header-layout , body.template-blog-item .header-layout {
+body.template-home .header-layout, body.template-wiki .header-layout , body.template-blog .header-layout , body.template-blog-item .header-layout , body.template-error .header-layout {
   align-items: center;
 }
 /* Bố cục gốc xếp menu và nút đổi ngôn ngữ thành hai hàng (di sản của header
    có dải giờ làm việc/hotline). Trang game không có dải đó, nên gom tất cả
    về một hàng để nút cờ không bị "mồ côi" bên dưới. */
-body.template-home .header-right, body.template-wiki .header-right , body.template-blog .header-right , body.template-blog-item .header-right {
+body.template-home .header-right, body.template-wiki .header-right , body.template-blog .header-right , body.template-blog-item .header-right , body.template-error .header-right {
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
   gap: 1.25rem;
 }
-body.template-home .lang-switcher-row, body.template-wiki .lang-switcher-row , body.template-blog .lang-switcher-row , body.template-blog-item .lang-switcher-row {
+body.template-home .lang-switcher-row, body.template-wiki .lang-switcher-row , body.template-blog .lang-switcher-row , body.template-blog-item .lang-switcher-row , body.template-error .lang-switcher-row {
   padding: 0;
   margin: 0;
 }
-body.template-home .logo img, body.template-wiki .logo img , body.template-blog .logo img , body.template-blog-item .logo img {
+body.template-home .logo img, body.template-wiki .logo img , body.template-blog .logo img , body.template-blog-item .logo img , body.template-error .logo img {
   max-height: 52px;
   width: auto;
 }
-body.template-home .header-bottom, body.template-wiki .header-bottom , body.template-blog .header-bottom , body.template-blog-item .header-bottom {
+body.template-home .header-bottom, body.template-wiki .header-bottom , body.template-blog .header-bottom , body.template-blog-item .header-bottom , body.template-error .header-bottom {
   border: 0;
 }
-body.template-home .menu, body.template-wiki .menu , body.template-blog .menu , body.template-blog-item .menu {
+body.template-home .menu, body.template-wiki .menu , body.template-blog .menu , body.template-blog-item .menu , body.template-error .menu {
   gap: 0.35rem;
 }
-body.template-home .menu-link, body.template-wiki .menu-link , body.template-blog .menu-link , body.template-blog-item .menu-link {
+body.template-home .menu-link, body.template-wiki .menu-link , body.template-blog .menu-link , body.template-blog-item .menu-link , body.template-error .menu-link {
   position: relative;
   padding: 0.55rem 0.85rem;
   font-family: 'Barlow Condensed', sans-serif;
@@ -3792,7 +3853,7 @@ body.template-home .menu-link, body.template-wiki .menu-link , body.template-blo
   transition: color 0.2s ease;
 }
 /* Gạch chân duy nhất, chạy từ trái sang khi rê chuột */
-body.template-home .menu-link::after, body.template-wiki .menu-link::after , body.template-blog .menu-link::after , body.template-blog-item .menu-link::after {
+body.template-home .menu-link::after, body.template-wiki .menu-link::after , body.template-blog .menu-link::after , body.template-blog-item .menu-link::after , body.template-error .menu-link::after {
   content: '';
   position: absolute;
   left: 0.85rem;
@@ -3804,16 +3865,16 @@ body.template-home .menu-link::after, body.template-wiki .menu-link::after , bod
   transform-origin: left;
   transition: transform 0.22s ease;
 }
-body.template-home .menu-link:hover, body.template-wiki .menu-link:hover , body.template-blog .menu-link:hover , body.template-blog-item .menu-link:hover {
+body.template-home .menu-link:hover, body.template-wiki .menu-link:hover , body.template-blog .menu-link:hover , body.template-blog-item .menu-link:hover , body.template-error .menu-link:hover {
   color: #fff;
   text-decoration: none;
   border-bottom-color: transparent;
   background: none;
 }
-body.template-home .menu-link:hover::after, body.template-wiki .menu-link:hover::after , body.template-blog .menu-link:hover::after , body.template-blog-item .menu-link:hover::after {
+body.template-home .menu-link:hover::after, body.template-wiki .menu-link:hover::after , body.template-blog .menu-link:hover::after , body.template-blog-item .menu-link:hover::after , body.template-error .menu-link:hover::after {
   transform: scaleX(1);
 }
-body.template-home .submenu, body.template-wiki .submenu , body.template-blog .submenu , body.template-blog-item .submenu {
+body.template-home .submenu, body.template-wiki .submenu , body.template-blog .submenu , body.template-blog-item .submenu , body.template-error .submenu {
   background: rgba(11, 14, 18, 0.97);
   border: 1px solid var(--t-line);
   backdrop-filter: blur(10px);
@@ -3821,10 +3882,10 @@ body.template-home .submenu, body.template-wiki .submenu , body.template-blog .s
 
 /* Mục menu "nổi bật" (vd Ủng hộ Dev) — chỉ đổi màu chữ sang hổ phách, không
    thêm nền/khung, để vẫn đồng bộ hình thức với các link khác trong thanh nav. */
-body.template-home .menu-link--cta, body.template-wiki .menu-link--cta , body.template-blog .menu-link--cta , body.template-blog-item .menu-link--cta {
+body.template-home .menu-link--cta, body.template-wiki .menu-link--cta , body.template-blog .menu-link--cta , body.template-blog-item .menu-link--cta , body.template-error .menu-link--cta {
   color: var(--t-amber);
 }
-body.template-home .menu-link--cta:hover, body.template-wiki .menu-link--cta:hover , body.template-blog .menu-link--cta:hover , body.template-blog-item .menu-link--cta:hover {
+body.template-home .menu-link--cta:hover, body.template-wiki .menu-link--cta:hover , body.template-blog .menu-link--cta:hover , body.template-blog-item .menu-link--cta:hover , body.template-error .menu-link--cta:hover {
   color: #ffc44d;
 }
 /* .has-submenu > .menu-link::after ở site.css dòng ~203 (theme gốc) vẽ mũi tên tam
@@ -3832,18 +3893,18 @@ body.template-home .menu-link--cta:hover, body.template-wiki .menu-link--cta:hov
    hổ phách ở trên nên hai hiệu ứng chồng lên nhau. Set content:none sẽ xoá luôn pseudo
    element (mất cả gạch chân), nên phải reset từng thuộc tính triangle về 0 thay vì
    xoá hẳn, để gạch chân hổ phách vẫn còn nguyên trên mục "Overview". */
-body.template-home .has-submenu > .menu-link::after, body.template-wiki .has-submenu > .menu-link::after , body.template-blog .has-submenu > .menu-link::after , body.template-blog-item .has-submenu > .menu-link::after {
+body.template-home .has-submenu > .menu-link::after, body.template-wiki .has-submenu > .menu-link::after , body.template-blog .has-submenu > .menu-link::after , body.template-blog-item .has-submenu > .menu-link::after , body.template-error .has-submenu > .menu-link::after {
   border-left: 0;
   border-right: 0;
   border-top: 0;
   margin-left: 0;
 }
-body.template-home .has-submenu:hover > .menu-link::after, body.template-wiki .has-submenu:hover > .menu-link::after, body.template-blog .has-submenu:hover > .menu-link::after, body.template-blog-item .has-submenu:hover > .menu-link::after,
-body.template-home .has-submenu.active > .menu-link::after, body.template-wiki .has-submenu.active > .menu-link::after , body.template-blog .has-submenu.active > .menu-link::after , body.template-blog-item .has-submenu.active > .menu-link::after {
+body.template-home .has-submenu:hover > .menu-link::after, body.template-wiki .has-submenu:hover > .menu-link::after, body.template-blog .has-submenu:hover > .menu-link::after, body.template-blog-item .has-submenu:hover > .menu-link::after, body.template-error .has-submenu:hover > .menu-link::after,
+body.template-home .has-submenu.active > .menu-link::after, body.template-wiki .has-submenu.active > .menu-link::after , body.template-blog .has-submenu.active > .menu-link::after , body.template-blog-item .has-submenu.active > .menu-link::after , body.template-error .has-submenu.active > .menu-link::after {
   transform: scaleX(1);
 }
 
-body.template-home .lang-switcher__link, body.template-wiki .lang-switcher__link , body.template-blog .lang-switcher__link , body.template-blog-item .lang-switcher__link {
+body.template-home .lang-switcher__link, body.template-wiki .lang-switcher__link , body.template-blog .lang-switcher__link , body.template-blog-item .lang-switcher__link , body.template-error .lang-switcher__link {
   font-family: 'Barlow Condensed', sans-serif;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -3852,34 +3913,34 @@ body.template-home .lang-switcher__link, body.template-wiki .lang-switcher__link
   border-radius: 0;
   background: rgba(255, 255, 255, 0.05);
 }
-body.template-home .lang-switcher__link:hover, body.template-wiki .lang-switcher__link:hover , body.template-blog .lang-switcher__link:hover , body.template-blog-item .lang-switcher__link:hover {
+body.template-home .lang-switcher__link:hover, body.template-wiki .lang-switcher__link:hover , body.template-blog .lang-switcher__link:hover , body.template-blog-item .lang-switcher__link:hover , body.template-error .lang-switcher__link:hover {
   color: #10130f;
   background: var(--t-amber);
   border-color: var(--t-amber);
 }
-body.template-home .header-social .social-link, body.template-wiki .header-social .social-link , body.template-blog .header-social .social-link , body.template-blog-item .header-social .social-link {
+body.template-home .header-social .social-link, body.template-wiki .header-social .social-link , body.template-blog .header-social .social-link , body.template-blog-item .header-social .social-link , body.template-error .header-social .social-link {
   color: var(--t-muted);
   background: none;
 }
-body.template-home .header-social .social-link:hover, body.template-wiki .header-social .social-link:hover , body.template-blog .header-social .social-link:hover , body.template-blog-item .header-social .social-link:hover {
+body.template-home .header-social .social-link:hover, body.template-wiki .header-social .social-link:hover , body.template-blog .header-social .social-link:hover , body.template-blog-item .header-social .social-link:hover , body.template-error .header-social .social-link:hover {
   color: var(--t-amber);
 }
-body.template-home .menu-toggle span, body.template-wiki .menu-toggle span , body.template-blog .menu-toggle span , body.template-blog-item .menu-toggle span {
+body.template-home .menu-toggle span, body.template-wiki .menu-toggle span , body.template-blog .menu-toggle span , body.template-blog-item .menu-toggle span , body.template-error .menu-toggle span {
   background: var(--t-text);
 }
-body.template-home .main-nav, body.template-wiki .main-nav , body.template-blog .main-nav , body.template-blog-item .main-nav {
+body.template-home .main-nav, body.template-wiki .main-nav , body.template-blog .main-nav , body.template-blog-item .main-nav , body.template-error .main-nav {
   background: rgba(9, 11, 14, 0.98);
   backdrop-filter: blur(12px);
   border-right: 1px solid var(--t-line);
 }
-body.template-home .main-nav .menu-link, body.template-wiki .main-nav .menu-link , body.template-blog .main-nav .menu-link , body.template-blog-item .main-nav .menu-link {
+body.template-home .main-nav .menu-link, body.template-wiki .main-nav .menu-link , body.template-blog .main-nav .menu-link , body.template-blog-item .main-nav .menu-link , body.template-error .main-nav .menu-link {
   color: var(--t-text);
 }
 
 /* ---------------------------------------------------------------------
    Chân trang
    --------------------------------------------------------------------- */
-body.template-home footer, body.template-wiki footer , body.template-blog footer , body.template-blog-item footer {
+body.template-home footer, body.template-wiki footer , body.template-blog footer , body.template-blog-item footer , body.template-error footer {
   position: relative;
   background: #05070a;
   background-image: none;
@@ -3890,7 +3951,7 @@ body.template-home footer, body.template-wiki footer , body.template-blog footer
      khối nội dung 3 cột phía trên nó (không còn tồn tại). */
   padding: 2rem 0;
 }
-body.template-home footer::before, body.template-wiki footer::before , body.template-blog footer::before , body.template-blog-item footer::before {
+body.template-home footer::before, body.template-wiki footer::before , body.template-blog footer::before , body.template-blog-item footer::before , body.template-error footer::before {
   content: '';
   position: absolute;
   top: -1px;
@@ -3899,29 +3960,29 @@ body.template-home footer::before, body.template-wiki footer::before , body.temp
   height: 2px;
   background: var(--t-amber);
 }
-body.template-home footer a, body.template-wiki footer a , body.template-blog footer a , body.template-blog-item footer a {
+body.template-home footer a, body.template-wiki footer a , body.template-blog footer a , body.template-blog-item footer a , body.template-error footer a {
   color: var(--t-steel);
 }
-body.template-home footer a:hover, body.template-wiki footer a:hover , body.template-blog footer a:hover , body.template-blog-item footer a:hover {
+body.template-home footer a:hover, body.template-wiki footer a:hover , body.template-blog footer a:hover , body.template-blog-item footer a:hover , body.template-error footer a:hover {
   color: var(--t-amber);
   text-decoration: none;
 }
-body.template-home footer h1, body.template-wiki footer h1, body.template-blog footer h1, body.template-blog-item footer h1,
-body.template-home footer h2, body.template-wiki footer h2, body.template-blog footer h2, body.template-blog-item footer h2,
-body.template-home footer h3, body.template-wiki footer h3, body.template-blog footer h3, body.template-blog-item footer h3,
-body.template-home footer h4, body.template-wiki footer h4, body.template-blog footer h4, body.template-blog-item footer h4,
-body.template-home footer strong, body.template-wiki footer strong , body.template-blog footer strong , body.template-blog-item footer strong {
+body.template-home footer h1, body.template-wiki footer h1, body.template-blog footer h1, body.template-blog-item footer h1, body.template-error footer h1,
+body.template-home footer h2, body.template-wiki footer h2, body.template-blog footer h2, body.template-blog-item footer h2, body.template-error footer h2,
+body.template-home footer h3, body.template-wiki footer h3, body.template-blog footer h3, body.template-blog-item footer h3, body.template-error footer h3,
+body.template-home footer h4, body.template-wiki footer h4, body.template-blog footer h4, body.template-blog-item footer h4, body.template-error footer h4,
+body.template-home footer strong, body.template-wiki footer strong , body.template-blog footer strong , body.template-blog-item footer strong , body.template-error footer strong {
   color: var(--t-text);
   font-family: 'Barlow Condensed', sans-serif;
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
-body.template-home .footer-bottom, body.template-wiki .footer-bottom , body.template-blog .footer-bottom , body.template-blog-item .footer-bottom {
+body.template-home .footer-bottom, body.template-wiki .footer-bottom , body.template-blog .footer-bottom , body.template-blog-item .footer-bottom , body.template-error .footer-bottom {
   color: var(--t-muted);
   font-family: 'Barlow Condensed', sans-serif;
   letter-spacing: 0.1em;
 }
-body.template-home .footer-col--logo img, body.template-wiki .footer-col--logo img , body.template-blog .footer-col--logo img , body.template-blog-item .footer-col--logo img {
+body.template-home .footer-col--logo img, body.template-wiki .footer-col--logo img , body.template-blog .footer-col--logo img , body.template-blog-item .footer-col--logo img , body.template-error .footer-col--logo img {
   max-height: 64px;
   width: auto;
 }
