@@ -3068,6 +3068,73 @@ body.template-error h1, body.template-error h2 {
   50% { opacity: 1; transform: translateX(-50%) scaleY(1); }
 }
 
+/* Khung ngắm bám theo con trỏ — chỉ bật bằng JS khi thiết bị có chuột thật
+   (hover: hover + pointer: fine) và không bật khi prefers-reduced-motion.
+   JS gán left/top/width/height trực tiếp, CSS transition lo phần "trễ nhịp"
+   để có cảm giác đang bám mục tiêu thay vì đứng yên. */
+.cscd-hero--cursor-active {
+  cursor: none;
+}
+.cscd-hero--cursor-active .cscd-hero__buttons a,
+.cscd-hero--cursor-active a {
+  cursor: none;
+}
+.cscd-cursor {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 40px;
+  height: 40px;
+  transform: translate(-50%, -50%);
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0;
+  transition: left 0.1s ease-out, top 0.1s ease-out, width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
+}
+.cscd-cursor.is-visible {
+  opacity: 1;
+}
+.cscd-cursor.is-locked {
+  transition: left 0.2s ease, top 0.2s ease, width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
+}
+.cscd-cursor i {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border: 1.5px solid var(--t-amber);
+  opacity: 0.85;
+  transition: border-color 0.2s ease;
+}
+.cscd-cursor i:nth-child(1) { top: 0; left: 0; border-right: 0; border-bottom: 0; }
+.cscd-cursor i:nth-child(2) { top: 0; right: 0; border-left: 0; border-bottom: 0; }
+.cscd-cursor i:nth-child(3) { bottom: 0; left: 0; border-right: 0; border-top: 0; }
+.cscd-cursor i:nth-child(4) { bottom: 0; right: 0; border-left: 0; border-top: 0; }
+.cscd-cursor__dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  background: var(--t-amber);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.cscd-cursor.is-locked i {
+  border-color: var(--t-red);
+}
+.cscd-cursor.is-locked .cscd-cursor__dot {
+  background: var(--t-red);
+  animation: cscd-cursor-pulse 0.9s ease-in-out infinite;
+}
+@keyframes cscd-cursor-pulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.6); }
+}
+@media (hover: none), (pointer: coarse) {
+  .cscd-cursor { display: none; }
+}
+
 /* ---------------------------------------------------------------------
    Thẻ tính năng — "hồ sơ tác chiến"
    --------------------------------------------------------------------- */
@@ -4316,6 +4383,15 @@ body.template-blog-item .wiki-body:not(.has-toc) {
   color: var(--t-text);
 }
 .wiki-article a.cscd-btn--ghost:hover {
+  color: #fff;
+}
+/* Cùng lý do như trên: .wiki-index__link đôi khi được nhúng vào giữa nội dung
+   bài viết (vd. blog) chứ không chỉ nằm ở khối "Trong mục này" ngoài
+   .wiki-article, nên cần thắng lại màu amber của ".wiki-article a". */
+.wiki-article a.wiki-index__link {
+  color: var(--t-text);
+}
+.wiki-article a.wiki-index__link:hover {
   color: #fff;
 }
 .wiki-article em,

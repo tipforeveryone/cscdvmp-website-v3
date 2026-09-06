@@ -28,7 +28,14 @@ Từ đó đến nay, dù ở giai đoạn nào, chúng mình cũng luôn xác �
 
 Do đó, chúng mình rất mong nhận được thêm sự ủng hộ từ các bạn, những người đang quan tâm và tin tưởng vào dự án! Có được sự trợ giúp từ các bạn, phiên bản FVV có nhiều cơ hội hơn để đi đến đích!
 
-<p style="text-align: center;"><a href="/vi/wiki/huong-dan-co-ban/ung-ho-legion-team" class="cscd-link-arrow">Hướng dẫn ủng hộ Legion Team</a></p>
+<div class="wiki-index__list" style="max-width: 420px; margin-left: auto; margin-right: auto;">
+    <a href="/vi/wiki/huong-dan-co-ban/ung-ho-legion-team" class="wiki-index__link">
+        <span class="wiki-index__title-group">
+            <span class="wiki-index__name">Hướng dẫn ủng hộ Legion Team</span>
+        </span>
+        <span class="wiki-index__arrow" aria-hidden="true"></span>
+    </a>
+</div>
 
 ...
 
