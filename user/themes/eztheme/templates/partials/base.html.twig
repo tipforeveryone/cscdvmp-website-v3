@@ -18,7 +18,12 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@500;600;700&display=swap">
-        <link rel="stylesheet" href="{{ url('theme://css/site.css') }}">
+        {# Đăng ký qua Assets manager (không viết <link> tay) để
+           system.assets.enable_asset_timestamp gắn được ?<mtime> vào URL —
+           nếu không, sửa CSS xong deploy lên hosting thì trình duyệt (và
+           CDN nếu có) vẫn dùng bản site.css cũ đã cache do URL không đổi;
+           "Clear cache" của Grav không xoá được cache phía trình duyệt. #}
+        {% do assets.addCss('theme://css/site.css') %}
         {{ assets.css()|raw }}
     {% endblock %}
 

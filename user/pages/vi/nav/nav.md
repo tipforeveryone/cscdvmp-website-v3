@@ -20,7 +20,7 @@ items:
     url: /vi/wiki
   - label: Blog
     url: /vi/blog
-  - label: Updates
+  - label: Cập nhật
     url: /vi/updates
   - label: Download
     url: '#'

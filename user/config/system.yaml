@@ -18,6 +18,14 @@ debugger:
 images:
   cls:
     retina_scale: '1'
+assets:
+  # Gắn timestamp vào URL của asset (css/js không qua pipeline) mỗi khi mtime
+  # file đổi — không có cái này, trình duyệt (và CDN nếu có) cache site.css
+  # theo URL cũ vô thời hạn, "Clear cache" của Grav chỉ xoá cache phía server
+  # nên không giúp gì cho việc này (đã xảy ra thật: sửa CSS, upload, clear
+  # cache trên hosting xong vẫn không thấy thay đổi vì trình duyệt vẫn dùng
+  # bản site.css cũ đã cache).
+  enable_asset_timestamp: true
 session:
   split: false
 gpm:

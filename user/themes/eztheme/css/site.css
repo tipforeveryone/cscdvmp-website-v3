@@ -4018,6 +4018,16 @@ body.template-home .footer-col--logo img, body.template-wiki .footer-col--logo i
      sát mép trái của độ rộng site như các section khác trên trang chủ. */
   max-width: 1265px;
 }
+/* Bài blog không có TOC (initWikiToc trong site.js không gắn .has-toc vì
+   thiếu đề mục): co hẹp + căn giữa CẢ khối title hero lẫn khối content về
+   cùng khổ đọc 860px, thay vì chỉ content co hẹp còn title tràn hết chiều
+   rộng trang — 2 khối phải cùng khổ mới thấy thẳng hàng thật sự, không chỉ
+   chung mép trái. :has() để hero "biết" trạng thái has-toc của .wiki-body
+   nằm ở section khác bên dưới nó trong cùng trang. */
+body.template-blog-item:not(:has(.wiki-body.has-toc)) .wiki-hero .container {
+  max-width: 860px;
+  margin: 0 auto;
+}
 .wiki-hero__title {
   margin: 0.75rem 0 0;
   font-size: clamp(1.9rem, 4vw, 2.75rem);
@@ -4090,6 +4100,17 @@ body.template-home .footer-col--logo img, body.template-wiki .footer-col--logo i
 }
 .wiki-index {
   max-width: 860px;
+}
+/* Blog (không phải wiki): không có TOC thì căn giữa content luôn, khớp với
+   khối title hero cũng được căn giữa cùng khổ 860px ở trên (xem .wiki-hero
+   .container) — khác wiki, nơi content vẫn bám mép trái như comment ở trên.
+   Cũng cần cùng padding ngang với .wiki-hero .container (nó có class
+   .container nên tự có padding: 0 var(--spacing-unit) — .wiki-body thì
+   không), nếu không chữ trong bài sẽ rộng hơn tiêu đề dù 2 khung ngoài đã
+   cùng 860px và cùng căn giữa. */
+body.template-blog-item .wiki-body:not(.has-toc) {
+  margin: 0 auto;
+  padding: 0 var(--spacing-unit);
 }
 .wiki-body.has-toc,
 .wiki-layout--wide .wiki-body,
