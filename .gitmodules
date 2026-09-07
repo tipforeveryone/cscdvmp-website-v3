@@ -29,3 +29,7 @@
 	path = user/plugins/prev-next-nav
 	url = git@github.com:tipforeveryone/grav-plugin-next-prev-navigation.git
 	branch = main
+[submodule "user/plugins/simple-opengraph-info"]
+	path = user/plugins/simple-opengraph-info
+	url = git@github.com:tipforeveryone/grav-plugin-simple-opengraph-info.git
+	branch = main

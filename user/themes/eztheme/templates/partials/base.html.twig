@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="{{ page.summary ?: config.site.description }}">
+    {{ sog_tags(page)|raw }}
     <title>{% block title %}{{ page.title }} | {{ config.site.title }}{% endblock %}</title>
 
     {% set is_english_favicon = uri.path starts with '/en' %}
