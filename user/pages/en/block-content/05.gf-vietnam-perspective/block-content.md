@@ -9,6 +9,6 @@ gallery:
 routable: false
 visible: false
 ---
-The game offers players a unique avenue to experience Vietnam. Combat locations are meticulously designed, accurately simulating contemporary Vietnamese urban spaces. Features like narrow streets, close-packed tube houses, and intricate alley systems immerse players in a truly distinctive environment.
+CSCD takes you into the bustling center of modern-day Vietnam, a setting full of life and authenticity. Feel the rich culture infused in every nook and cranny you explore. Stroll through lively streets, winding alleys, and the unique character of its urban landscape.
 
-Khuong Binh Street, one of the game's featured locations, received a significant environmental upgrade with new props, vehicles, and vegetation that reflect everyday life. The mix of narrow alleys and open intersections creates a range of engagement distances, encouraging players to adapt their approach as they move through the area.
+We meticulously explored the country, immersing ourselves in the details of everyday life. We documented our observations, researched the nuances, and carefully selected the most distinctive elements to faithfully recreate the Vietnamese experience within the game.
