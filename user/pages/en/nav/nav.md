@@ -16,12 +16,12 @@ items:
         url: /en#game-features
       - label: FAQ
         url: /en#faq
-  - label: Wiki
-    url: /en/wiki
   - label: Blog
     url: /en/blog
   - label: Updates
     url: /en/updates
+  - label: Wiki
+    url: /en/wiki
   - label: Download
     url: '#'
     children:

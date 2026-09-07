@@ -16,12 +16,12 @@ items:
         url: /vi#game-features
       - label: Câu hỏi thường gặp
         url: /vi#faq
-  - label: Wiki
-    url: /vi/wiki
   - label: Blog
     url: /vi/blog
   - label: Cập nhật
     url: /vi/updates
+  - label: Wiki
+    url: /vi/wiki
   - label: Download
     url: '#'
     children:
