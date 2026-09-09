@@ -1675,6 +1675,7 @@ ul.pagination li span.active {
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
+  pointer-events: none;
 }
 .lienhe-form__success {
   margin: 0;
@@ -1852,6 +1853,22 @@ footer p {
 
 .btn:hover, button:hover, input[type=submit]:hover, input[type=button]:hover {
   background: var(--secondary-color);
+}
+
+/* Quy ước dùng chung cho MỌI nút bấm trên site (cả hệ màu sáng ở đây lẫn
+   hệ "tactical" .cscd-btn/.cscd-icon-btn bên dưới): nút disabled luôn phải
+   có pointer-events:none, không chỉ opacity. Lý do — nếu chỉ hạ opacity,
+   một nút con cụ thể hơn (vd .lienhe-form__btn, .cscd-gallery__arrow) khai
+   riêng background cho :disabled vẫn có thể bị chính quy tắc "button:hover"
+   chung này (độ đặc thù cao hơn nền mặc định của class con vì có thêm
+   :hover) đè lên khi rê chuột qua, làm nút disabled đổi sang màu hover
+   (xanh lá --secondary-color) dù không còn tương tác được — pointer-events
+   chặn hẳn sự kiện chuột nên :hover không bao giờ khớp trên nút disabled,
+   bất kể độ đặc thù CSS. */
+.btn:disabled, button:disabled, input[type=submit]:disabled, input[type=button]:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 .btn-secondary {
@@ -2896,6 +2913,14 @@ body.template-error h1, body.template-error h2 {
   text-decoration: none;
   transform: translateY(-2px);
 }
+/* pointer-events:none (không chỉ opacity) — xem giải thích chi tiết ở quy
+   tắc "button:disabled" chung đầu file: nếu không, nút disabled vẫn phản
+   ứng hover (nhích lên, đổi glow) dù không còn bấm được. */
+.cscd-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+  pointer-events: none;
+}
 
 .cscd-btn--primary {
   background: var(--t-amber);
@@ -2934,6 +2959,55 @@ body.template-error h1, body.template-error h2 {
 }
 .cscd-btn--ghost:hover::after {
   background: rgba(28, 24, 12, 0.9);
+}
+
+/* ---------------------------------------------------------------------
+   Nút icon vuông dùng chung toàn site (mũi tên prev/next, nút đóng...) —
+   cùng ngôn ngữ thị giác với .cscd-btn ở trên và .wiki-index__link (danh
+   sách bài viết wiki): nền panel tối, viền mảnh, góc vát chéo, hover tối
+   nền + viền hổ phách + nhích lên. Đây là TEMPLATE DÙNG CHUNG — bất cứ
+   nút icon vuông mới nào trên site (điều hướng slide, carousel, đóng
+   modal...) nên gắn thẳng class ".cscd-icon-btn" thay vì viết lại CSS
+   riêng. Chỉ cần khai thêm class layout-specific (kích thước khác, vị
+   trí...) nếu có, không lặp lại phần nền/viền/hover/disabled ở đây.
+
+   Nếu dùng lại pattern này bằng CSS thủ công (không gắn class), BẮT BUỘC
+   giữ đúng phần ":disabled { ...; pointer-events: none; }" — disabled chỉ
+   chặn click, KHÔNG chặn :hover; quy tắc ":hover:not(:disabled)" bên dưới
+   chủ động loại trừ disabled nên không khớp, để lộ "button:hover" nền
+   --secondary-color (xanh lá) của hệ nút sáng ở đầu file (độ đặc thù CSS
+   cao hơn nền mặc định của class này) đè lên. pointer-events:none chặn
+   hẳn sự kiện chuột nên :hover không bao giờ khớp trên nút disabled, bất
+   kể độ đặc thù CSS — xem thêm ghi chú tương tự ở quy tắc "button:disabled"
+   chung đầu file. */
+.cscd-icon-btn {
+  --notch: 10px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--t-panel);
+  box-shadow: inset 0 0 0 1px var(--t-line);
+  color: var(--t-steel);
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  clip-path: polygon(0 0, calc(100% - var(--notch)) 0, 100% var(--notch), 100% 100%, var(--notch) 100%, 0 calc(100% - var(--notch)));
+  transition: transform 0.18s ease, background-color 0.18s ease, box-shadow 0.18s ease, color 0.18s ease;
+}
+.cscd-icon-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  color: var(--t-amber);
+  background: rgba(24, 29, 35, 0.95);
+  box-shadow: inset 0 0 0 1px rgba(255, 176, 32, 0.5);
+}
+.cscd-icon-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+  pointer-events: none;
 }
 
 /* Liên kết dạng "xem tiếp" với mũi tên trượt */
@@ -3655,6 +3729,7 @@ body.template-error h1, body.template-error h2 {
 .cscd-gallery__arrow:disabled {
   opacity: 0.3;
   cursor: default;
+  pointer-events: none;
 }
 .cscd-gallery__arrow:focus-visible {
   outline: 2px solid var(--t-amber);
@@ -4133,9 +4208,12 @@ body.template-home .footer-col--logo img, body.template-wiki .footer-col--logo i
   overflow: hidden;
 }
 /* Overlay mặc định của .cscd-bg--deep quá tối, gần như che hết ảnh nền — giảm
-   bớt riêng cho hero và khối nội dung wiki/blog để ảnh nền còn thấy rõ. */
+   bớt riêng cho hero, khối nội dung wiki/blog, và slideshow (dùng chung đúng
+   nền intro-bg.jpeg này — xem body.template-slideshow) để ảnh nền còn thấy rõ. */
 .wiki-hero .cscd-bg--deep::after,
-.wiki-layout-wrap .cscd-bg--deep::after {
+.wiki-layout-wrap .cscd-bg--deep::after,
+body.template-slideshow .cscd-bg--deep::after,
+body.template-slideshow-deck .cscd-bg--deep::after {
   background: linear-gradient(180deg, rgba(7, 9, 11, 0.90) 0%, rgba(7, 9, 11, 0.80) 50%, rgba(7, 9, 11, 0.94) 100%);
 }
 .wiki-hero .container {
@@ -4842,5 +4920,379 @@ body.template-blog-item .wiki-body:not(.has-toc) {
 @media (max-width: 620px) {
   .blog-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================================================
+   Slideshow toàn màn hình — 2 template dùng chung 1 bộ biến/reset ở đây:
+   "slideshow" (dạng text thuần, chia slide bằng H2) và "slideshow-deck"
+   (dạng đồ hoạ nhiều layout, mỗi slide là 1 trang con modular/slide-*, xem
+   slideshow-deck.html.twig). Đứng riêng, không dùng chung bộ biến màu với
+   .template-wiki/.template-blog (khai lại local để không phải sửa danh sách
+   selector dùng chung ở trên), vì header/footer bị ẩn hẳn nên không cần các
+   quy tắc theme cho chúng. Toàn bộ CSS .slide/.slideshow-* bên dưới KHÔNG
+   scope theo body.template-* (dùng chung nguyên trạng cho cả 2 dạng) — chỉ
+   khối biến số + reset body này là scope riêng vì phụ thuộc class trên body.
+   ========================================================================= */
+body.template-slideshow,
+body.template-slideshow-deck {
+  --t-bg: #07090b;
+  --t-panel: rgba(18, 22, 27, 0.82);
+  --t-line: rgba(255, 255, 255, 0.12);
+  --t-amber: #ffb020;
+  --t-steel: #78929f;
+  --t-text: #d5dade;
+  --t-muted: #8c98a1;
+  --t-heading: #e6e9eb;
+
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+  /* .cscd-bg/.cscd-grid-overlay bên trong block content dùng position:absolute
+     — cần body làm containing block để nằm khít toàn màn hình. */
+  position: relative;
+  background: var(--t-bg);
+  color: var(--t-text);
+  font-family: 'Barlow', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+body.template-slideshow header,
+body.template-slideshow footer,
+body.template-slideshow-deck header,
+body.template-slideshow-deck footer {
+  display: none;
+}
+body.template-slideshow h1,
+body.template-slideshow h2,
+body.template-slideshow h3,
+body.template-slideshow-deck h1,
+body.template-slideshow-deck h2,
+body.template-slideshow-deck h3 {
+  font-family: 'Oswald', 'Barlow Condensed', sans-serif;
+  letter-spacing: 0.02em;
+  color: var(--t-heading);
+}
+
+.slideshow-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  background: var(--t-amber);
+  z-index: 20;
+  transition: width 0.3s ease;
+}
+
+.slideshow-exit {
+  position: fixed;
+  top: clamp(0.9rem, 2.5vw, 1.5rem);
+  right: clamp(0.9rem, 2.5vw, 1.5rem);
+  z-index: 20;
+  color: var(--t-muted);
+  text-decoration: none;
+  font-size: 0.85rem;
+  border: 1px solid var(--t-line);
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  background: var(--t-panel);
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.slideshow-exit:hover {
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+  text-decoration: underline;
+}
+
+/* Logo + tên trang, góc trên trái, dưới thanh progress. max-width chừa chỗ
+   cho nút "Về báo cáo" cố định ở góc trên phải (.slideshow-exit) — tên
+   trang dài sẽ bị cắt bằng "…" thay vì đè lên nút đó. */
+.slideshow-brand {
+  position: fixed;
+  top: clamp(0.9rem, 2.5vw, 1.5rem);
+  left: clamp(0.9rem, 2.5vw, 1.5rem);
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  max-width: min(58vw, 480px);
+}
+.slideshow-brand__logo {
+  flex: none;
+  display: block;
+  line-height: 0;
+}
+.slideshow-brand__logo img {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: block;
+}
+.slideshow-brand__title {
+  font-family: 'Oswald', 'Barlow Condensed', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--t-heading);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.slideshow-viewport {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: clamp(4rem, 8vw, 6rem) clamp(1.5rem, 9vw, 9rem);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(16px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  overflow-y: auto;
+}
+.slide.is-active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.slide > * {
+  max-width: 900px;
+  width: 100%;
+}
+/* Layout đồ hoạ (slide-cover có header.image, slide-image) đặt .cscd-bg hoặc
+   .slide__image-frame làm phần tử full-bleed bên trong .slide — không được
+   để quy tắc max-width:900px ở trên bó hẹp chúng lại. */
+.slide > .cscd-bg,
+.slide > .cscd-grid-overlay {
+  max-width: none;
+  width: auto;
+}
+.slide h2 {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  margin: 0 0 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--t-amber);
+  display: inline-block;
+}
+.slide p {
+  font-size: clamp(1rem, 1.7vw, 1.25rem);
+  line-height: 1.65;
+  margin: 0 0 1rem;
+}
+.slide ul,
+.slide ol {
+  margin: 0 0 1rem 1.2rem;
+}
+.slide li {
+  font-size: clamp(1rem, 1.6vw, 1.2rem);
+  line-height: 1.55;
+  margin-bottom: 0.65rem;
+}
+.slide strong {
+  color: var(--t-amber);
+  font-weight: 600;
+}
+.slide em {
+  color: var(--t-muted);
+  font-style: normal;
+}
+.slide table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+.slide table th,
+.slide table td {
+  border: 1px solid var(--t-line);
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+.slide table th {
+  color: var(--t-amber);
+  font-family: 'Oswald', sans-serif;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.slide--intro {
+  align-items: center;
+  text-align: center;
+}
+.slide--intro > * {
+  margin-left: auto;
+  margin-right: auto;
+}
+.slide--intro h2 {
+  font-size: clamp(2rem, 6vw, 3.4rem);
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+/* =========================================================================
+   Slideshow-deck — layout đồ hoạ nhiều kiểu (xem templates/modular/slide-*)
+   dùng chung .slide/.slide--intro ở trên, chỉ thêm class riêng cho từng kiểu
+   bố cục. .slide__body là khối bọc nội dung chữ dùng ở mọi layout (kể cả khi
+   không có ảnh nền) — position:relative để luôn nổi trên .cscd-bg nếu có.
+   ========================================================================= */
+.slide__body {
+  position: relative;
+  z-index: 1;
+}
+
+/* slide-cover có header.image: ảnh nền phủ full-bleed toàn slide (dùng lại
+   .cscd-bg--deep — cùng công thức làm tối/khử màu như nền trang) */
+.slide--has-bg .slide__subtitle {
+  color: var(--t-muted);
+}
+
+/* slide-split: ảnh 1 bên, chữ 1 bên. slide--split-left đảo chiều. */
+.slide--split {
+  flex-direction: row;
+  align-items: center;
+  gap: clamp(2rem, 5vw, 4rem);
+}
+.slide--split > * {
+  max-width: none;
+  width: auto;
+}
+.slide--split-left {
+  flex-direction: row-reverse;
+}
+.slide__split-media {
+  flex: 1 1 42%;
+  min-width: 0;
+}
+.slide__split-media img {
+  width: 100%;
+  display: block;
+  border: 1px solid var(--t-line);
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+}
+.slide__split-text {
+  flex: 1 1 58%;
+  min-width: 0;
+}
+
+/* slide-image: 1 ảnh lớn làm trọng tâm + chú thích ngắn bên dưới, căn giữa */
+.slide--image {
+  align-items: center;
+  text-align: center;
+}
+.slide--image > * {
+  max-width: 1100px;
+}
+.slide__image-frame {
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+.slide__image-frame img {
+  width: 100%;
+  max-height: 58vh;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+  border: 1px solid var(--t-line);
+  background: rgba(0, 0, 0, 0.25);
+}
+
+/* slide-quote: 1 câu cỡ chữ lớn căn giữa, dùng cho mẹo/cảnh báo/câu tổng kết */
+.slide__quote-text {
+  font-family: 'Oswald', 'Barlow Condensed', sans-serif;
+  font-size: clamp(1.6rem, 4.5vw, 2.6rem);
+  line-height: 1.35;
+  color: var(--t-heading);
+}
+.slide__quote-text strong {
+  color: var(--t-amber);
+}
+.slide__quote-attribution {
+  margin-top: 1.25rem;
+  color: var(--t-muted);
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+}
+
+@media (max-width: 900px) {
+  .slide--split,
+  .slide--split-left {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+  .slide--split > * {
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+.slideshow-nav {
+  position: fixed;
+  bottom: clamp(1rem, 3vw, 2rem);
+  left: 0;
+  right: 0;
+  z-index: 20;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+}
+/* Nút prev/next dùng thẳng template .cscd-icon-btn (định nghĩa cùng
+   .cscd-btn ở trên) — không lặp lại CSS ở đây. */
+.slideshow-nav__counter {
+  min-width: 4.5rem;
+  text-align: center;
+  font-family: 'Oswald', sans-serif;
+  letter-spacing: 0.08em;
+  color: var(--t-muted);
+  font-size: 0.9rem;
+}
+
+.slideshow-credit {
+  position: fixed;
+  bottom: clamp(0.5rem, 1.8vw, 0.85rem);
+  right: clamp(0.6rem, 2vw, 1rem);
+  z-index: 20;
+  font-size: 0.62rem;
+  letter-spacing: 0.03em;
+  color: var(--t-muted);
+  opacity: 0.55;
+  text-decoration: none;
+  transition: opacity 0.2s ease, color 0.2s ease;
+}
+.slideshow-credit:hover {
+  opacity: 1;
+  color: var(--primary-color);
+  text-decoration: underline;
+}
+
+@media (max-width: 640px) {
+  .slide {
+    align-items: center;
+    text-align: center;
+    padding: 5.5rem 1.5rem 6.5rem;
+  }
+  .slide > * {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .slideshow-brand__logo img {
+    width: 30px;
+    height: 30px;
+  }
+  /* Màn hình hẹp không đủ chỗ cho cả logo + tên trang + nút "Về báo cáo" —
+     giữ lại logo, ẩn tên trang (nội dung slide đã đủ nói lên chủ đề). */
+  .slideshow-brand__title {
+    display: none;
   }
 }

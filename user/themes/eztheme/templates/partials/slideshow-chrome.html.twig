@@ -1,0 +1,35 @@
+{# Chrome dùng chung cho MỌI loại trang slideshow toàn màn hình — cả dạng text
+   thuần (template "slideshow", chia slide bằng H2) lẫn dạng đồ hoạ nhiều layout
+   (template "slideshow-deck", mỗi slide là 1 trang con modular/slide-*). Gồm:
+   nền intro-bg + lưới mờ, thanh tiến trình, logo+tên trang góc trên trái, nút
+   "Về báo cáo" góc trên phải (nếu có back_link), nav prev/next + đếm số, credit
+   Legion Team góc dưới phải. initSlideshow() trong site.js gắn hành vi cho các
+   phần tử data-slideshow-* này, không quan tâm slide bên trong .slideshow-viewport
+   được dựng theo cách nào (JS gom theo H2, hay Twig dựng sẵn từ collection).
+   Include vào đầu {% block content %} của template, trước phần viewport riêng. #}
+{% set is_english_slide = uri.path starts with '/en' %}
+{% set slide_nav = page.find(is_english_slide ? '/en/nav' : '/vi/nav') %}
+
+<div class="cscd-bg cscd-bg--deep" style="--cscd-bg: url('{{ url('theme://images/cscd/intro-bg.jpeg') }}')" aria-hidden="true"></div>
+<div class="cscd-grid-overlay" aria-hidden="true"></div>
+
+<div class="slideshow-progress" data-slideshow-progress></div>
+
+<div class="slideshow-brand">
+    <a href="{{ base_url ?: '/' }}" class="slideshow-brand__logo" aria-label="{{ config.site.title }}">
+        <img src="{{ slide_nav.header.logo }}" alt="">
+    </a>
+    <span class="slideshow-brand__title">{{ page.title }}</span>
+</div>
+
+{% if page.header.back_link %}
+<a class="slideshow-exit" href="{{ page.header.back_link }}">&larr; Về báo cáo</a>
+{% endif %}
+
+<nav class="slideshow-nav" aria-label="Điều hướng slide" hidden data-slideshow-nav>
+    <button type="button" class="cscd-icon-btn" data-slideshow-prev aria-label="Slide trước">&larr;</button>
+    <span class="slideshow-nav__counter" data-slideshow-counter></span>
+    <button type="button" class="cscd-icon-btn" data-slideshow-next aria-label="Slide sau">&rarr;</button>
+</nav>
+
+<a class="slideshow-credit" href="https://legionteamdev.com" target="_blank" rel="noopener noreferrer">Legion Team</a>

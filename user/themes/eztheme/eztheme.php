@@ -6,18 +6,95 @@ use Grav\Common\Theme;
 
 class EzTheme extends Theme
 {
+    /**
+     * User-Agent của các bot AI đã biết (huấn luyện model / trả lời có
+     * trích dẫn web) — dùng để chặn CỨNG (403) trang có header.private:
+     * true, vì phần lớn các bot này KHÔNG tôn trọng thẻ <meta
+     * name="robots"> (đó là quy ước dành cho search-engine index, không
+     * phải "đồng ý crawl để train"), chỉ tôn trọng robots.txt một cách tự
+     * nguyện (và không phải bot nào cũng tuân thủ) — nên phải chặn ở tầng
+     * request mới thực sự ngăn được việc "bị crawl". Danh sách không thể
+     * đầy đủ tuyệt đối (bot giả UA thì vô phương), chỉ chặn được các bot
+     * trung thực khai đúng danh tính.
+     */
+    private const AI_BOT_USER_AGENTS = [
+        'GPTBot', 'ChatGPT-User', 'OAI-SearchBot',           // OpenAI
+        'ClaudeBot', 'Claude-Web', 'anthropic-ai',           // Anthropic
+        'Google-Extended',                                    // Google Gemini/Bard training (khác Googlebot Search)
+        'Applebot-Extended',                                  // Apple Intelligence training (khác Applebot Search)
+        'CCBot',                                              // Common Crawl (nguồn train của nhiều model)
+        'PerplexityBot', 'Perplexity-User',                  // Perplexity
+        'Bytespider',                                         // ByteDance/TikTok
+        'Amazonbot',                                          // Amazon
+        'Diffbot',
+        'FacebookBot', 'Meta-ExternalAgent', 'meta-externalfetcher', // Meta
+        'YouBot',                                             // You.com
+        'cohere-ai', 'cohere-training-data-crawler',         // Cohere
+        'Omgili', 'Omgilibot',
+        'Timpibot', 'ImagesiftBot',
+    ];
+
     public static function getSubscribedEvents()
     {
         return [
             'onThemeInitialized'    => ['onThemeInitialized', 0],
             'onTwigLoader'          => ['onTwigLoader', 0],
             'onTwigInitialized'     => ['onTwigInitialized', 0],
+            'onPageInitialized'     => ['onPageInitialized', 0],
         ];
     }
 
     public function onThemeInitialized()
     {
         // Theme initialization
+    }
+
+    /**
+     * Trang publish nhưng có frontmatter `private: true` (quy ước đã có
+     * sẵn của site, xem blog.html.twig/home-blog.html.twig — dùng để ẩn
+     * khỏi danh sách blog) thì KHÔNG được crawl bởi search engine hay AI:
+     * - Search engine (Google/Bing...): gửi X-Robots-Tag noindex — đây là
+     *   tín hiệu "đừng index", không chặn truy cập (đúng chuẩn SEO, tránh
+     *   chặn cứng Googlebot trông như cloaking). Thẻ <meta robots> tương
+     *   ứng nằm ở partials/base.html.twig (do template gọi trực tiếp,
+     *   theo đúng pattern sog_tags() của plugin simple-opengraph-info).
+     * - Bot AI đã biết danh tính (AI_BOT_USER_AGENTS ở trên): chặn CỨNG
+     *   403 ngay tại đây — xem giải thích ở khai báo hằng số phía trên vì
+     *   sao meta/X-Robots-Tag không đủ với nhóm này.
+     *
+     * Bỏ qua hoàn toàn trong Admin (Utils::isAdminPlugin()) để không chặn
+     * chính người biên tập xem/sửa trang private.
+     */
+    public function onPageInitialized(): void
+    {
+        if (\Grav\Common\Utils::isAdminPlugin()) {
+            return;
+        }
+
+        $page = $this->grav['page'] ?? null;
+        // "?? false" bắt buộc: page.header() có thể trả về stdClass CHƯA
+        // từng khai báo field "private" (khác Data object có __get an
+        // toàn), truy cập property trực tiếp trên stdClass không tồn tại
+        // ném E_WARNING (PHP 8) -> Whoops biến thành exception khi debug
+        // bật. Twig (page.header.private) không bị vì dùng PropertyAccess
+        // riêng, trả null lặng lẽ khi thiếu — chỉ code PHP thô ở đây cần "??".
+        if (!$page || !($page->header()->private ?? false)) {
+            return;
+        }
+
+        header('X-Robots-Tag: noindex, nofollow, noarchive, noimageindex', true);
+
+        $userAgent = $_SERVER['HTTP_USER_AGENT'] ?? '';
+        if ($userAgent === '') {
+            return;
+        }
+        foreach (self::AI_BOT_USER_AGENTS as $bot) {
+            if (stripos($userAgent, $bot) !== false) {
+                header('HTTP/1.1 403 Forbidden');
+                header('X-Robots-Tag: noindex, nofollow', true);
+                die('Forbidden');
+            }
+        }
     }
 
     /**

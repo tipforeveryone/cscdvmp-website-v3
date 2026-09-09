@@ -39,9 +39,104 @@ document.addEventListener('DOMContentLoaded', function() {
     // Mục lục (TOC) bên trái nội dung bài viết wiki
     initWikiToc();
 
+    // Trang slideshow toàn màn hình (template "slideshow")
+    initSlideshow();
+
     // Initialize responsive behavior
     initializeResponsive();
 });
+
+/**
+ * Slideshow toàn màn hình — 2 dạng dùng chung 1 hàm điều hướng:
+ *
+ * 1. Dạng TEXT THUẦN (template "slideshow"): nội dung markdown chỉ cần mỗi
+ *    slide bắt đầu bằng 1 thẻ H2 — hàm này nhóm mỗi H2 + các node theo sau
+ *    (tới H2 kế tiếp) thành 1 <section class="slide">, slide đầu tiên được
+ *    đánh dấu thêm .slide--intro để CSS căn giữa kiểu trang bìa.
+ * 2. Dạng ĐỒ HOẠ NHIỀU LAYOUT (template "slideshow-deck"): Twig đã dựng sẵn
+ *    .slideshow-track chứa các .slide hoàn chỉnh ở server (mỗi slide là 1
+ *    trang con modular/slide-*, tự quyết layout/class riêng, kể cả
+ *    .slide--intro cho slide bìa) — nhận biết qua thuộc tính
+ *    data-slideshow-prebuilt trên viewport, bỏ qua hẳn bước gom theo H2.
+ *
+ * Sau khi có mảng slides (dù từ cách nào), phần điều hướng — nút prev/next,
+ * phím mũi tên trái/phải (và Space cho next), vuốt ngang trên chạm, đếm số,
+ * thanh tiến trình — dùng chung, không phân biệt dạng nào.
+ */
+function initSlideshow() {
+    const viewport = document.querySelector('[data-slideshow]');
+    if (!viewport) return;
+
+    let slides;
+
+    if (viewport.hasAttribute('data-slideshow-prebuilt')) {
+        slides = Array.from(viewport.querySelectorAll('.slideshow-track > .slide'));
+        if (!slides.length) return;
+    } else {
+        const source = viewport.querySelector('.slideshow-source');
+        if (!source) return;
+
+        slides = [];
+        let current = null;
+        Array.from(source.children).forEach((node) => {
+            if (node.tagName === 'H2' || !current) {
+                current = document.createElement('section');
+                current.className = 'slide';
+                slides.push(current);
+            }
+            current.appendChild(node);
+        });
+        if (!slides.length) return;
+        slides[0].classList.add('slide--intro');
+
+        const track = document.createElement('div');
+        track.className = 'slideshow-track';
+        slides.forEach((slide) => track.appendChild(slide));
+        viewport.appendChild(track);
+        source.remove();
+    }
+
+    const nav = document.querySelector('[data-slideshow-nav]');
+    const prevBtn = document.querySelector('[data-slideshow-prev]');
+    const nextBtn = document.querySelector('[data-slideshow-next]');
+    const counter = document.querySelector('[data-slideshow-counter]');
+    const progress = document.querySelector('[data-slideshow-progress]');
+
+    let index = 0;
+
+    const render = () => {
+        slides.forEach((slide, i) => slide.classList.toggle('is-active', i === index));
+        if (counter) counter.textContent = `${index + 1} / ${slides.length}`;
+        if (prevBtn) prevBtn.disabled = index === 0;
+        if (nextBtn) nextBtn.disabled = index === slides.length - 1;
+        if (progress) progress.style.width = `${((index + 1) / slides.length) * 100}%`;
+    };
+
+    const goTo = (i) => {
+        index = Math.max(0, Math.min(slides.length - 1, i));
+        render();
+    };
+
+    if (nav) nav.hidden = false;
+    if (prevBtn) prevBtn.addEventListener('click', () => goTo(index - 1));
+    if (nextBtn) nextBtn.addEventListener('click', () => goTo(index + 1));
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); goTo(index + 1); }
+        else if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(index - 1); }
+    });
+
+    let touchStartX = null;
+    viewport.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].clientX; }, { passive: true });
+    viewport.addEventListener('touchend', (e) => {
+        if (touchStartX === null) return;
+        const delta = e.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(delta) > 50) goTo(delta < 0 ? index + 1 : index - 1);
+        touchStartX = null;
+    }, { passive: true });
+
+    render();
+}
 
 /**
  * Mục lục bài viết wiki: dựng từ các thẻ h2/h3 thật có trong .wiki-article.

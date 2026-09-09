@@ -1,0 +1,33 @@
+{# Layout "bảng" — hợp cho bảng phím điều khiển, bảng điểm số, so sánh ngắn.
+   header.columns: mảng string làm hàng tiêu đề (tuỳ chọn — bỏ trống thì không
+   có <thead>). header.rows: mảng các mảng string, mỗi mảng con là 1 hàng, mỗi
+   phần tử chạy qua |markdown(false) nên **bold** dùng được để nhấn mạnh. #}
+<section class="slide">
+    <div class="slide__body ipeb-editable">
+        {{ pml_edit_button(page) }}
+        {% if page.header.eyebrow %}
+        <p class="cscd-eyebrow"><span class="cscd-eyebrow__dot"></span>{{ page.header.eyebrow }}</p>
+        {% endif %}
+        <h2>{{ page.title }}</h2>
+        <table>
+            {% if page.header.columns %}
+            <thead>
+                <tr>
+                    {% for col in page.header.columns %}
+                    <th>{{ col }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            {% endif %}
+            <tbody>
+                {% for row in page.header.rows %}
+                <tr>
+                    {% for cell in row %}
+                    <td>{{ cell|markdown(false) }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>

@@ -2,6 +2,7 @@
 title: 'Chia sẻ miễn phí phiên bản tiếng Việt '
 smls_language: vi
 published: true
+private: true
 ---
 
 Legion Team xin thông báo! 

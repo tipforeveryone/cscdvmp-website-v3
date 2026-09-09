@@ -1,0 +1,19 @@
+{# Layout "ảnh lớn" — 1 ảnh (screenshot, sơ đồ...) làm trọng tâm slide, kèm chú
+   thích ngắn bên dưới. header.image bắt buộc (file trong media của chính
+   trang slide này). page.title là tuỳ chọn ở layout này (có thể để trống nếu
+   ảnh đã đủ tự giải thích). #}
+<section class="slide slide--image">
+    <div class="slide__image-frame">
+        <img src="{{ page.media[page.header.image].url ?? page.header.image }}" alt="{{ page.header.image_alt ?? page.title }}">
+    </div>
+    <div class="slide__body ipeb-editable">
+        {{ pml_edit_button(page) }}
+        {% if page.header.eyebrow %}
+        <p class="cscd-eyebrow"><span class="cscd-eyebrow__dot"></span>{{ page.header.eyebrow }}</p>
+        {% endif %}
+        {% if page.title %}<h2>{{ page.title }}</h2>{% endif %}
+        {% if page.header.caption %}
+        <p class="cscd-text-muted">{{ page.header.caption|markdown(false) }}</p>
+        {% endif %}
+    </div>
+</section>

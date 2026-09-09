@@ -1,0 +1,18 @@
+{# Layout "bìa" — slide đầu tiên của 1 bộ slideshow-deck. Chữ to, căn giữa
+   (dùng lại .slide--intro có sẵn từ dạng text-thuần). Ảnh nền (header.image)
+   là tuỳ chọn: dùng cho bìa có key-art game. #}
+<section class="slide slide--intro{{ page.header.image ? ' slide--has-bg' : '' }}">
+    {% if page.header.image %}
+    <div class="cscd-bg cscd-bg--deep" style="--cscd-bg: url('{{ page.media[page.header.image].url ?? page.header.image }}')" aria-hidden="true"></div>
+    {% endif %}
+    <div class="slide__body ipeb-editable">
+        {{ pml_edit_button(page) }}
+        {% if page.header.eyebrow %}
+        <p class="cscd-eyebrow"><span class="cscd-eyebrow__dot"></span>{{ page.header.eyebrow }}</p>
+        {% endif %}
+        <h2>{{ page.title }}</h2>
+        {% if page.header.subtitle %}
+        <p class="cscd-text-muted slide__subtitle">{{ page.header.subtitle|markdown(false) }}</p>
+        {% endif %}
+    </div>
+</section>

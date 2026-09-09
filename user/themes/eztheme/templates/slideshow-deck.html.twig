@@ -1,0 +1,28 @@
+{% extends 'partials/base.html.twig' %}
+{# Trang slideshow toàn màn hình dạng ĐỒ HOẠ NHIỀU LAYOUT — dùng khi cần bìa,
+   ảnh, 2 cột ảnh/chữ, bảng... thay vì chỉ văn bản chia bằng H2 (xem template
+   "slideshow" cho dạng đó). Cơ chế: trang này là 1 trang modular kiểu
+   home.html.twig — mỗi slide là 1 TRANG CON riêng trong collection, dùng 1
+   trong các template modular/slide-cover, modular/slide-bullets,
+   modular/slide-split, modular/slide-image, modular/slide-quote,
+   modular/slide-table (mỗi file tự render ra <section class="slide ...">
+   hoàn chỉnh). Twig dựng sẵn toàn bộ .slideshow-track ở server, JS
+   (initSlideshow trong site.js, nhánh data-slideshow-prebuilt) KHÔNG gom lại
+   theo H2 nữa — chỉ lấy danh sách .slide có sẵn rồi gắn nav/đếm số/tiến
+   trình, y hệt cơ chế của template "slideshow". Xem skill
+   create-slideshow-graphic để biết cách soạn nội dung/chọn layout cho từng
+   slide. #}
+
+{% block title %}{{ page.title }} | {{ config.site.title }}{% endblock %}
+
+{% block content %}
+{% include 'partials/slideshow-chrome.html.twig' %}
+
+<div class="slideshow-viewport" data-slideshow data-slideshow-prebuilt>
+    <div class="slideshow-track">
+        {% for module in page.collection() %}
+        {% include module.template ~ '.html.twig' with { page: module } %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

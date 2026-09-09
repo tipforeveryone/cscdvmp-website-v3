@@ -158,6 +158,61 @@ This `index.php` has site-specific additions on top of stock Grav bootstrap:
 - Supports a `.upgrading` maintenance-mode flag file (auto-expires after 5 minutes) that serves a 503
   during core upgrades.
 
+### Theme frontend (`eztheme`) — button system convention
+
+`user/themes/eztheme/css/site.css` has **two parallel button systems** — pick based on which template
+you're styling:
+- **Legacy/light** (`template-default`, `template-article`, `template-lienhe`, `template-member`,
+  `template-dangxaydung`): plain `.btn` / `button` / `input[type=submit|button]`, orange `--primary-color`
+  → green `--secondary-color` on hover.
+- **Tactical/dark "CSCD"** (`template-home`, `template-wiki`, `template-blog`, `template-blog-item`,
+  `template-error`, `template-slideshow`, `template-slideshow-deck`): `.cscd-btn` (`--primary`/`--ghost` variants, pill CTA, amber
+  `--t-amber` accent) and **`.cscd-icon-btn`** — the canonical reusable template for any square icon-only
+  button (prev/next, carousel arrows, close buttons...). Both live in the "Nút bấm" section of site.css,
+  near `--t-notch`/`--t-panel`/`--t-line` etc. (only defined inside those template body classes — using
+  `.cscd-btn`/`.cscd-icon-btn` outside them needs the same local `--t-*` var block, see
+  `body.template-slideshow` for the pattern). Prefer dropping `.cscd-icon-btn` onto any *new* icon button
+  on a dark-theme page rather than writing bespoke CSS for it.
+
+**Disabled-button rule (applies to every button, either system):** any `:disabled` state must set
+`pointer-events: none`, not just `opacity`. Reason: the `disabled` attribute blocks clicks but **not**
+`:hover` — browsers still match `:hover` on a disabled `<button>`. If a component's own hover rule is
+scoped as `.foo:hover:not(:disabled)` (to give disabled a different look), that scoped rule correctly
+skips disabled buttons, but the *unscoped* site-wide `button:hover` rule (specificity `(0,1,1)`, higher
+than a lone `.foo` class rule at `(0,1,0)`) then wins by specificity and leaks its color (green, from the
+legacy system) onto the disabled button on hover. `pointer-events: none` prevents `:hover` from ever
+matching on that element, closing the leak regardless of specificity. This was fixed everywhere it
+currently applies: base `button:disabled`, `.cscd-btn:disabled`, `.cscd-icon-btn:disabled`,
+`.cscd-gallery__arrow:disabled`, `.lienhe-form__btn:disabled` — carry the same fix into any new disabled
+button.
+
+### Theme frontend (`eztheme`) — fullscreen slideshow system
+
+Two page templates render a fullscreen, chrome-less "tactical CSCD" slide deck (header/nav/footer hidden,
+own dark var scope — see `body.template-slideshow`/`body.template-slideshow-deck` in site.css). Both share
+one chrome partial, `templates/partials/slideshow-chrome.html.twig` (nền intro-bg + grid overlay, thanh
+tiến trình, logo+tên góc trên trái, nút "Về báo cáo", nav prev/next, credit Legion Team), and one JS
+navigation engine, `initSlideshow()` in `site.js` — they differ only in how `.slide` elements get built:
+
+- **`template: slideshow`** (skill `create-slideshow`) — text-only. One Markdown page, every `## H2`
+  starts a new slide; `initSlideshow()` groups H2 + following nodes client-side into `<section class="slide">`.
+- **`template: slideshow-deck`** (skill `create-slideshow-graphic`) — graphic, multi-layout. Modular like
+  `home.html.twig`: the deck page's `content.items: '@self.modular'` collection is looped server-side
+  (`{% include module.template ~ '.html.twig' with { page: module } %}`), each child page picks one of
+  `templates/modular/slide-cover|bullets|split|image|quote|table.html.twig` and renders its own complete
+  `<section class="slide ...">`. `initSlideshow()` detects this via `data-slideshow-prebuilt` on the
+  viewport and skips the H2-grouping step, reusing the same prev/next/counter/progress logic.
+
+**Critical Grav gotcha when writing any `modular/slide-*.html.twig` layout:** child slide pages live in
+`_NN.name/` folders, which makes `Page::isModule()` true for them. For a modular page, `page.content` is
+**not** parsed Markdown — Grav's `Twig::processPage()` renders that page's *own* template file
+(`getPageTwigTemplate()`) and returns that rendered HTML as `.content` (this is Grav's classic modular-page
+mechanism). Referencing `page.content` inside a `modular/slide-*` template therefore re-renders that same
+template one level deep into itself, doubling the markup. **Never use `page.content` in a `slide-*` layout
+— always read data through `page.header.*` fields** (e.g. `slide-split` uses `header.text` run through
+`{{ ...|markdown }}`, exactly like `modular/hero.html.twig` uses `header.text`), same as every other
+existing `modular/*` template in this theme already does.
+
 ### Testing layout
 
 - `tests/unit`, `tests/functional`, `tests/acceptance`, `tests/conformance` — Grav core (Codeception).

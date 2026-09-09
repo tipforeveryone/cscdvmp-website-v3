@@ -1,0 +1,26 @@
+{% extends 'partials/base.html.twig' %}
+{# Trang đặc biệt: slideshow toàn màn hình dạng TEXT THUẦN, không dùng chrome
+   thường của site (header/nav/footer bị ẩn bằng CSS theo class
+   body.template-slideshow — xem site.css). Nội dung markdown chỉ cần bắt đầu
+   MỖI slide bằng thẻ H2; JS (initSlideshow trong site.js) tự nhóm mỗi H2 +
+   các node theo sau (tới H2 kế tiếp) thành 1 <section class="slide">, dựng
+   nav prev/next + đếm số + thanh tiến trình. Không cần soạn markup slide thủ
+   công — skill create-slideshow dùng đúng cơ chế này.
+
+   Cần layout đồ hoạ nhiều kiểu (bìa, ảnh, 2 cột, bảng...) thay vì chỉ H2+văn
+   bản? Dùng template "slideshow-deck" (skill create-slideshow-graphic) —
+   cùng chung phần chrome (partials/slideshow-chrome.html.twig) và cùng hệ CSS
+   .slide/.slideshow-*, chỉ khác cách slide được dựng (Twig từ trang con
+   modular/slide-* thay vì JS gom theo H2). #}
+
+{% block title %}{{ page.title }} | {{ config.site.title }}{% endblock %}
+
+{% block content %}
+{% include 'partials/slideshow-chrome.html.twig' %}
+
+<div class="slideshow-viewport" data-slideshow>
+    <div class="slideshow-source" hidden>
+        {{ page.content|raw }}
+    </div>
+</div>
+{% endblock %}

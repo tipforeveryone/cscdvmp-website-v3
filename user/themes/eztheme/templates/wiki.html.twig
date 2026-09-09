@@ -90,11 +90,15 @@
         </div>
         {% endif %}
 
-        {# Trang con dùng tiền tố số thứ tự (01., 02., ...) trong tên folder thì giữ
-           nguyên thứ tự đó (ý đồ sắp xếp thủ công của người biên tập) — page.children
-           mặc định đã sort theo tiền tố này. Chỉ khi KHÔNG dùng tiền tố số mới sắp xếp
-           theo ngày tạo (mới nhất trước), vì lúc đó không có thứ tự thủ công nào để giữ. #}
-        {% set children_raw = page.children.published %}
+        {# Trang con có front matter `private: true` (cùng quy ước với
+           blog.html.twig/home-blog.html.twig) thì không hiện trong mục lục —
+           vẫn truy cập được nếu có link trực tiếp, chỉ không được liệt kê. Lọc
+           này chỉ áp dụng khi CHÍNH trang đang xem không phải private: một khi
+           đã ở trang private (phải có link trực tiếp mới vào được), toàn bộ
+           trang con bên trong hiện bình thường — không ẩn tiếp theo tầng, tránh
+           một nhánh private nhiều cấp (như "Thông tin nội bộ") tự làm rỗng mục
+           lục của chính các trang con private bên trong nó. #}
+        {% set children_raw = page.header.private ? page.children.published : page.children.published|filter(child => not child.header.private) %}
         {% set first_child = children_raw|first %}
         {% set uses_folder_order = first_child and first_child.order %}
         {% set children = uses_folder_order ? children_raw : children_raw.order('date')|reverse %}

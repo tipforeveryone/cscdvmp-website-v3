@@ -1,0 +1,26 @@
+{# Layout "2 cột" — ảnh 1 bên, chữ 1 bên. header.image (file trong media của
+   chính trang slide này) + header.image_position: "left" (mặc định "right").
+   Phần chữ dùng header.text (KHÔNG dùng page.content!) — mọi trang con trong
+   1 slideshow-deck đều là "modular page" (thư mục tiền tố "_"), và với modular
+   page, page.content của CHÍNH NÓ không phải markdown thuần: Grav render lại
+   nguyên template của trang đó (modular/slide-split.html.twig) rồi trả về làm
+   content — dùng page.content ở đây sẽ tự lồng đệ quy 1 lớp, ra HTML lặp đôi.
+   Đây là quy tắc chung cho MỌI layout slide-*: chỉ đọc dữ liệu qua header.*,
+   không bao giờ dùng page.content. header.text hỗ trợ markdown đầy đủ (nhiều
+   đoạn, bold, italic) qua filter |markdown. Không có ảnh vẫn chạy được (phần
+   chữ tự chiếm hết chiều rộng). #}
+<section class="slide slide--split slide--split-{{ page.header.image_position ?? 'right' }}">
+    {% if page.header.image %}
+    <div class="slide__split-media">
+        <img src="{{ page.media[page.header.image].url ?? page.header.image }}" alt="{{ page.header.image_alt ?? '' }}">
+    </div>
+    {% endif %}
+    <div class="slide__body slide__split-text ipeb-editable">
+        {{ pml_edit_button(page) }}
+        {% if page.header.eyebrow %}
+        <p class="cscd-eyebrow"><span class="cscd-eyebrow__dot"></span>{{ page.header.eyebrow }}</p>
+        {% endif %}
+        <h2>{{ page.title }}</h2>
+        {{ page.header.text|markdown }}
+    </div>
+</section>

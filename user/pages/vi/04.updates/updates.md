@@ -1,5 +1,5 @@
 ---
-title: Updates
+title: Cập nhật
 template: blog
 background_image: hero-banner.jpg
 smls_language: vi

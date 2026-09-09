@@ -1,0 +1,17 @@
+{# Layout "trích dẫn/mẹo" — 1 câu ngắn cỡ chữ lớn, căn giữa (dùng lại
+   .slide--intro). Hợp cho mẹo chơi, cảnh báo, câu tổng kết giữa mạch slide.
+   header.quote là câu chính; nếu bỏ trống thì dùng page.title. header.eyebrow
+   gợi ý dùng làm nhãn phân loại kiểu "MẸO" / "LƯU Ý". header.attribution tuỳ
+   chọn (nguồn/ghi chú nhỏ bên dưới). #}
+<section class="slide slide--intro slide--quote">
+    <div class="slide__body ipeb-editable">
+        {{ pml_edit_button(page) }}
+        {% if page.header.eyebrow %}
+        <p class="cscd-eyebrow"><span class="cscd-eyebrow__dot"></span>{{ page.header.eyebrow }}</p>
+        {% endif %}
+        <p class="slide__quote-text">{{ (page.header.quote ?? page.title)|markdown(false) }}</p>
+        {% if page.header.attribution %}
+        <p class="slide__quote-attribution">{{ page.header.attribution }}</p>
+        {% endif %}
+    </div>
+</section>

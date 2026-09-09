@@ -1,0 +1,27 @@
+{# Layout "danh sách" — tiêu đề + bullet hoặc numbered list ngắn. Dùng cho quy
+   tắc chơi, hướng dẫn từng bước, các gạch đầu dòng nói chung. header.items là
+   mảng string (mỗi phần tử chạy qua |markdown(false) nên **bold**/*italic*
+   dùng được như bên dạng text-thuần). header.list_style: "numbered" để dùng
+   <ol>, mặc định là bullet <ul>. #}
+<section class="slide">
+    <div class="slide__body ipeb-editable">
+        {{ pml_edit_button(page) }}
+        {% if page.header.eyebrow %}
+        <p class="cscd-eyebrow"><span class="cscd-eyebrow__dot"></span>{{ page.header.eyebrow }}</p>
+        {% endif %}
+        <h2>{{ page.title }}</h2>
+        {% if page.header.list_style == 'numbered' %}
+        <ol>
+            {% for item in page.header.items %}
+            <li>{{ item|markdown(false) }}</li>
+            {% endfor %}
+        </ol>
+        {% else %}
+        <ul>
+            {% for item in page.header.items %}
+            <li>{{ item|markdown(false) }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+</section>
