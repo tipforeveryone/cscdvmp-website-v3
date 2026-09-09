@@ -4,6 +4,7 @@
     <div class="cscd-bg" aria-hidden="true"></div>
     <div class="cscd-scanlines" aria-hidden="true"></div>
     <div class="cscd-vignette" aria-hidden="true"></div>
+    <div class="cscd-cursor" data-cscd-cursor aria-hidden="true"><i></i><i></i><i></i><i></i><span class="cscd-cursor__dot"></span></div>
 
     <div class="container cscd-hero__content ipeb-editable">
         {{ pml_edit_button(page) }}
@@ -21,7 +22,7 @@
         {% if page.header.buttons %}
         <div class="cscd-hero__buttons">
             {% for btn in page.header.buttons %}
-            <a href="{{ btn.url }}" class="cscd-btn{{ loop.index == 1 ? ' cscd-btn--primary' : ' cscd-btn--ghost' }}" target="_blank" rel="noopener">
+            <a href="{{ btn.url }}" class="cscd-btn{{ loop.index == 1 ? ' cscd-btn--primary' : ' cscd-btn--ghost' }}" target="_blank" rel="noopener" data-cscd-cursor-target>
                 <span>{{ btn.label }}</span>
             </a>
             {% endfor %}

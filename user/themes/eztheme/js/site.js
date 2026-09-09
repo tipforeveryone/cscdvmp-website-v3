@@ -42,6 +42,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Trang slideshow toàn màn hình (template "slideshow")
     initSlideshow();
 
+    // Khung ngắm bám theo con trỏ ở khối hero
+    initHeroCursor();
+
     // Initialize responsive behavior
     initializeResponsive();
 });
@@ -224,6 +227,117 @@ function initWikiToc() {
     }, { rootMargin: '-100px 0px -70% 0px' });
 
     headings.forEach((h) => observer.observe(h));
+}
+
+/**
+ * Khung ngắm (reticle) bám theo con trỏ chuột trong khối hero, gợi cảm giác
+ * đang "ngắm mục tiêu" qua khí tài. Chỉ bật trên thiết bị có chuột thật
+ * (hover: hover + pointer: fine) và tôn trọng prefers-reduced-motion — nếu
+ * không đủ điều kiện thì bỏ qua hoàn toàn, giữ nguyên con trỏ mặc định.
+ * Khi rê vào nút trong hero (data-cscd-cursor-target), khung "khóa" lại
+ * đúng theo khung của nút đó thay vì bám theo điểm chuột.
+ */
+function initHeroCursor() {
+    const hero = document.querySelector('.cscd-hero');
+    const cursor = hero ? hero.querySelector('[data-cscd-cursor]') : null;
+
+    if (!hero || !cursor) {
+        return;
+    }
+
+    const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!canHover || reduceMotion) {
+        return;
+    }
+
+    const targets = Array.prototype.slice.call(hero.querySelectorAll('[data-cscd-cursor-target]'));
+    const dot = cursor.querySelector('.cscd-cursor__dot');
+    let lastX = 0;
+    let lastY = 0;
+    let locked = false;
+    let unlockTimer = null;
+    // Toạ độ khung hình ảnh (viewport) của khối đang khóa, để chấm giữa vẫn
+    // tính được vị trí tương đối theo con trỏ thật thay vì đứng yên giữa khung.
+    let lockRect = null;
+
+    function place(x, y, width, height) {
+        cursor.style.left = x + 'px';
+        cursor.style.top = y + 'px';
+        cursor.style.width = width + 'px';
+        cursor.style.height = height + 'px';
+    }
+
+    // Trong lúc khóa, khung đứng yên ôm quanh nút nhưng chấm ngắm vẫn phải đi
+    // theo đúng vị trí chuột thật (kẹp trong biên khung) để giữ cảm giác đang
+    // ngắm chính xác, không phải khung tự vẽ chấm cố định ở tâm.
+    function updateLockedDot(x, y) {
+        if (!lockRect) {
+            return;
+        }
+        const pad = 8;
+        const dx = Math.min(Math.max(x, lockRect.left + pad), lockRect.left + lockRect.width - pad) - lockRect.left;
+        const dy = Math.min(Math.max(y, lockRect.top + pad), lockRect.top + lockRect.height - pad) - lockRect.top;
+        dot.style.left = dx + 'px';
+        dot.style.top = dy + 'px';
+    }
+
+    function resetDot() {
+        dot.style.left = '';
+        dot.style.top = '';
+    }
+
+    hero.addEventListener('mouseenter', function (e) {
+        lastX = e.clientX;
+        lastY = e.clientY;
+        place(lastX, lastY, 40, 40);
+        hero.classList.add('cscd-hero--cursor-active');
+        cursor.classList.add('is-visible');
+    });
+
+    hero.addEventListener('mouseleave', function () {
+        hero.classList.remove('cscd-hero--cursor-active');
+        cursor.classList.remove('is-visible');
+    });
+
+    hero.addEventListener('mousemove', function (e) {
+        lastX = e.clientX;
+        lastY = e.clientY;
+
+        if (locked) {
+            updateLockedDot(lastX, lastY);
+        } else {
+            place(lastX, lastY, 40, 40);
+        }
+    });
+
+    targets.forEach(function (target) {
+        target.addEventListener('mouseenter', function (e) {
+            window.clearTimeout(unlockTimer);
+            cursor.classList.remove('is-unlocking');
+            locked = true;
+            cursor.classList.add('is-locked');
+            const rect = target.getBoundingClientRect();
+            place(rect.left + rect.width / 2, rect.top + rect.height / 2, rect.width + 16, rect.height + 16);
+            lockRect = { left: rect.left - 8, top: rect.top - 8, width: rect.width + 16, height: rect.height + 16 };
+            updateLockedDot(e.clientX, e.clientY);
+        });
+
+        target.addEventListener('mouseleave', function () {
+            locked = false;
+            lockRect = null;
+            cursor.classList.remove('is-locked');
+            // Giữ transition thêm một nhịp để khung "nhả mục tiêu" mượt, sau đó
+            // tắt hẳn transition để lần bám chuột tiếp theo cập nhật tức thời.
+            cursor.classList.add('is-unlocking');
+            place(lastX, lastY, 40, 40);
+            resetDot();
+            unlockTimer = window.setTimeout(function () {
+                cursor.classList.remove('is-unlocking');
+            }, 220);
+        });
+    });
 }
 
 /**
