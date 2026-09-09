@@ -1,5 +1,5 @@
 ---
-title: Ủng hộ nhóm phát triển
+title: 'Ủng hộ nhóm phát triển'
 template: wiki
 smls_language: vi
 ---
@@ -12,7 +12,7 @@ Nguồn tài chính quý giá này từ các bạn sẽ được team sử dụn
 
 <img src="https://i.gyazo.com/12d7683573a1336797431b3a87febf8f.png" alt="QR ủng hộ" width="300">
 
-### Hướng dẫn
+Hướng dẫn
 
 - Đăng nhập ứng dụng ngân hàng bất kỳ mà bạn đang sử dụng, mở chức năng Quét mã và quét mã QR.
 - Nhập số tiền ủng hộ với nội dung là tên hoặc nick name mà bạn muốn chúng mình lưu vào "Danh sách người ủng hộ".

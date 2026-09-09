@@ -27,7 +27,7 @@ Một năm sau, Legion Team chính thức ra đời. Chúng mình không phải 
 
 Từ đó đến nay, dù ở giai đoạn nào, chúng mình cũng luôn xác định: Dẫu mong muốn tạo ra nguồn tài chính ổn định từ game là một nhu cầu chính đáng và quan trọng, nhưng trên tất cả, vẫn phải đảm bảo dự án sẽ luôn giữ đúng các giá trị cốt lõi. Tính đến thời điểm hiện tại Legion Team vẫn đang chủ động chi phí với các khoản đầu tư cá nhân, điều này mang lại không ít hạn chế, đó là nguyên nhân khiến mọi thứ vẫn tiến triển nhưng chưa thể nhanh.
 
-Do đó, chúng mình rất mong nhận được thêm sự ủng hộ từ các bạn, những người đang quan tâm và tin tưởng vào dự án! Có được sự trợ giúp từ các bạn, phiên bản FVV có nhiều cơ hội hơn để đi đến đích!
+Do đó, chúng mình rất mong nhận được thêm sự ủng hộ từ các bạn, những người đang quan tâm và tin tưởng vào dự án! Có được sự trợ giúp, phiên bản FVV sẽ có nhiều cơ hội hơn để đi đến đích!
 
 <div class="wiki-index__list" style="max-width: 420px; margin-left: auto; margin-right: auto;">
     <a href="/vi/wiki/huong-dan-co-ban/ung-ho-legion-team" class="wiki-index__link">
