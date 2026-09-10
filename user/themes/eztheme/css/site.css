@@ -4880,6 +4880,7 @@ body.template-blog-item .wiki-body:not(.has-toc) {
   margin: 0 0 0.7rem;
   font-size: 1.1rem;
   font-weight: 600;
+  line-height: 1.5;
   text-transform: uppercase;
   letter-spacing: 0.04em;
   color: var(--t-heading);
