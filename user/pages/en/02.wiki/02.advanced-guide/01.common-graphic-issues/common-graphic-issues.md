@@ -1,9 +1,9 @@
 ---
-title: Common graphic issues
+title: 'Common graphic issues'
 template: wiki
 smls_language: en
 smls_translations:
-    vi: /vi/wiki/co-che-gameplay/van-de-do-hoa
+    vi: /vi/wiki/huong-dan-nang-cao/van-de-do-hoa
 ---
 
 ## Problem

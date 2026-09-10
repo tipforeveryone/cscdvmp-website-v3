@@ -1,9 +1,9 @@
 ---
-title: Cài đặt Snapshots
+title: 'Cài đặt Snapshots'
 template: wiki
 smls_language: vi
 smls_translations:
-    en: /en/wiki/basic-guide/snapshots-settings
+    en: /en/wiki/basic-guide/snapshot-installation
 ---
 
 ## Khái niệm về Snapshots
